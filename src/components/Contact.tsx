@@ -14,9 +14,6 @@ const Contact: React.FC = () => {
   const [showResultMessage, setShowResultMessage] = useState(false);
 
   useEffect(() => {
-    console.log(
-      `Name: ${name}, Email: ${email}, Comments: ${comments} : ${!areFieldsValid()}`,
-    );
     setIsDisabled(!areFieldsValid());
   }, [name, email, comments]);
   const emailPattern =

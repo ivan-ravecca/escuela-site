@@ -1,0 +1,45 @@
+/* =================================================================== */
+/* Green colors.$school-green
+====================================================================== */
+@use '../_variables' as colors;
+#top-line { background: colors.$school-green; }
+#current { background-color: colors.$school-green; border-right: 1px solid colors.$school-green; }
+.ls-fullwidth .ls-nav-next:hover,
+.ls-fullwidth .ls-nav-prev:hover { background-color: colors.$school-green; }
+.caption-color { background: colors.$school-green; }
+.flexslider .flex-next:hover,
+.flexslider .flex-prev:hover { background-color: colors.$school-green; }
+.arl.active:hover,
+.arr.active:hover { background-color: colors.$school-green; }
+.portfolio-item:hover > figure > .item-description { border-top: 5px solid colors.$school-green; }
+.highlight.color,
+.skill-bar-content { background: colors.$school-green; }
+.dropcap,
+.tabs-nav li.active a,
+#breadcrumbs ul li a { color: colors.$school-green; }
+.search-btn-widget { background-color: colors.$school-green; }
+.tags a:hover { background: colors.$school-green; }
+.latest-post-blog img:hover { background: colors.$school-green; border: 1px solid colors.$school-green; }
+.flickr-widget-blog a:hover { border: 5px solid colors.$school-green; }
+.selected { color: colors.$school-green !important; }
+.filters-dropdown.active,
+#portfolio-navi a:hover { background-color: colors.$school-green; }
+.button.gray:hover,
+.button.light:hover,
+.button.color,
+input[type="button"],
+input[type="submit"],
+input[type="button"]:focus,
+input[type="submit"]:focus { background:colors.$school-green; }
+.tabs-nav li.active a { border-top: 1px solid colors.$school-green; }
+.ui-accordion .ui-accordion-header-active:hover,
+.ui-accordion .ui-accordion-header-active { color: colors.$school-green; }
+.ui-accordion-icon-active { background-color: colors.$school-green; }
+.trigger.active a { color: colors.$school-green; }
+.trigger.active .toggle-icon { background-color: colors.$school-green; }
+.testimonials-author { color: colors.$school-green; }
+.pagination .current { background: colors.$school-green !important; }
+.flickr-widget a:hover { border-color: colors.$school-green; }
+.latest-shop-items img:hover { background: colors.$school-green; border: 1px solid colors.$school-green; }
+.increase-value { background: colors.$school-green; }
+.ui-widget-header { background: colors.$school-green; }

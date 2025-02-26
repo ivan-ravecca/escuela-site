@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import ContactLeftColumn from "./ContactLeftColumn";
 import { GOOGLE_MAPS_URL } from "../../app.config";
 import { sendContact } from "../services/EmailService";
-const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 const Contact: React.FC = () => {
   const [name, setName] = useState("");
@@ -98,7 +97,7 @@ const Contact: React.FC = () => {
         <ContactLeftColumn />
         <div className="eleven floated right">
           <section className="page-content">
-            <h3 className="margin">Formulario de contacto {VITE_API_URL}</h3>
+            <h3 className="margin">Formulario de contacto</h3>
             <section id="contact">
               <mark id="message">
                 <div

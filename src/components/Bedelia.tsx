@@ -127,8 +127,8 @@ const Bedelias: React.FC = () => {
         openModal(
           <RequestInfo
             inquiringName="Solicitd de Escolaridad"
-            requiresGraduationYear={false}
-            requiresPhysicalPresence={false}
+            requiresGraduationYear={true}
+            requiresPhysicalPresence={true}
           />,
         ),
     },

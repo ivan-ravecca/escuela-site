@@ -33,11 +33,11 @@ const AppNavigation: React.FC = () => {
           <Link to="/cursos" {...isActiveNavLink(location.pathname, "cursos")}>
             <i className="halflings white file"></i> Cursos
           </Link>
-          <ul className="cols3">
-            <li className="col3">
+          <ul className="cols5">
+            <li className="col5">
               <h4>Todos los cursos que tenemos para ti</h4>
             </li>
-            <li className="col1">
+            <li className="col1 menu-cursos">
               <h5>Los más buscados</h5>
               <ol>
                 <li>
@@ -46,7 +46,7 @@ const AppNavigation: React.FC = () => {
                     title={breadcrumbParts["auxiliar-enfermeria"].title}
                     aria-label={breadcrumbParts["auxiliar-enfermeria"].title}
                   >
-                    Auxiliar de Enfermería
+                    {breadcrumbParts["auxiliar-enfermeria"].title}
                   </Link>
                 </li>
                 <li>
@@ -55,12 +55,25 @@ const AppNavigation: React.FC = () => {
                     title={breadcrumbParts["auxiliar-servicio"].title}
                     aria-label={breadcrumbParts["auxiliar-servicio"].title}
                   >
-                    Auxiliar de Servicio
+                    {breadcrumbParts["auxiliar-servicio"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["auxiliar-farmacia-hospitalaria"].url}
+                    title={
+                      breadcrumbParts["auxiliar-farmacia-hospitalaria"].title
+                    }
+                    aria-label={
+                      breadcrumbParts["auxiliar-farmacia-hospitalaria"].title
+                    }
+                  >
+                    {breadcrumbParts["auxiliar-farmacia-hospitalaria"].title}
                   </Link>
                 </li>
               </ol>
             </li>
-            <li className="col1">
+            <li className="col2 menu-cursos">
               <h5>Cursos cortos</h5>
               <ol>
                 <li>
@@ -69,7 +82,135 @@ const AppNavigation: React.FC = () => {
                     title={breadcrumbParts["camillero"].title}
                     aria-label={breadcrumbParts["camillero"].title}
                   >
-                    Curso de Camillero
+                    {breadcrumbParts["camillero"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["lavanderia-hospitalaria"].url}
+                    title={breadcrumbParts["lavanderia-hospitalaria"].title}
+                    aria-label={
+                      breadcrumbParts["lavanderia-hospitalaria"].title
+                    }
+                  >
+                    {breadcrumbParts["lavanderia-hospitalaria"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={
+                      breadcrumbParts["supervision-de-higiene-hospitalaria"].url
+                    }
+                    title={
+                      breadcrumbParts["supervision-de-higiene-hospitalaria"]
+                        .title
+                    }
+                    aria-label={
+                      breadcrumbParts["supervision-de-higiene-hospitalaria"]
+                        .title
+                    }
+                  >
+                    {
+                      breadcrumbParts["supervision-de-higiene-hospitalaria"]
+                        .title
+                    }
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["chofer-sanitario"].url}
+                    title={breadcrumbParts["chofer-sanitario"].title}
+                    aria-label={breadcrumbParts["chofer-sanitario"].title}
+                  >
+                    {breadcrumbParts["chofer-sanitario"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={
+                      breadcrumbParts[
+                        "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti"
+                      ].url
+                    }
+                    title={
+                      breadcrumbParts[
+                        "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti"
+                      ].title
+                    }
+                    aria-label={
+                      breadcrumbParts[
+                        "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti"
+                      ].title
+                    }
+                  >
+                    {
+                      breadcrumbParts[
+                        "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti"
+                      ].title
+                    }
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["emergencia-y-urgencia"].url}
+                    title={breadcrumbParts["emergencia-y-urgencia"].title}
+                    aria-label={breadcrumbParts["emergencia-y-urgencia"].title}
+                  >
+                    {breadcrumbParts["emergencia-y-urgencia"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["economato-y-esterilizacion"].url}
+                    title={breadcrumbParts["economato-y-esterilizacion"].title}
+                    aria-label={
+                      breadcrumbParts["economato-y-esterilizacion"].title
+                    }
+                  >
+                    {breadcrumbParts["economato-y-esterilizacion"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["cosmetologia-nivel-1"].url}
+                    title={breadcrumbParts["cosmetologia-nivel-1"].title}
+                    aria-label={breadcrumbParts["cosmetologia-nivel-1"].title}
+                  >
+                    {breadcrumbParts["cosmetologia-nivel-1"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["iass"].url}
+                    title={breadcrumbParts["iass"].title}
+                    aria-label={breadcrumbParts["iass"].title}
+                  >
+                    {breadcrumbParts["iass"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={
+                      breadcrumbParts[
+                        "actualizacion-manejo-heridas-curaciones-avanzadas"
+                      ].url
+                    }
+                    title={
+                      breadcrumbParts[
+                        "actualizacion-manejo-heridas-curaciones-avanzadas"
+                      ].title
+                    }
+                    aria-label={
+                      breadcrumbParts[
+                        "actualizacion-manejo-heridas-curaciones-avanzadas"
+                      ].title
+                    }
+                  >
+                    {
+                      breadcrumbParts[
+                        "actualizacion-manejo-heridas-curaciones-avanzadas"
+                      ].title
+                    }
                   </Link>
                 </li>
                 <li>
@@ -91,62 +232,61 @@ const AppNavigation: React.FC = () => {
                     }
                   >
                     Curso Auxiliar de Estadísticas de Salud y Registros Médicos
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={
-                      breadcrumbParts[
-                        "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti"
-                      ].url
-                    }
-                    title={
-                      breadcrumbParts[
-                        "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti"
-                      ].title
-                    }
-                    aria-label={
-                      breadcrumbParts[
-                        "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti"
-                      ].title
-                    }
-                  >
-                    Auxiliar de Servicio Adiestrado en Block Quirúrgico y CTI
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={
-                      breadcrumbParts["supervision-de-higiene-hospitalaria"].url
-                    }
-                    title={
-                      breadcrumbParts["supervision-de-higiene-hospitalaria"]
-                        .title
-                    }
-                    aria-label={
-                      breadcrumbParts["supervision-de-higiene-hospitalaria"]
-                        .title
-                    }
-                  >
-                    Supervisión de Higiene Hospitalaria
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={breadcrumbParts["economato-y-esterilizacion"].url}
-                    title={breadcrumbParts["economato-y-esterilizacion"].title}
-                    aria-label={
-                      breadcrumbParts["economato-y-esterilizacion"].title
-                    }
-                  >
-                    Economato y Esterilización
+                    ?????
                   </Link>
                 </li>
               </ol>
             </li>
-            <li className="col1">
-              <h5>Próximos cursos</h5>
-              <p>Actualización en Manejo de Heridas y Curaciones Avanzadas</p>
+            <li className="col2 menu-cursos">
+              <h5>Masterclass</h5>
+              <ol>
+                <li>
+                  <Link
+                    to={breadcrumbParts["actualizacion-hemato-oncologia"].url}
+                    title={
+                      breadcrumbParts["actualizacion-hemato-oncologia"].title
+                    }
+                    aria-label={
+                      breadcrumbParts["actualizacion-hemato-oncologia"].title
+                    }
+                  >
+                    {breadcrumbParts["actualizacion-hemato-oncologia"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["ostomias"].url}
+                    title={breadcrumbParts["ostomias"].title}
+                    aria-label={breadcrumbParts["ostomias"].title}
+                  >
+                    {breadcrumbParts["ostomias"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["actualizacion-en-vacunas"].url}
+                    title={breadcrumbParts["actualizacion-en-vacunas"].title}
+                    aria-label={
+                      breadcrumbParts["actualizacion-en-vacunas"].title
+                    }
+                  >
+                    {breadcrumbParts["actualizacion-en-vacunas"].title}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={breadcrumbParts["taller-primeros-auxilios-rcp"].url}
+                    title={
+                      breadcrumbParts["taller-primeros-auxilios-rcp"].title
+                    }
+                    aria-label={
+                      breadcrumbParts["taller-primeros-auxilios-rcp"].title
+                    }
+                  >
+                    {breadcrumbParts["taller-primeros-auxilios-rcp"].title}
+                  </Link>
+                </li>
+              </ol>
             </li>
           </ul>
         </li>

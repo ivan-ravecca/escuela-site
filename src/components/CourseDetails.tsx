@@ -13,9 +13,9 @@ const CourseDetails: React.FC = () => {
   );
   useEffect(() => {
     const foundCourse = COURSES.find((c) => c.id === course) || undefined;
-    foundCourse?.images?.forEach((img, i) => {
-      img.isActive = i === 0;
-    });
+    // foundCourse?.images?.forEach((img, i) => {
+    //   img.isActive = i === 0;
+    // });
     setMyCourse(foundCourse);
   }, [course]);
 

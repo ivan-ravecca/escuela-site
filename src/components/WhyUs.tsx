@@ -120,7 +120,7 @@ const WhyUs: React.FC = () => {
                 rel="noopener noreferrer"
               >
                 <img
-                  src="/public/images/mec.png"
+                  src="/images/mec.png"
                   alt="Escuela habilitada por el MEC"
                   title="Escuela habilitada por el MEC"
                 />

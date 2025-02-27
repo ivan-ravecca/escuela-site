@@ -107,11 +107,11 @@ const ContactLeftColumn: React.FC = () => {
           <ul className="contact-informations hours">
             <li>
               <i className="halflings time"></i>Lunes - Viernes{" "}
-              <span className="hours">9 am a 6 pm</span>
+              <span className="hours">8 am a 8 pm</span>
             </li>
             <li>
               <i className="halflings time"></i>Sábados{" "}
-              <span className="hours">9 am a 2 pm</span>
+              <span className="hours">9 am a 1 pm</span>
             </li>
             <li>
               <i className="halflings ban-circle"></i>Domingo{" "}

@@ -160,9 +160,14 @@ const enfermeria: CourseInterface = {
   ),
   images: [
     {
-      src: "/images/shop/auxenf.jpg",
+      src: "/images/shop/enfermeria_01.jpeg",
       alt: "Curso de enfermería",
       isActive: true,
+    },
+    {
+      src: "/images/shop/enfermeria_02.jpg",
+      alt: "Curso de enfermería",
+      isActive: false,
     },
   ],
 };
@@ -229,8 +234,8 @@ const farmacia: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/auxserv.jpg",
-      alt: "Curso de tisanería",
+      src: "/images/shop/farmacia_hospitalaria_01.png",
+      alt: "Curso de Farmacia Hospitalaria",
       isActive: true,
     },
   ],
@@ -333,9 +338,14 @@ const camillero: CourseInterface = {
   ],
   images: [
     {
-      src: "/images/shop/camillero.jpg",
+      src: "/images/shop/camillero_01.jpeg",
       alt: "Curso de camillero",
       isActive: true,
+    },
+    {
+      src: "/images/shop/camillero_02.jpg",
+      alt: "Curso de camillero",
+      isActive: false,
     },
   ],
 };
@@ -371,8 +381,13 @@ const higiene: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/supervision_higiene.jpg",
-      alt: "Curso de block",
+      src: "/images/shop/supervision_higiene_01.jpeg",
+      alt: "Curso Supervisión de Higiene Hospitalaria",
+      isActive: true,
+    },
+    {
+      src: "/images/shop/supervision_higiene_02.jpg",
+      alt: "Curso de Supervisión de Higiene Hospitalaria",
       isActive: true,
     },
   ],
@@ -443,9 +458,14 @@ const blockQuirurgico: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/adiestrado_block.jpg",
+      src: "/images/shop/adiestrado_block_01.jpeg",
       alt: "Curso de Block quirúrgico",
       isActive: true,
+    },
+    {
+      src: "/images/shop/adiestrado_block_02.jpg",
+      alt: "Curso de Block quirúrgico",
+      isActive: false,
     },
   ],
 };
@@ -477,8 +497,8 @@ const emergenciaUrgencia: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/emergencia_urgencia.jpeg",
+      alt: "Curso de Emergencia y Urgencia",
       isActive: true,
     },
   ],
@@ -512,9 +532,19 @@ const economato: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/economato.jpg",
+      src: "/images/shop/economato_01.jpeg",
       alt: "Curso de economato",
       isActive: true,
+    },
+    {
+      src: "/images/shop/economato_02.jpeg",
+      alt: "Curso de economato",
+      isActive: false,
+    },
+    {
+      src: "/images/shop/economato_03.jpg",
+      alt: "Curso de economato",
+      isActive: false,
     },
   ],
 };
@@ -542,8 +572,8 @@ const cosmetologia: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/cosmetologia_01.jpeg",
+      alt: "Curso de Cosmetología",
       isActive: true,
     },
   ],
@@ -596,7 +626,7 @@ const actualizacionHeridas: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
+      src: "/images/shop/curacion_heridas_complejas.jpeg",
       alt: "Curso de block",
       isActive: true,
     },
@@ -661,9 +691,14 @@ const auxiliarEstadisticas: CourseInterface = {
   ),
   images: [
     {
-      src: "/images/shop/archivo.jpg",
-      alt: "Curso de estadística",
+      src: "/images/shop/registros_medicos_01.jpeg",
+      alt: "Curso de Registros Médicos",
       isActive: true,
+    },
+    {
+      src: "/images/shop/registros_medicos_02.jpg",
+      alt: "Curso de Registros Médicos",
+      isActive: false,
     },
   ],
 };
@@ -693,8 +728,8 @@ const hematoOncologia: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/hematooncologia_01.jpeg",
+      alt: "Curso de Hemato Oncología",
       isActive: true,
     },
   ],
@@ -728,8 +763,8 @@ const ostomias: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/ostomias_01.jpeg",
+      alt: "Curso de Ostomías",
       isActive: true,
     },
   ],
@@ -756,8 +791,8 @@ const actualizacionVacunas: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/actualizacion_vacunas_01.jpeg",
+      alt: "Curso de actualización en vacunas",
       isActive: true,
     },
   ],
@@ -819,8 +854,8 @@ const lavanderiaHospitalaria: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de lavandería",
+      src: "/images/shop/lavanderia_hospitalaria_01.jpeg",
+      alt: "Curso de Lavandería Hospitalaria",
       isActive: true,
     },
   ],

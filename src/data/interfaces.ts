@@ -22,3 +22,9 @@ export interface BreadcrumbInterface {
   url: string;
   title: string;
 }
+
+export interface RequestInfoProps {
+  inquiringName: string;
+  requiresPhysicalPresence: boolean;
+  requiresGraduationYear: boolean;
+}

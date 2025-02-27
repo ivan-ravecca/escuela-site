@@ -1,6 +1,13 @@
 import React from "react";
 import { SITE_NAME } from "../../app.config";
 import { Link } from "react-router-dom";
+import RequestInfo from "./RequestInfo";
+
+// * Cosas a agregar:
+// - Constancia de estudio: Nombre Curso, Nombre y apellido persona, CI
+// - Constancia de título en trámite: Nombre Curso, Nombre y apellido persona, CI
+// - Escolaridad: Nombre Curso, Nombre y apellido persona, CI, Año egreso(opcional), Cursando actualmente (si/no)
+// En todos los casos necesitamos: email y celular
 
 const Bedelias: React.FC = () => {
   const manageClick = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -104,6 +111,21 @@ const Bedelias: React.FC = () => {
               </div>
             );
           })}
+          <RequestInfo
+            inquiringName="Solicitd de Constancia de estudio"
+            requiresGraduationYear={false}
+            requiresPhysicalPresence={false}
+          />
+          <RequestInfo
+            inquiringName="Constancia de título en trámite"
+            requiresGraduationYear={false}
+            requiresPhysicalPresence={false}
+          />
+          <RequestInfo
+            inquiringName="Escolaridad"
+            requiresGraduationYear={true}
+            requiresPhysicalPresence={true}
+          />
         </div>
       </div>
     </div>

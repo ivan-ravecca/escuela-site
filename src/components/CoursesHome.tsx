@@ -6,7 +6,12 @@ const CoursesHome: React.FC = () => {
   return (
     <div className="page-content portfolio">
       <div className="container">
-        <div id="portfolio-wrapper">
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
           {COURSES.map((course, index) => {
             return (
               <div className="one-third column isotope-item" key={index}>

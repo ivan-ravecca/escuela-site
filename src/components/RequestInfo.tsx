@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { COURSES } from "../data/courses";
 import { RequestInfoProps } from "../data/interfaces";
 
@@ -7,16 +7,26 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
   requiresPhysicalPresence,
   requiresGraduationYear,
 }) => {
-  const [ongoing, setOngoing] = React.useState(true);
+  const [ongoing, setOngoing] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSubmit = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    setTimeout(() => {
+      setIsDisabled(true);
+      setIsProcessing(false);
+    }, 2000);
+  };
 
   return (
     <div id="contact" className="modal">
-      <h3>Solicitud de {inquiringName}</h3>
+      <h3>{inquiringName}</h3>
       <p>
-        Para realizar la solicitud de <em>{inquiringName}</em> debe indicar
-        algunos datos; estos son necesarios para poder procesarlo de manera
-        eficiente y asegurar que la información proporcionada es correcta y
-        completa.
+        Para realizar la <em>{inquiringName}</em> debe indicar algunos datos;
+        estos son necesarios para poder procesarlo de manera eficiente y
+        asegurar que la información proporcionada es correcta y completa.
       </p>
       {requiresPhysicalPresence && (
         <p>
@@ -65,6 +75,9 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             Curso: <span>*</span>
           </label>
           <select name="course" id="course">
+            <option key="-1" value="" disabled selected>
+              Seleccionar
+            </option>
             {COURSES.map((course, index) => (
               <option key={index} value={course.id}>
                 {course.title}
@@ -119,6 +132,15 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             />
           </div>
         )}
+        <input
+          type="submit"
+          className="submit"
+          id="submit"
+          value="Consultarnos"
+          disabled={isDisabled || isProcessing ? true : false}
+          aria-disabled={isDisabled || isProcessing}
+          onClick={(e) => handleSubmit(e)}
+        />
       </fieldset>
     </div>
   );

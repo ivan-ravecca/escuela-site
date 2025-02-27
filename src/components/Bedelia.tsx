@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { SITE_NAME } from "../../app.config";
 import { Link } from "react-router-dom";
 import RequestInfo from "./RequestInfo";
-
-// * Cosas a agregar:
-// - Constancia de estudio: Nombre Curso, Nombre y apellido persona, CI
-// - Constancia de título en trámite: Nombre Curso, Nombre y apellido persona, CI
-// - Escolaridad: Nombre Curso, Nombre y apellido persona, CI, Año egreso(opcional), Cursando actualmente (si/no)
-// En todos los casos necesitamos: email y celular
+import Modal from "react-modal";
+import CustomModal from "./CustomModal";
 
 const Bedelias: React.FC = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<{
+    content: React.ReactNode | undefined;
+  }>({ content: undefined });
+  Modal.setAppElement("#root");
+
+  const openModal = (content: React.ReactNode | undefined): void => {
+    setModalContent({ content });
+    setModalIsOpen(true);
+  };
+
   const manageClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     const element = e.currentTarget;
@@ -40,6 +47,14 @@ const Bedelias: React.FC = () => {
         </p>
       ),
       action: "Solicitar",
+      onAction: () =>
+        openModal(
+          <RequestInfo
+            inquiringName="Solicitd de Constancia de estudio"
+            requiresGraduationYear={false}
+            requiresPhysicalPresence={false}
+          />,
+        ),
     },
     {
       title: "Constancia de Egreso",
@@ -55,6 +70,67 @@ const Bedelias: React.FC = () => {
         </p>
       ),
       action: "Solicitar",
+      onAction: () =>
+        openModal(
+          <RequestInfo
+            inquiringName="Solicitd de Constancia de Egreso"
+            requiresGraduationYear={false}
+            requiresPhysicalPresence={false}
+          />,
+        ),
+    },
+    {
+      title: "Constancia de título en trámite",
+      text: (
+        <p>
+          Una <strong>constancia de título en trámite</strong> es un documento
+          oficial emitido por{" "}
+          <strong className="highlight color">{SITE_NAME}</strong> que certifica
+          que un estudiante ha completado satisfactoriamente todos los
+          requisitos académicos de un programa de estudios y se encuentra en
+          proceso de obtención del título correspondiente. Este documento es
+          útil para los estudiantes que han finalizado sus estudios y están
+          esperando la entrega del título, ya que les permite demostrar su
+          condición de graduados ante empleadores y otras entidades que puedan
+          requerir una prueba de su formación académica.
+        </p>
+      ),
+      action: "Solicitar",
+      onAction: () =>
+        openModal(
+          <RequestInfo
+            inquiringName="Solicitd de Constancia de título en trámite"
+            requiresGraduationYear={false}
+            requiresPhysicalPresence={false}
+          />,
+        ),
+    },
+    {
+      title: "Escolaridad",
+      text: (
+        <p>
+          Una <strong>escolaridad</strong> es un documento oficial emitido por{" "}
+          <strong className="highlight color">{SITE_NAME}</strong> que certifica
+          que un estudiante ha completado satisfactoriamente todos los
+          requisitos académicos de un programa de estudios. Este documento es
+          útil para los estudiantes que han finalizado sus estudios y les
+          permite demostrar su condición de graduados ante empleadores y otras
+          entidades que puedan requerir una prueba de su formación académica.
+          Además, la escolaridad incluye información detallada sobre las
+          materias cursadas, las calificaciones obtenidas y el rendimiento
+          académico del estudiante a lo largo de su trayectoria educativa en
+          nuestra institución.
+        </p>
+      ),
+      action: "Solicitar",
+      onAction: () =>
+        openModal(
+          <RequestInfo
+            inquiringName="Solicitd de Escolaridad"
+            requiresGraduationYear={false}
+            requiresPhysicalPresence={false}
+          />,
+        ),
     },
   ];
   return (
@@ -106,28 +182,20 @@ const Bedelias: React.FC = () => {
                 </span>
                 <div className="toggle-container" style={{ display: "none" }}>
                   {content.text}
-                  <button className="button color">{content.action}</button>
+                  <button className="button color" onClick={content.onAction}>
+                    {content.action}
+                  </button>
                 </div>
               </div>
             );
           })}
-          <RequestInfo
-            inquiringName="Solicitd de Constancia de estudio"
-            requiresGraduationYear={false}
-            requiresPhysicalPresence={false}
-          />
-          <RequestInfo
-            inquiringName="Constancia de título en trámite"
-            requiresGraduationYear={false}
-            requiresPhysicalPresence={false}
-          />
-          <RequestInfo
-            inquiringName="Escolaridad"
-            requiresGraduationYear={true}
-            requiresPhysicalPresence={true}
-          />
         </div>
       </div>
+      <CustomModal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        content={modalContent.content}
+      />
     </div>
   );
 };

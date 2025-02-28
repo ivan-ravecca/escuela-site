@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import ContactLeftColumn from "./ContactLeftColumn";
 import { GOOGLE_MAPS_URL } from "../../app.config";
 import { sendContact } from "../services/EmailService";
+import { debounce } from "../helpers/tools";
+import { emailPattern } from "../helpers/tools";
 
 const Contact: React.FC = () => {
   const [name, setName] = useState("");
@@ -16,19 +18,6 @@ const Contact: React.FC = () => {
   useEffect(() => {
     setIsDisabled(!areFieldsValid());
   }, [name, email, comments]);
-  const emailPattern =
-    /^[A-Za-z0-9](([_.-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([.-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const debounce = (func: (...args: any[]) => void, wait: number) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let timeout: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
 
   const debouncedHandleChange = debounce((component: string, value: string) => {
     switch (component) {

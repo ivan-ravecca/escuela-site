@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COURSES } from "../data/courses";
 import { RequestInfoProps } from "../data/interfaces";
+import { sendInquire } from "../services/EmailService";
+import { emailPattern, phonePattern, ciPattern } from "../helpers/tools";
 
 const RequestInfo: React.FC<RequestInfoProps> = ({
   inquiringName,
@@ -11,13 +13,71 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
   const [isDisabled, setIsDisabled] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const [formFields, setFormFields] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    course: "",
+    ci: "",
+    year: "",
+  });
+
+  useEffect(() => {
+    validateFields();
+  }, [formFields, ongoing]);
+
+  const validateFields = () => {
+    const { name, email, phone, course, ci, year } = formFields;
+    if (
+      name.length > 0 &&
+      emailPattern.test(email) &&
+      phonePattern.test(phone) &&
+      course.length > 0 &&
+      ciPattern.test(ci) &&
+      ((requiresGraduationYear &&
+        ((year.length === 4 && Number(year) <= new Date().getFullYear()) ||
+          ongoing)) ||
+        !requiresGraduationYear)
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  };
+  const handleChange = (component: string, value: string) => {
+    setFormFields((prevFields) => ({
+      ...prevFields,
+      [component]: value,
+    }));
+  };
+  const handleCheckboxChange = () => {
+    setOngoing(!ongoing);
+  };
+
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     setIsProcessing(true);
-    setTimeout(() => {
-      setIsDisabled(true);
+    setIsDisabled(true);
+    try {
+      await sendInquire({
+        ...formFields,
+        inquire: inquiringName,
+        year: ongoing ? "" : formFields.year,
+      });
+      setIsDisabled(false);
+      setFormFields({
+        name: "",
+        email: "",
+        phone: "",
+        course: "",
+        ci: "",
+        year: "",
+      });
+    } catch (error) {
+      console.log(`Error trying to send inquire: ${error}`);
+    } finally {
       setIsProcessing(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -49,14 +109,28 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
           <label htmlFor="name" accessKey="U">
             Nombre y apellido (alumno): <span>*</span>
           </label>
-          <input name="name" type="text" id="name" />
+          <input
+            name="name"
+            type="text"
+            id="name"
+            onChange={(e) => {
+              handleChange("name", e.target.value);
+            }}
+          />
         </div>
 
         <div>
           <label htmlFor="email" accessKey="E">
             Email: <span>*</span>
           </label>
-          <input name="email" type="email" id="email" />
+          <input
+            name="email"
+            type="email"
+            id="email"
+            onChange={(e) => {
+              handleChange("email", e.target.value);
+            }}
+          />
         </div>
         <div>
           <label htmlFor="phone" accessKey="P">
@@ -68,18 +142,28 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             id="phone"
             placeholder="09XXXXXXX"
             aria-placeholder="09XXXXXXX"
+            onChange={(e) => {
+              handleChange("phone", e.target.value);
+            }}
           />
         </div>
         <div>
           <label htmlFor="course" accessKey="C">
             Curso: <span>*</span>
           </label>
-          <select name="course" id="course">
-            <option key="-1" value="" disabled selected>
+          <select
+            name="course"
+            id="course"
+            onChange={(e) => {
+              handleChange("course", e.target.value);
+            }}
+            defaultValue="-1"
+          >
+            <option key="-1" value="-1" disabled>
               Seleccionar
             </option>
             {COURSES.map((course, index) => (
-              <option key={index} value={course.id}>
+              <option key={index} value={course.title}>
                 {course.title}
               </option>
             ))}
@@ -95,6 +179,9 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             id="ci"
             aria-placeholder="1.234.567-8"
             placeholder="1.234.567-8"
+            onChange={(e) => {
+              handleChange("ci", e.target.value);
+            }}
           />
         </div>
         {requiresGraduationYear && (
@@ -111,7 +198,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
               id="ongoing"
               name="ongoing"
               checked={ongoing}
-              onClick={() => setOngoing(!ongoing)}
+              onChange={handleCheckboxChange}
               style={{ width: "auto" }}
             />
           </div>
@@ -129,6 +216,9 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
               aria-placeholder="2024"
               placeholder="2024"
               pattern="[0-9]{4}"
+              onChange={(e) => {
+                handleChange("year", e.target.value);
+              }}
             />
           </div>
         )}

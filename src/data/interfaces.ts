@@ -28,3 +28,13 @@ export interface RequestInfoProps {
   requiresPhysicalPresence: boolean;
   requiresGraduationYear: boolean;
 }
+
+export interface InquireParams {
+  name: string;
+  email: string;
+  phone: string;
+  course: string;
+  ci: string;
+  year: string;
+  inquire: string;
+}

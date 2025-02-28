@@ -3,6 +3,7 @@ import { COURSES } from "../data/courses";
 import { RequestInfoProps } from "../data/interfaces";
 import { sendInquire } from "../services/EmailService";
 import { emailPattern, phonePattern, ciPattern } from "../helpers/tools";
+import { Link } from "react-router-dom";
 
 const RequestInfo: React.FC<RequestInfoProps> = ({
   inquiringName,
@@ -12,6 +13,8 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
   const [ongoing, setOngoing] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showResultMessage, setShowResultMessage] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
 
   const [formFields, setFormFields] = useState({
     name: "",
@@ -64,6 +67,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
         inquire: inquiringName,
         year: ongoing ? "" : formFields.year,
       });
+      setIsSuccess(true);
       setIsDisabled(false);
       setFormFields({
         name: "",
@@ -74,9 +78,11 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
         year: "",
       });
     } catch (error) {
+      setIsSuccess(false);
       console.log(`Error trying to send inquire: ${error}`);
     } finally {
       setIsProcessing(false);
+      setShowResultMessage(true);
     }
   };
 
@@ -104,6 +110,69 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
           </strong>
         </p>
       )}
+      <mark id="message">
+        <div
+          className="notification notice"
+          style={{ display: isProcessing ? "block" : "none" }}
+        >
+          <p
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "left",
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 40 40"
+              stroke="#000"
+              style={{ marginRight: "10px" }}
+            >
+              <g fill="none" fillRule="evenodd">
+                <g transform="translate(2 2)" strokeWidth="3">
+                  <circle strokeOpacity=".5" cx="18" cy="18" r="18" />
+                  <path d="M36 18c0-9.94-8.06-18-18-18">
+                    <animateTransform
+                      attributeName="transform"
+                      type="rotate"
+                      from="0 18 18"
+                      to="360 18 18"
+                      dur="1s"
+                      repeatCount="indefinite"
+                    />
+                  </path>
+                </g>
+              </g>
+            </svg>
+            <span>Procesando pedido</span>, un momento mientras enviamos la
+            información.
+          </p>
+        </div>
+        {showResultMessage && (
+          <div
+            className={`notification ${isSuccess ? "success" : "error"} closeable`}
+            style={{
+              display: "block",
+            }}
+          >
+            <p>
+              <span>{isSuccess ? "Consulta enviada" : "Ocurrió un error"}</span>
+              {isSuccess
+                ? ", pronto nos estaremos contactando."
+                : " al enviar la información, por favor intenta nuevamente o por otro medio."}
+            </p>
+            <Link
+              className="close"
+              to="#"
+              onClick={() => setShowResultMessage(false)}
+            >
+              <i className="icon-remove"></i>
+            </Link>
+          </div>
+        )}
+      </mark>
       <fieldset>
         <div>
           <label htmlFor="name" accessKey="U">
@@ -113,6 +182,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             name="name"
             type="text"
             id="name"
+            value={formFields.name}
             onChange={(e) => {
               handleChange("name", e.target.value);
             }}
@@ -127,6 +197,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             name="email"
             type="email"
             id="email"
+            value={formFields.email}
             onChange={(e) => {
               handleChange("email", e.target.value);
             }}
@@ -142,6 +213,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             id="phone"
             placeholder="09XXXXXXX"
             aria-placeholder="09XXXXXXX"
+            value={formFields.phone}
             onChange={(e) => {
               handleChange("phone", e.target.value);
             }}
@@ -158,6 +230,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
               handleChange("course", e.target.value);
             }}
             defaultValue="-1"
+            value={formFields.course || "-1"}
           >
             <option key="-1" value="-1" disabled>
               Seleccionar
@@ -179,6 +252,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             id="ci"
             aria-placeholder="1.234.567-8"
             placeholder="1.234.567-8"
+            value={formFields.ci}
             onChange={(e) => {
               handleChange("ci", e.target.value);
             }}
@@ -216,6 +290,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
               aria-placeholder="2024"
               placeholder="2024"
               pattern="[0-9]{4}"
+              value={formFields.year}
               onChange={(e) => {
                 handleChange("year", e.target.value);
               }}

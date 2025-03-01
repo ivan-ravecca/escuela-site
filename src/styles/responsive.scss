@@ -15,7 +15,7 @@
 
 /* #Base 960 Grid
 ================================================== */
-
+    #burguer {display: none;}
     .container                                  { position: relative; width: 960px; margin: 0 auto; padding: 0; }
     .container.floated                          { width: 1020px; }
     .container .column,
@@ -222,12 +222,16 @@
     /* Note: Design for a width of 320px */
 
     @media only screen and (max-width: 767px) {
+        #responsive {display: none;}
+        #burguer {display: block;}
+        #breadcrumbs {display: none;}
+                .container {margin: 0 10px;}
         .container,
         .container.floated { width: 260px; }
         
         .container .columns,
         .container .column { margin: 0; }
-        .container .floated { float: left; padding: 0 30px; }
+        .container .floated { float: left; padding: 0 10px; }
         .floated.sidebar { position: relative; }
 
         .container .one.column,

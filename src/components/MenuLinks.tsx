@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { slide as Menu } from "react-burger-menu";
 import { AULAS_URL } from "../../app.config";
 import { breadcrumbParts } from "../data/courses";
 

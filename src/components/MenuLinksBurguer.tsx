@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { elastic as Menu } from "react-burger-menu";
+import { bubble as Menu } from "react-burger-menu";
 import { AULAS_URL } from "../../app.config";
 import { breadcrumbParts } from "../data/courses";
 
 const MenuLinksBurguer: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+
+  const closeHamburguerMenu = () => {
+    setMenuOpen(false);
+  };
+
   const isActiveNavLink = (pathname: string, component: string): object => {
     const pathSegments = pathname.split("/").filter(Boolean);
     const pathName = pathSegments.length > 0 ? pathSegments[0] : "";
@@ -13,14 +19,19 @@ const MenuLinksBurguer: React.FC = () => {
   };
 
   return (
-    // <Menu left styles={{ bmMenu: { background: "#ddd" } }}>
-    <Menu left>
+    <Menu
+      isOpen={menuOpen}
+      onStateChange={({ isOpen }) => {
+        return setMenuOpen(isOpen);
+      }}
+      right={false}
+    >
       <Link
         to="/"
         {...isActiveNavLink(location.pathname, "")}
         title={breadcrumbParts["/"].title}
         aria-label={breadcrumbParts["/"].title}
-        onClick={() => Menu.close()}
+        onClick={() => closeHamburguerMenu()}
       >
         <i className="halflings white home"></i> Inicio
       </Link>
@@ -28,7 +39,7 @@ const MenuLinksBurguer: React.FC = () => {
       <Link
         to="/cursos"
         {...isActiveNavLink(location.pathname, "cursos")}
-        onClick={() => Menu.close()}
+        onClick={() => closeHamburguerMenu()}
       >
         <i className="halflings white file"></i> Cursos
       </Link>
@@ -38,7 +49,7 @@ const MenuLinksBurguer: React.FC = () => {
         title={breadcrumbParts["material"].title}
         aria-label={breadcrumbParts["material"].title}
         {...isActiveNavLink(location.pathname, "material")}
-        onClick={() => Menu.close()}
+        onClick={() => closeHamburguerMenu()}
       >
         <i className="halflings white home"></i> Material
       </Link>
@@ -48,7 +59,7 @@ const MenuLinksBurguer: React.FC = () => {
         title={breadcrumbParts["bedelia"].title}
         aria-label={breadcrumbParts["bedelia"].title}
         {...isActiveNavLink(location.pathname, "bedelia")}
-        onClick={() => Menu.close()}
+        onClick={() => closeHamburguerMenu()}
       >
         <i className="halflings white home"></i> Bedelía
       </Link>
@@ -59,7 +70,7 @@ const MenuLinksBurguer: React.FC = () => {
         rel="noopener noreferrer"
         title="Ir a Aulas"
         aria-label="Ir a Aulas"
-        onClick={() => Menu.close()}
+        onClick={() => closeHamburguerMenu()}
       >
         <i className="halflings white home"></i> Aulas
       </Link>
@@ -69,7 +80,7 @@ const MenuLinksBurguer: React.FC = () => {
         title={breadcrumbParts["contacto"].title}
         aria-label={breadcrumbParts["contacto"].title}
         {...isActiveNavLink(location.pathname, "contacto")}
-        onClick={() => Menu.close()}
+        onClick={() => closeHamburguerMenu()}
       >
         <i className="halflings white envelope"></i> Contacto
       </Link>

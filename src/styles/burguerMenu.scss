@@ -66,7 +66,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
         text-size-adjust: 100%;
         display: flex !important;
         align-items: center;
-
+        color: colors.$white;
         &:visited {
             color: colors.$white;
         }

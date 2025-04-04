@@ -647,9 +647,14 @@ const iass: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/iass_01.png",
+      alt: "Curso de IASS",
       isActive: true,
+    },
+    {
+      src: "/images/shop/iass_02.png",
+      alt: "Curso de IASS",
+      isActive: false,
     },
   ],
 };
@@ -664,7 +669,41 @@ const actualizacionHeridas: CourseInterface = {
     <>
       <h4>Información del curso</h4>
       <div>
-        <p>CAMBIARRRR!!!!</p>
+        <strong>Temario</strong>
+        <ul className="check-list">
+          <li>
+            Evaluar heridas complejas de forma más exhaustiva, identificando
+            factores que podrían retrasar la cicatrización.
+          </li>
+          <li>
+            Seleccionar los apósitos y terapias más adecuadas, según el tipo de
+            herida, su fase de cicatrización y las necesidades del paciente.
+          </li>
+          <li>
+            Manejar técnicas avanzadas de curación, como el plasma autólogo.
+          </li>
+          <li>
+            Prevenir y tratar complicaciones, infecciones, dehiscencias entre
+            otras.
+          </li>
+          <li>
+            Optimizar el confort del paciente y mejorar su calidad de vida
+            durante el proceso de curación.
+          </li>
+          <li>
+            Rol de la enfermera navegante, una opción cada vez más ofertada por
+            los servicios de salud.
+          </li>
+          <li>
+            Trabajar de forma interdisciplinaria, con otros profesionales de la
+            salud para un abordaje integral.
+          </li>
+          <li>Casos clínicos.</li>
+          <li>
+            Mantenerse al día con las últimas investigaciones y mejores
+            prácticas en el campo.
+          </li>
+        </ul>
       </div>
     </>
   ),
@@ -924,8 +963,8 @@ const tallerPrimerosAuxiliosRCP: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/rcp.jpeg",
+      alt: "Curso de RCP",
       isActive: true,
     },
   ],

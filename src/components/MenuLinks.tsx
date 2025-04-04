@@ -231,7 +231,6 @@ const MenuLinks: React.FC = () => {
                     }
                   >
                     Curso Auxiliar de Estadísticas de Salud y Registros Médicos
-                    ??????
                   </Link>
                 </li>
               </ol>

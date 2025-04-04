@@ -48,7 +48,7 @@ const urlParts: BreadcrumbInterface[] = [
   },
   {
     url: "/cursos/auxiliar-estadisticas-de-salud-registros-medicos",
-    title: "Auxiliar de Estadísticas de Salud y Registros Médicos???",
+    title: "Auxiliar de Estadísticas de Salud y Registros Médicos",
   },
   {
     url: "/cursos/actualizacion-hemato-oncologia",
@@ -222,11 +222,63 @@ const farmacia: CourseInterface = {
   openRegistration: (
     <>
       <p>Nuevo inicio de cursos 2025.</p>
-      <p>CAMBIAR</p>
-      <p>Prácticas en Hospitales y Policlínicas.</p>
     </>
   ),
-  info: <>CAMBIARRR!!!</>,
+  info: (
+    <>
+      <h4>Información del curso</h4>
+      <div>
+        Se trata de un curso corto de unos 6 meses de duración con alta demanda
+        laboral tanto en el ámbito público como el privado. Contarán con
+        material teórico y práctico actualizado a la más modernas prácticas
+        sanitarias; el material práctico ayudará al estudiante a prepararse
+        antes de tener contacto directo con pacientes reales
+      </div>
+      <h4>Temario</h4>
+      <ul className="check-list">
+        <li>
+          <strong>Conocimiento de medicamentos:</strong> clasificación de los
+          fármacos, sus nombres (genéricos y comerciales), presentaciones, vías
+          de administración, dosis usuales, conservaciones y precauciones.
+          Farmacología, farmacodinamia (cómo el fármaco afecta al organismo) y
+          farmacocinética (cómo el organismo afecta al fármaco).
+        </li>
+        <li>
+          <strong>Dispensación y distribución de medicamentos:</strong> los
+          procedimientos correctos para recibir, almacenar, organizar y
+          dispensar medicamentos, tanto a pacientes ambulatorios como a las
+          diferentes áreas del hospital (enfermería, quirófano, etc.). Esto
+          incluye el manejo de stock, control de fechas de vencimiento y la
+          preparación de dosis unitarias.
+        </li>
+        <li>
+          <strong>Legislación farmacéutica:</strong> las normativas vigentes
+          relacionadas con la dispensación de medicamentos, especialmente en el
+          ámbito hospitalario, incluyendo el manejo de psicofármacos y
+          estupefacientes.
+        </li>
+        <li>
+          <strong>Atención al paciente:</strong> habilidades y destrezas para
+          brindar una atención cordial y eficiente a los pacientes y al personal
+          de salud que solicitan medicamentos o información.
+        </li>
+        <li>Cálculos farmacéuticos de dosis y conversiones de unidades.</li>
+        <li>
+          <strong>Higiene y seguridad:</strong> normas de higiene y seguridad
+          que se deben seguir en una farmacia hospitalaria para evitar
+          contaminaciones y riesgos laborales.
+        </li>
+        <li>
+          <strong>Gestión de inventario:</strong> manejo de inventarios, control
+          de stock y pedidos de medicamentos.
+        </li>
+        <li>
+          Prácticas profesionales en hospitales o clínicas, lo que te permite
+          aplicar los conocimientos teóricos en un entorno real de trabajo.
+        </li>
+      </ul>
+    </>
+  ),
   requirements: [
     "Más de 18 años al momento de inscripción.",
     "4to año bachiller aprobado sin previas o el equivalente en UTU (sin materias previas).",

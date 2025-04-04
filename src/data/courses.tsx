@@ -439,14 +439,50 @@ const blockQuirurgico: CourseInterface = {
       <h4>Información del curso</h4>
       <div>
         <p>
-          Este curso está diseñado para capacitar a los auxiliares de servicio
-          en el manejo y asistencia dentro de un block quirúrgico y CTI (Centro
-          de Tratamiento Intensivo). Los estudiantes aprenderán sobre las normas
-          de higiene, técnicas de esterilización, manejo de equipos quirúrgicos
-          y la asistencia en procedimientos quirúrgicos. Además, se enfocará en
-          la importancia de la seguridad del paciente y la colaboración con el
-          equipo médico para garantizar un entorno seguro y eficiente.
+          Es una formación especializada que capacita a estos profesionales para
+          desempeñar funciones de apoyo esenciales en dos áreas críticas de un
+          hospital.
         </p>
+        <strong>Objetivos principales:</strong>
+        <ul className="star-list">
+          <li>
+            Preparación , higiene y mantenimiento del entorno quirúrgico y la
+            unidad de CTI
+          </li>
+          <li>Gestión de residuos biológicos y otros materiales.</li>
+          <li>Colaboración en el control de infecciones.</li>
+        </ul>
+
+        <p>
+          <strong>Infecciones asociadas a la atención en salud (IAAS)</strong>
+          Se enfoca en proporcionar conocimientos y habilidades para prevenir y
+          controlar las infecciones que los pacientes pueden contraer durante su
+          estancia en un centro de atención médica.
+        </p>
+        <ul className="star-list">
+          <li>Comprender la epidemiología de las IAAS</li>
+          <li>
+            Aprender sobre los tipos de infecciones más comunes, sus causas y
+            cómo se propagan en entornos de atención médica.
+          </li>
+          <li>Implementar medidas de prevención</li>
+          <li>
+            Dominar técnicas y protocolos para prevenir la transmisión de
+            infecciones, como la higiene de manos, el uso adecuado de equipos de
+            protección personal y la esterilización de equipos.
+          </li>
+          <li>Aplicar protocolos de control de infecciones</li>
+          <li>
+            Desarrollar habilidades para identificar y manejar brotes de
+            infecciones, así como para implementar estrategias de control en
+            diferentes entornos de atención médica.
+          </li>
+          <li>Conocer la normativa y las directrices</li>
+          <li>
+            Familiarizarse con las regulaciones y recomendaciones nacionales e
+            internacionales relacionadas con la prevención y el control de IAAS.
+          </li>
+        </ul>
       </div>
     </>
   ),
@@ -738,7 +774,7 @@ const hematoOncologia: CourseInterface = {
 const ostomias: CourseInterface = {
   path: "/cursos/ostomias",
   id: "ostomias",
-  title: "OSTOMÍAS",
+  title: "Masterclass de OSTOMÍAS",
   term: "Se trata de un curso corto una instancia en ambas modalidades (virtual o presencial).",
   openRegistration: "Inscripciones abiertas para el año 2025.",
   info: (
@@ -746,11 +782,17 @@ const ostomias: CourseInterface = {
       <h4>Información del curso</h4>
       <div>
         <p>
-          Permite a los profesionales mantenerse al día sobre las últimas
-          técnicas, tecnologías y mejores prácticas en el cuidado de ostomías.
-          Perfeccionar habilidades prácticas, como el manejo de estomas,
-          selección de dispositivos y asesoramiento en pacientes.
+          Te proporcionará conocimientos y habilidades esenciales para el
+          cuidado y manejo de pacientes con ostomías.
         </p>
+        <ul className="check-list">
+          <li>Tipos de Ostomías y Anatomía</li>
+          <li>Cuidados y evaluación del Estoma</li>
+          <li>Cambio de bolsa de ostomía</li>
+          <li>Cuidado de la piel periestomal</li>
+          <li>Complicaciones y Manejo</li>
+          <li>Aspectos Psicosociales</li>
+        </ul>
       </div>
     </>
   ),
@@ -780,7 +822,16 @@ const actualizacionVacunas: CourseInterface = {
     <>
       <h4>Información del curso</h4>
       <div>
-        <p>CAMBIARRRR!!!!</p>
+        <p>
+          Consiste de una masterclass que incluye información sobre las
+          prácticas más recientes relacionadas a la inmunización Esto abarca
+          diversos aspectos, incluyendo: nuevas vacunas, cambios en las
+          recomendaciones de vacunación, actualización de los calendarios según
+          la evidencia científica más reciente, modificación de las
+          recomendaciones para grupos de población específicos, como niños,
+          adultos mayores o personas con enfermedades crónicas. Métodos de
+          producción y distribución de vacunas.
+        </p>
       </div>
     </>
   ),
@@ -809,9 +860,54 @@ const tallerPrimerosAuxiliosRCP: CourseInterface = {
       <h4>Información del curso</h4>
       <div>
         <p>
-          Aprende a salvar vidas! Conoce técnicas vitales para situaciones de
-          emergencia.
+          Es un curso práctico diseñado para enseñar habilidades básicas que
+          pueden salvar vidas en situaciones de emergencia.
         </p>
+
+        <h4>Objetivos principales:</h4>
+        <div>
+          <strong>Primeros Auxilios:</strong>
+          <ul className="check-list">
+            <li>
+              Aprender a evaluar una situación de emergencia y actuar de manera
+              adecuada.
+            </li>
+            <li>
+              Saber cómo actuar ante diversas lesiones (cortes, quemaduras,
+              fracturas, etc.).
+            </li>
+            <li>
+              Conocer cómo manejar situaciones de emergencia médica (ataques de
+              asma, convulsiones, etc.).
+            </li>
+            <li>Conocer las pautas de actuación en caso de atragantamiento.</li>
+            <li>Aprender a controlar las hemorragias.</li>
+          </ul>
+          <br />
+          <strong>RCP (Reanimación Cardiopulmonar):</strong>
+          <ul className="check-list">
+            <li>Aprender a reconocer una parada cardiorrespiratoria.</li>
+            <li>
+              Dominar las técnicas de compresiones torácicas y ventilación
+              artificial.
+            </li>
+            <li>
+              Aprender el uso de un Desfibrilador Externo Automático (DEA).
+            </li>
+          </ul>
+          <p>
+            Brindan herramientas esenciales para actuar con seguridad y eficacia
+            en momentos críticos.
+          </p>
+          <p>
+            Aumentan las posibilidades de supervivencia de una persona en caso
+            de emergencia.
+          </p>
+          <p>
+            Proporcionan conocimientos para actuar con calma y confianza ante
+            situaciones de estrés.
+          </p>
+        </div>
       </div>
     </>
   ),

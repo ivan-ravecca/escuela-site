@@ -83,7 +83,7 @@ const WhyUs: React.FC = () => {
               Brindar la más alta calidad de educación mediante profesionales
               capacitados Implementando nuevo enfoque educativo, basado en la
               búsqueda de abordajes que permitan el desarrollo de estrategias
-              curriculares que reafirmen la participación, la pro actividad, la
+              curriculares que reafirmen la participación, la proactividad, la
               creatividad y la sensibilidad en el desempeño de las habilidades
               técnicas, incrementando la conciencia del cuidado para hacerla más
               humana fundada en valores ético-morales comprometidos con la
@@ -111,31 +111,95 @@ const WhyUs: React.FC = () => {
             </p>
           </div>
           <div className="sixteen columns">
-            <h3>Autorizados por el MEC</h3>
-            <div className="four columns">
-              <Link
-                to="https://sige.mec.gub.uy/instituciones/"
-                target="_blank"
-                title="Escuela habilitada por el MEC"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/images/mec.png"
-                  alt="Escuela habilitada por el MEC"
+            <h3>Somos una escuela autorizada por el MEC</h3>
+            <div
+              className="sixteen columns"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <div className="four columns">
+                <Link
+                  to="https://sige.mec.gub.uy/instituciones/"
+                  target="_blank"
                   title="Escuela habilitada por el MEC"
-                />
-              </Link>
-            </div>
-            <div className="one-third columns">
-              <Link
-                to="https://sige.mec.gub.uy/instituciones/"
-                target="_blank"
-                title="Escuela habilitada por el MEC"
-                rel="noopener noreferrer"
-              >
-                Somos una escuela autorizada por el MEC
-              </Link>
-              , lo que garantiza la calidad de nuestros cursos y asegura ??????.
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/images/mec.png"
+                    alt="Escuela habilitada por el MEC"
+                    title="Escuela habilitada por el MEC"
+                  />
+                </Link>
+              </div>
+              <div className="twelve columns">
+                <ul className="check-list">
+                  <li>
+                    <strong>Validez y reconocimiento de los estudios:</strong>{" "}
+                    Garantiza que la formación recibida cumple con los
+                    estándares de calidad establecidos por el{" "}
+                    <Link
+                      to="https://sige.mec.gub.uy/instituciones/"
+                      target="_blank"
+                      title="Escuela habilitada por el MEC"
+                      rel="noopener noreferrer"
+                    >
+                      MEC
+                    </Link>
+                    . Asegura que el título obtenido sea reconocido
+                    oficialmente, lo que facilita la inserción laboral.
+                  </li>
+                  <li>
+                    <strong>Calidad de la formación:</strong> Implica que la
+                    escuela cuenta con programas de estudio actualizados y
+                    adecuados a las necesidades del sector de la salud. Asegura
+                    que los docentes están calificados y que la institución
+                    dispone de los recursos necesarios para una formación de
+                    calidad.{" "}
+                  </li>
+                  <li>
+                    <strong>Mayor empleabilidad:</strong> Los empleadores suelen
+                    valorar positivamente los títulos emitidos por instituciones
+                    habilitadas por el{" "}
+                    <Link
+                      to="https://sige.mec.gub.uy/instituciones/"
+                      target="_blank"
+                      title="Escuela habilitada por el MEC"
+                      rel="noopener noreferrer"
+                    >
+                      MEC
+                    </Link>
+                    . Aumenta las oportunidades de acceder a mejores puestos de
+                    trabajo y salarios.
+                  </li>
+                  <li>
+                    <strong>Seguridad y confianza:</strong> Brinda la
+                    tranquilidad de que la inversión en la educación se realiza
+                    en una institución seria y confiable. Evita el riesgo de
+                    obtener un título sin validez, lo que puede generar
+                    frustración y pérdida de tiempo y dinero.
+                  </li>
+                  <li>
+                    <strong>Cumplimiento de los requisitos legales:</strong>{" "}
+                    Garantiza que la institución cumple con todos los
+                    requerimientos legales para impartir educación en
+                    enfermería.{" "}
+                  </li>
+                </ul>
+
+                <strong>
+                  En resumen, estudiar en una escuela de enfermería habilitada
+                  por el{" "}
+                  <Link
+                    to="https://sige.mec.gub.uy/instituciones/"
+                    target="_blank"
+                    title="Escuela habilitada por el MEC"
+                    rel="noopener noreferrer"
+                  >
+                    MEC
+                  </Link>{" "}
+                  es fundamental para garantizar una formación de calidad, la
+                  validez del título y mejores oportunidades laborales.
+                </strong>
+              </div>
             </div>
           </div>
           <div className="sixteen columns">

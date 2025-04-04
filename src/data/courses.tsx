@@ -421,9 +421,19 @@ const chofer: CourseInterface = {
   curriculum: undefined,
   images: [
     {
-      src: "/images/shop/dummy.png",
-      alt: "Curso de block",
+      src: "/images/shop/chofer_sanitario_01.jpeg",
+      alt: "Curso de Chofer Sanitario",
       isActive: true,
+    },
+    {
+      src: "/images/shop/chofer_sanitario_02.jpeg",
+      alt: "Curso de Chofer Sanitario",
+      isActive: false,
+    },
+    {
+      src: "/images/shop/chofer_sanitario_03.jpeg",
+      alt: "Curso de Chofer Sanitario",
+      isActive: false,
     },
   ],
 };
@@ -686,13 +696,12 @@ const auxiliarEstadisticas: CourseInterface = {
           medio de nuestro formulario de contacto. Contaran con material teórico
           y práctico actualizado a la más modernas prácticas sanitarias; el
           material práctico ayudará al estudiante a prepararse antes de tener
-          contacto directo con pacientes reales en el Hospital de Pando,
-          Hospital Militar y Hospital Pereira Rosell. El Auxiliar de Registros
-          Médicos es un integrante del equipo de salud que se desempeña en
-          unidades de registros médicos tanto de salud público como privado.
-          Desempeña su labor bajo la supervisión de un Licenciado en Registros
-          Médicos, en las áreas de acción específicas: Archivo Médico, Admisión
-          de pacientes y Estadísticas en salud.
+          contacto directo con pacientes reales en diferentes hospitales. El
+          Auxiliar de Registros Médicos es un integrante del equipo de salud que
+          se desempeña en unidades de registros médicos tanto de salud público
+          como privado. Desempeña su labor bajo la supervisión de un Licenciado
+          en Registros Médicos, en las áreas de acción específicas: Archivo
+          Médico, Admisión de pacientes y Estadísticas en salud.
         </p>
       </div>
     </>

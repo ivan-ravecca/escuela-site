@@ -13,6 +13,7 @@ import BreadCrumbs from "./components/BreadCrumbs";
 import Contact from "./components/Contact";
 import Materials from "./components/Materials";
 import CoursesHome from "./components/CoursesHome";
+import Diploma from "./components/Diploma";
 
 const App: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const App: React.FC = () => {
             <Route path="/bedelia" element={<Bedelias />} />
             <Route path="/contacto" element={<Contact />} />
             <Route path="/material" element={<Materials />} />
+            <Route path="/diplomas/:diplomaHash" element={<Diploma />} />
           </Routes>
         </div>
         <Footer />

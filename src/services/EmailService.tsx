@@ -6,7 +6,7 @@ export const sendContact = async (
   fromEmail: string,
   fromMessage: string,
 ) => {
-  return await fetch(`${VITE_API_URL}/send`, {
+  return await fetch(`${VITE_API_URL}/email/send`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const sendInquire = async ({
   year,
   inquire,
 }: InquireParams) => {
-  return await fetch(`${VITE_API_URL}/inquire`, {
+  return await fetch(`${VITE_API_URL}/email/inquire`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

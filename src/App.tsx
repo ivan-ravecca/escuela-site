@@ -31,7 +31,7 @@ const App: React.FC = () => {
             <Route path="/bedelia" element={<Bedelias />} />
             <Route path="/contacto" element={<Contact />} />
             <Route path="/material" element={<Materials />} />
-            <Route path="/diplomas/:diplomaHash" element={<Diploma />} />
+            <Route path="/diploma/:diplomaHash" element={<Diploma />} />
             <Route path="/diploma/generar" element={<DiplomaGenerate />} />
           </Routes>
         </div>

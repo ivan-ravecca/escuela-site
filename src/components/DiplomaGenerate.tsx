@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { generateDiploma } from "../services/DiplomaService";
 
 const DiplomaGenerate: React.FC = () => {
@@ -73,7 +73,7 @@ const DiplomaGenerate: React.FC = () => {
                 rows={5}
                 style={{ width: "100%", marginBottom: "15px" }}
                 id="linksTextarea"
-                onChange={(e) => {
+                onChange={() => {
                   // Clear error when user starts typing
                   if (error) setError(null);
                 }}

@@ -8,7 +8,7 @@ export const getDiploma = async (diplomaID: string) => {
 };
 
 export const generateDiploma = async (driveURL: string) => {
-  return await fetch(`${VITE_SITE_URL}/diploma/generate?link=${driveURL}`, {
+  return await fetch(`${VITE_API_URL}/diploma/generate?link=${driveURL}`, {
     method: "GET",
   });
 };

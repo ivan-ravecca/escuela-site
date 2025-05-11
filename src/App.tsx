@@ -14,6 +14,7 @@ import Contact from "./components/Contact";
 import Materials from "./components/Materials";
 import CoursesHome from "./components/CoursesHome";
 import Diploma from "./components/Diploma";
+import DiplomaGenerate from "./components/DiplomaGenerate";
 
 const App: React.FC = () => {
   return (
@@ -31,6 +32,7 @@ const App: React.FC = () => {
             <Route path="/contacto" element={<Contact />} />
             <Route path="/material" element={<Materials />} />
             <Route path="/diplomas/:diplomaHash" element={<Diploma />} />
+            <Route path="/diploma/generar" element={<DiplomaGenerate />} />
           </Routes>
         </div>
         <Footer />

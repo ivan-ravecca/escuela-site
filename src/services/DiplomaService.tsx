@@ -5,3 +5,15 @@ export const getDiploma = async (diplomaID: string) => {
     method: "GET",
   });
 };
+
+export const generateDiploma = async (driveURL: string) => {
+  // return await fetch(`${VITE_API_URL}/diploma/generate?link=${driveURL}`, {
+  //   method: "GET",
+  // });
+  return await fetch(
+    `http://localhost:3000/diploma/generate?link=${driveURL}`,
+    {
+      method: "GET",
+    },
+  );
+};

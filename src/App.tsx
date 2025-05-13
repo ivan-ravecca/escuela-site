@@ -15,6 +15,7 @@ import Materials from "./components/Materials";
 import CoursesHome from "./components/CoursesHome";
 import Diploma from "./components/Diploma";
 import DiplomaGenerate from "./components/DiplomaGenerate";
+import CreateCertificate from "./components/CreateCertificate";
 
 const App: React.FC = () => {
   return (
@@ -33,6 +34,7 @@ const App: React.FC = () => {
             <Route path="/material" element={<Materials />} />
             <Route path="/diploma/:diplomaHash" element={<Diploma />} />
             <Route path="/diploma/generar" element={<DiplomaGenerate />} />
+            <Route path="/certificado/crear" element={<CreateCertificate />} />
           </Routes>
         </div>
         <Footer />

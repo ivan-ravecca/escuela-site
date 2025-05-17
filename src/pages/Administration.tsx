@@ -1,5 +1,5 @@
 import React from "react";
-import AdminMenu from "./AdminMenu";
+import AdminMenu from "../components/AdminMenu";
 
 const Administration: React.FC = () => {
   return (

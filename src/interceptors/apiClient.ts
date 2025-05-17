@@ -1,8 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL;
 import axios from "axios";
 
-// Base URL de tu API
-
 // Crear instancia de axios con la URL base
 const apiClient = axios.create({
   baseURL: API_URL,

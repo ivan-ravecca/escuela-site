@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { SITE_NAME } from "../../app.config";
 import { Link } from "react-router-dom";
-import RequestInfo from "./RequestInfo";
+import RequestInfo from "../components/RequestInfo";
 import Modal from "react-modal";
-import CustomModal from "./CustomModal";
+import CustomModal from "../components/CustomModal";
 
 const Bedelias: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);

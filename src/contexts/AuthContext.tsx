@@ -10,7 +10,6 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { User, AuthContextType, AuthProviderProps } from "../data/interfaces";
 
-// Constantes
 const WORKSPACE_DOMAIN = import.meta.env.VITE_WORKSPACE_DOMAIN;
 const TOKEN_STORAGE_KEY = import.meta.env.VITE_TOKEN_STORAGE_KEY;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -96,7 +95,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const { token } = response.data;
 
       // Guardamos el token en localStorage
-      console.log(`Saved token: ${token}`);
       localStorage.setItem(TOKEN_STORAGE_KEY, token);
 
       // Actualizamos el estado con la información del usuario
@@ -116,7 +114,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Configurar el login con Google
   const googleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      console.log("Google login success", tokenResponse);
       processUserLogin(tokenResponse.access_token);
     },
     onError: (errorResponse) => {
@@ -128,7 +125,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Función para iniciar sesión
   const login = () => {
-    console.log("Iniciando login con Google...");
     googleLogin(); // Ahora esta función está definida correctamente
   };
 

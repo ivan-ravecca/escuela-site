@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ContactLeftColumn from "./ContactLeftColumn";
+import ContactLeftColumn from "../components/ContactLeftColumn";
 import { GOOGLE_MAPS_URL } from "../../app.config";
 import { sendContact } from "../services/EmailService";
 import { debounce } from "../helpers/tools";

@@ -13,12 +13,8 @@ const Login: React.FC = () => {
   }, [isAuthenticated, navigate]);
 
   const handleLogin = async () => {
-    console.log("Login - Iniciando sesión...");
     try {
-      // Invocamos la función de login del contexto
       login();
-      // La redirección se realizará automáticamente cuando cambie isAuthenticated
-      // gracias al useEffect de arriba
     } catch (error) {
       console.error("Error durante el inicio de sesión:", error);
     }

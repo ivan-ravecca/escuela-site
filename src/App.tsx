@@ -1,3 +1,5 @@
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 import React from "react";
 import Footer from "./components/Footer";
 import AppHeader from "./components/AppHeader";
@@ -16,30 +18,50 @@ import CoursesHome from "./components/CoursesHome";
 import Diploma from "./components/Diploma";
 import DiplomaGenerate from "./components/DiplomaGenerate";
 import CreateCertificate from "./components/CreateCertificate";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./components/Login";
+import Administration from "./components/Administration";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <div id="wrapper">
-        <AppHeader />
-        <BreadCrumbs />
-        <div id="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/cursos/" element={<CoursesHome />} />
-            <Route path="/cursos/:course" element={<CourseDetails />} />
-            <Route path="/bedelia" element={<Bedelias />} />
-            <Route path="/contacto" element={<Contact />} />
-            <Route path="/material" element={<Materials />} />
-            <Route path="/diploma/:diplomaHash" element={<Diploma />} />
-            <Route path="/diploma/generar" element={<DiplomaGenerate />} />
-            <Route path="/certificado/crear" element={<CreateCertificate />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <AuthProvider>
+        <BrowserRouter>
+          <div id="wrapper">
+            <AppHeader />
+            <BreadCrumbs />
+            <div id="content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="*" element={<NotFound />} />
+                <Route path="/cursos/" element={<CoursesHome />} />
+                <Route path="/cursos/:course" element={<CourseDetails />} />
+                <Route path="/bedelia" element={<Bedelias />} />
+                <Route path="/contacto" element={<Contact />} />
+                <Route path="/material" element={<Materials />} />
+                <Route path="/diploma/:diplomaHash" element={<Diploma />} />
+
+                <Route path="/login" element={<Login />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/administracion" element={<Administration />} />
+                  <Route
+                    path="/administracion/qr"
+                    element={<DiplomaGenerate />}
+                  />
+                  <Route
+                    path="/administracion/certificado"
+                    element={<CreateCertificate />}
+                  />
+                </Route>
+              </Routes>
+            </div>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 };
 

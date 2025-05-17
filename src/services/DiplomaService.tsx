@@ -1,28 +1,22 @@
-const VITE_API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
+
+import apiClient from "../interceptors/apiClient";
+import { CertificateData } from "../data/interfaces";
 
 export const getDiploma = async (diplomaID: string) => {
-  return await fetch(`${VITE_API_URL}/diploma/${diplomaID}`, {
+  return await fetch(`${API_URL}/diploma/${diplomaID}`, {
     method: "GET",
   });
 };
 
 export const generateDiploma = async (driveURL: string) => {
-  return await fetch(`${VITE_API_URL}/diploma/generate?link=${driveURL}`, {
+  return await apiClient.get(`${API_URL}/diploma/generate?link=${driveURL}`, {
     method: "GET",
   });
 };
 
-interface CertificateData {
-  studentName: string;
-  courseName: string;
-  courseDate: string;
-  driveUrl: string;
-}
-
-export const createCertificate = async (
-  data: CertificateData,
-): Promise<Response> => {
-  const response = await fetch(`${VITE_API_URL}/diploma/certificate`, {
+export const createCertificate = async (data: CertificateData) => {
+  const response = await apiClient.post(`${API_URL}/diploma/certificate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

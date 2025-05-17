@@ -1,13 +1,7 @@
 import React from "react";
 import { SITE_NAME, SOCIAL_URLS } from "../../app.config";
 import { Link } from "react-router-dom";
-
-interface SocialIconProps {
-  url: string;
-  icon: string;
-  alt: string;
-  name: string;
-}
+import { SocialIconProps } from "../data/interfaces";
 
 const SocialIcons: React.FC = () => {
   const socialIconsList: SocialIconProps[] = [

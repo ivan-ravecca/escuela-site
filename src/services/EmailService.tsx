@@ -1,4 +1,4 @@
-const VITE_API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 import { InquireParams } from "../data/interfaces";
 
 export const sendContact = async (
@@ -6,7 +6,7 @@ export const sendContact = async (
   fromEmail: string,
   fromMessage: string,
 ) => {
-  return await fetch(`${VITE_API_URL}/email/send`, {
+  return await fetch(`${API_URL}/email/send`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const sendInquire = async ({
   year,
   inquire,
 }: InquireParams) => {
-  return await fetch(`${VITE_API_URL}/email/inquire`, {
+  return await fetch(`${API_URL}/email/inquire`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

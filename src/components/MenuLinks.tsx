@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AULAS_URL } from "../../app.config";
 import { breadcrumbParts } from "../data/courses";
+import { useAuth } from "../contexts/AuthContext";
+import AdminMenu from "./AdminMenu";
 
 const MenuLinks: React.FC = () => {
   const location = useLocation();
@@ -10,6 +12,8 @@ const MenuLinks: React.FC = () => {
     const pathName = pathSegments.length > 0 ? pathSegments[0] : "";
     return pathName === component ? { id: "current" } : {};
   };
+
+  const { isAuthenticated } = useAuth();
 
   return (
     <nav id="navigation" className="style-1">
@@ -330,6 +334,28 @@ const MenuLinks: React.FC = () => {
             <i className="halflings white envelope"></i> Contacto
           </Link>
         </li>
+
+        {!isAuthenticated && (
+          <li>
+            <Link
+              to="/administracion"
+              {...isActiveNavLink(location.pathname, "administracion")}
+            >
+              <i className="halflings white file"></i> Administracion
+            </Link>
+          </li>
+        )}
+        {isAuthenticated && (
+          <li>
+            <Link
+              to="/administracion"
+              {...isActiveNavLink(location.pathname, "administracion")}
+            >
+              <i className="halflings white file"></i> Administracion
+            </Link>
+            <AdminMenu />
+          </li>
+        )}
       </ul>
     </nav>
   );

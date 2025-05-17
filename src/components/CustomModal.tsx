@@ -1,10 +1,6 @@
 import Modal from "react-modal";
 
-interface CustomModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  content: React.ReactNode;
-}
+import { CustomModalProps } from "../data/interfaces";
 
 const CustomModal: React.FC<CustomModalProps> = ({
   isOpen,

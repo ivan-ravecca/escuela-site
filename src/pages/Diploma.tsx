@@ -27,7 +27,7 @@ const Diploma: React.FC = () => {
           );
           if (filenameMatch && filenameMatch[1]) {
             // Remove quotes if present
-            let extractedName = filenameMatch[1].replace(/['"]/g, "");
+            const extractedName = filenameMatch[1].replace(/['"]/g, "");
             setFileName(extractedName);
           }
         }

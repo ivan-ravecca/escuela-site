@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { JSX } from "react";
 
 export interface CourseImageInterface {
@@ -37,4 +38,52 @@ export interface InquireParams {
   ci: string;
   year: string;
   inquire: string;
+}
+
+// AUTH
+// Define los tipos para nuestro usuario y el contexto
+export interface User {
+  email: string;
+  name: string;
+  picture?: string;
+  token: string;
+}
+
+export interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+  login: () => void;
+  logout: () => void;
+  isAuthenticated: boolean;
+}
+
+export interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export interface ProtectedRouteProps {
+  redirectPath?: string;
+}
+
+// Custom Modal
+export interface CustomModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  content: React.ReactNode;
+}
+
+// Social Icons
+export interface SocialIconProps {
+  url: string;
+  icon: string;
+  alt: string;
+  name: string;
+}
+
+// Diplomaservice
+export interface CertificateData {
+  studentName: string;
+  courseName: string;
+  courseDate: string;
+  driveUrl: string;
 }

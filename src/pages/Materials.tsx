@@ -1,5 +1,5 @@
 import React from "react";
-import ImageSlider from "./ImageSlider";
+import ImageSlider from "../components/ImageSlider";
 
 const Materials: React.FC = () => {
   const images = [

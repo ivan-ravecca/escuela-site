@@ -69,6 +69,9 @@ const urlParts: BreadcrumbInterface[] = [
   { url: "/material", title: "Material" },
   { url: "/bedelia", title: "Bedelía" },
   { url: "/contacto", title: "Contáctanos" },
+  { url: "/administracion", title: "Administración" },
+  { url: "/administracion/certificado", title: "Generar certificado" },
+  { url: "/administracion/qr", title: "Generar QR" },
 ];
 
 export const breadcrumbParts = urlParts.reduce(

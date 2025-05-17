@@ -79,7 +79,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
       });
     } catch (error) {
       setIsSuccess(false);
-      console.log(`Error trying to send inquire: ${error}`);
+      console.error(`Error trying to send inquire: ${error}`);
     } finally {
       setIsProcessing(false);
       setShowResultMessage(true);

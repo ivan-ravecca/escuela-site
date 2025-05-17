@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { COURSES } from "../data/courses";
-import CourseExtraInfoBox from "./CourseExtraInfoBox";
+import CourseExtraInfoBox from "../components/CourseExtraInfoBox";
 import { Link } from "react-router-dom";
 import { CourseInterface } from "../data/interfaces";
-import ImageSlider from "./ImageSlider";
+import ImageSlider from "../components/ImageSlider";
 
 const CourseDetails: React.FC = () => {
   const { course } = useParams<{ course: string }>();

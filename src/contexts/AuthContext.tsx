@@ -41,6 +41,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             token,
           });
           if (response.data.valid) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const decodedToken: any = jwtDecode(token);
 
             // Verifica que el email pertenece al dominio correcto
@@ -98,6 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem(TOKEN_STORAGE_KEY, token);
 
       // Actualizamos el estado con la información del usuario
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const decodedToken: any = jwtDecode(token);
       setUser({
         email: decodedToken.email,

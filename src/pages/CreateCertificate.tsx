@@ -56,14 +56,17 @@ const CreateCertificate: React.FC = () => {
 
       const response = await createCertificate(formData);
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+      if (!response) {
+        throw new Error("No se recibió respuesta del servidor");
       }
 
-      // Get the PDF blob and create URL
-      const pdfBlob = await response.blob();
-      const url = URL.createObjectURL(pdfBlob);
-      setPdfUrl(url);
+      // Verificar si la respuesta ya es un Blob
+      if (response instanceof Blob) {
+        const url = URL.createObjectURL(response);
+        setPdfUrl(url);
+      } else {
+        throw new Error("Formato de respuesta inesperado");
+      }
     } catch (err) {
       console.error("Error generating certificate:", err);
       setError("Error al generar el certificado");

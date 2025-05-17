@@ -104,27 +104,14 @@ const DiplomaGenerate: React.FC = () => {
                         links.map(async (link) => {
                           try {
                             const response = await generateDiploma(link);
-                            let blobData;
-                            try {
-                              if (
-                                response &&
-                                typeof response.blob === "function"
-                              ) {
-                                blobData = await response.blob();
-                              } else {
-                                // If it's JSON or other format, create error
-                                throw new Error("Invalid response format");
-                              }
-                            } catch (blobError) {
-                              console.error(
-                                `Error processing response for ${link}:`,
-                                blobError,
-                              );
-                              throw blobError;
-                            }
-
-                            // Now create URL from valid blob
-                            const imageUrl = URL.createObjectURL(blobData);
+                            const base64 = btoa(
+                              new Uint8Array(response.data).reduce(
+                                (data, byte) =>
+                                  data + String.fromCharCode(byte),
+                                "",
+                              ),
+                            );
+                            const imageUrl = `data:image/png;base64,${base64}`;
                             return {
                               link,
                               imageUrl,

@@ -11,18 +11,34 @@ export const getDiploma = async (diplomaID: string) => {
 
 export const generateDiploma = async (driveURL: string) => {
   return await apiClient.get(`${API_URL}/diploma/generate?link=${driveURL}`, {
-    method: "GET",
+    responseType: "arraybuffer",
+    headers: {
+      Accept: "image/png",
+    },
   });
 };
 
 export const createCertificate = async (data: CertificateData) => {
-  const response = await apiClient.post(`${API_URL}/diploma/certificate`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await apiClient.post(
+    `${API_URL}/diploma/certificate`,
+    data,
+    {
+      responseType: "arraybuffer",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/pdf",
+      },
     },
-    body: JSON.stringify(data),
-  });
+  );
+  if (!response.data) {
+    throw new Error("No se recibieron datos del servidor");
+  }
 
-  return response;
+  try {
+    return new Blob([response.data], { type: "application/pdf" });
+  } catch (error) {
+    console.error("Error al crear el Blob:", error);
+    console.error("Detalle de la respuesta:", response);
+    throw new Error("Error al procesar el PDF recibido");
+  }
 };

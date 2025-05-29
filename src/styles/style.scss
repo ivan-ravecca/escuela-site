@@ -3498,7 +3498,6 @@ input[type="submit"]:hover {
 	top: 20px;
 	display: block;
 	height: 8px;
-	weight: 8px;
 }
 
 .close i {
@@ -4004,7 +4003,7 @@ table.standard-table tr:hover td {
 	-moz-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
 	-o-transform: rotate(45deg);
-	tranform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 .arrow.top:after {

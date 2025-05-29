@@ -1,6 +1,6 @@
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "./components/Footer";
 import AppHeader from "./components/AppHeader";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,12 +23,19 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Administration from "./pages/Administration";
+import AnalyticsTracker from "./components/AnalyticsTracker";
+import { AnalyticsService } from "./services/AnalyticsService";
 
 const App: React.FC = () => {
+  // Inicializa GA4 al cargar la aplicación
+  useEffect(() => {
+    AnalyticsService.init();
+  }, []);
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <AuthProvider>
         <BrowserRouter>
+          <AnalyticsTracker />
           <div id="wrapper">
             <AppHeader />
             <BreadCrumbs />

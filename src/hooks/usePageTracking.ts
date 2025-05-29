@@ -6,9 +6,6 @@ export const usePageTracking = (): void => {
   const location = useLocation();
 
   useEffect(() => {
-    // Inicializa GA4 si aún no está inicializado
-    AnalyticsService.init();
-
     // Rastrea la página actual
     if (location.pathname.includes("/diploma")) {
       AnalyticsService.trackPageView("/diploma");

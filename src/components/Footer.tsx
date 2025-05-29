@@ -9,6 +9,7 @@ import {
   MEC_URL,
   FACEBOOK_APP,
 } from "../../app.config";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 const Footer: React.FC = () => {
   return (
@@ -25,6 +26,13 @@ const Footer: React.FC = () => {
                 title="Ir a la web del Ministerio de Educación y Cultura"
                 aria-label="Ir a la web del Ministerio de Educación y Cultura"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  AnalyticsService.trackEvent(
+                    "Footer",
+                    "Click en enlace del MEC",
+                    MEC_URL,
+                  );
+                }}
               >
                 Ministerio de Educación y Cultura
               </Link>
@@ -46,6 +54,13 @@ const Footer: React.FC = () => {
                     title={`Dirección de ${SITE_NAME}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      AnalyticsService.trackEvent(
+                        "Footer",
+                        "Click",
+                        `Dirección de ${SITE_NAME}`,
+                      );
+                    }}
                   >
                     {SITE_ADDRESS.visual}
                   </Link>
@@ -59,6 +74,13 @@ const Footer: React.FC = () => {
                     to={PHONE_NUMBER.url}
                     title={`Llamar a ${SITE_NAME}`}
                     aria-label={`Llamar a ${SITE_NAME}`}
+                    onClick={() => {
+                      AnalyticsService.trackEvent(
+                        "Footer",
+                        "Call",
+                        `Llamar a ${SITE_NAME}`,
+                      );
+                    }}
                   >
                     {PHONE_NUMBER.visual}
                   </Link>
@@ -72,6 +94,13 @@ const Footer: React.FC = () => {
                     to={WHATSAPP_NUMBER.url}
                     title={`Chatea con nosotros ${SITE_NAME}`}
                     aria-label={`Chatea con nosotros ${SITE_NAME}`}
+                    onClick={() => {
+                      AnalyticsService.trackEvent(
+                        "Footer",
+                        "WhatsApp",
+                        `Chatea con nosotros ${SITE_NAME}`,
+                      );
+                    }}
                   >
                     {WHATSAPP_NUMBER.visual}
                   </Link>
@@ -85,6 +114,13 @@ const Footer: React.FC = () => {
                     to={CONTACT_EMAIL.url}
                     title={`Envíanos un email a ${CONTACT_EMAIL.visual}`}
                     aria-label={`Envíanos un email a ${CONTACT_EMAIL.visual}`}
+                    onClick={() => {
+                      AnalyticsService.trackEvent(
+                        "Footer",
+                        "Email",
+                        `Envíanos un email a ${CONTACT_EMAIL.visual}`,
+                      );
+                    }}
                   >
                     {CONTACT_EMAIL.visual}
                   </Link>

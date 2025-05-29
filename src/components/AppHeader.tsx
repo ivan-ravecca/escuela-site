@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { SITE_NAME, PHONE_NUMBER, WHATSAPP_NUMBER } from "../../app.config";
 import SocialIcons from "./SocialIcons";
 import AppNavigation from "./AppNavigation";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 const AppHeader: React.FC = () => {
   return (
@@ -35,6 +36,13 @@ const AppHeader: React.FC = () => {
                   to={PHONE_NUMBER.url}
                   title={`Llamar a ${SITE_NAME}`}
                   aria-label={`Llamar a ${SITE_NAME}`}
+                  onClick={() => {
+                    AnalyticsService.trackEvent(
+                      "Contact",
+                      "Call",
+                      `Llamar a ${SITE_NAME}`,
+                    );
+                  }}
                 >
                   Teléfono: {PHONE_NUMBER.visual}
                 </Link>
@@ -48,6 +56,13 @@ const AppHeader: React.FC = () => {
                   title={`Chatea con ${SITE_NAME}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    AnalyticsService.trackEvent(
+                      "Contact",
+                      "WhatsApp",
+                      `Mensaje a ${SITE_NAME}`,
+                    );
+                  }}
                 >
                   Whatsapp: {WHATSAPP_NUMBER.visual}
                 </Link>

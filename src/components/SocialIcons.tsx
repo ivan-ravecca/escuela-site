@@ -2,6 +2,7 @@ import React from "react";
 import { SITE_NAME, SOCIAL_URLS } from "../../app.config";
 import { Link } from "react-router-dom";
 import { SocialIconProps } from "../data/interfaces";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 const SocialIcons: React.FC = () => {
   const socialIconsList: SocialIconProps[] = [
@@ -41,6 +42,13 @@ const SocialIcons: React.FC = () => {
             title={social.alt}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              AnalyticsService.trackEvent(
+                "Social",
+                "Click",
+                `Ir a ${social.name}`,
+              );
+            }}
           >
             {social.name}
           </Link>

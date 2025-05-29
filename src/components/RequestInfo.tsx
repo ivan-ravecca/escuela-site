@@ -4,6 +4,7 @@ import { RequestInfoProps } from "../data/interfaces";
 import { sendInquire } from "../services/EmailService";
 import { emailPattern, phonePattern, ciPattern } from "../helpers/tools";
 import { Link } from "react-router-dom";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 const RequestInfo: React.FC<RequestInfoProps> = ({
   inquiringName,
@@ -67,6 +68,11 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
         inquire: inquiringName,
         year: ongoing ? "" : formFields.year,
       });
+      AnalyticsService.trackEvent(
+        "Bedelía",
+        "Solicitud exitosa",
+        inquiringName,
+      );
       setIsSuccess(true);
       setIsDisabled(false);
       setFormFields({
@@ -80,6 +86,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
     } catch (error) {
       setIsSuccess(false);
       console.error(`Error trying to send inquire: ${error}`);
+      AnalyticsService.trackEvent("Bedelía", "Solicitud error", inquiringName);
     } finally {
       setIsProcessing(false);
       setShowResultMessage(true);

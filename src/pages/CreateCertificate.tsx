@@ -191,7 +191,7 @@ const CreateCertificate: React.FC = () => {
                       type="checkbox"
                       id="certMec"
                       name="certMec"
-                      checked={formData.certMec || false}
+                      checked={formData.certMec}
                       onChange={(e) => {
                         const { name, checked } = e.target;
                         setFormData((prev) => ({ ...prev, [name]: checked }));

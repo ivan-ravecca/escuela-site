@@ -9,6 +9,7 @@ const CreateCertificate: React.FC = () => {
     studentName: "",
     courseName: "",
     courseDate: "",
+    certMec: false,
     driveUrl: "",
   });
 
@@ -25,6 +26,7 @@ const CreateCertificate: React.FC = () => {
       studentName: "",
       courseName: "",
       courseDate: "",
+      certMec: false,
       driveUrl: "",
     });
     setError(null);
@@ -175,19 +177,45 @@ const CreateCertificate: React.FC = () => {
                   required
                 />
               </div>
-
               <div className="form-field" style={{ marginBottom: "15px" }}>
-                <label htmlFor="driveUrl">URL de Drive</label>
-                <input
-                  type="text"
-                  id="driveUrl"
-                  name="driveUrl"
-                  value={formData.driveUrl}
-                  onChange={handleInputChange}
-                  style={{ width: "100%" }}
-                  placeholder="https://drive.google.com/file/d/..."
-                />
+                <div className="form-field" style={{ marginBottom: "15px" }}>
+                  <label
+                    htmlFor="certMec"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      id="certMec"
+                      name="certMec"
+                      checked={formData.certMec}
+                      onChange={(e) => {
+                        const { name, checked } = e.target;
+                        setFormData((prev) => ({ ...prev, [name]: checked }));
+                      }}
+                      style={{ marginRight: "8px" }}
+                    />
+                    Certifica MEC
+                  </label>
+                </div>
               </div>
+              {!formData.certMec && (
+                <div className="form-field" style={{ marginBottom: "15px" }}>
+                  <label htmlFor="driveUrl">URL de Drive</label>
+                  <input
+                    type="text"
+                    id="driveUrl"
+                    name="driveUrl"
+                    value={formData.driveUrl}
+                    onChange={handleInputChange}
+                    style={{ width: "100%" }}
+                    placeholder="https://drive.google.com/file/d/..."
+                  />
+                </div>
+              )}
 
               <div style={{ marginBottom: "20px" }}>
                 <button

@@ -222,12 +222,16 @@
     /* Note: Design for a width of 320px */
 
     @media only screen and (max-width: 767px) {
+        #mec-section {
+            display: none !important;
+        }
         #responsive {display: none;}
         #burguer {display: block;}
         #breadcrumbs {display: none;}
                 .container {margin: 0 10px;}
         .container,
-        .container.floated { width: 260px; }
+        .container.floated,
+        #content > div > div > div { width: 330px !important; }
         
         .container .columns,
         .container .column { margin: 0; }
@@ -268,7 +272,7 @@
         .container .sixteen.columns,
         .container .sixteen.floated,
         .container .one-third.column,
-        .container .two-thirds.column { width: 260px; }
+        .container .two-thirds.column { width: 330px; }
 
 
         /* Offsets */

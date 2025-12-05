@@ -116,7 +116,7 @@ const WhyUs: React.FC = () => {
               className="sixteen columns"
               style={{ display: "flex", alignItems: "center" }}
             >
-              <div className="four columns">
+              <div className="four columns" id="mec-section">
                 <Link
                   to="https://sige.mec.gub.uy/instituciones/"
                   target="_blank"

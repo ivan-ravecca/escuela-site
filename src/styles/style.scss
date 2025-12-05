@@ -4357,7 +4357,7 @@ span.time {
 }
 
 #contact fieldset div input {
-	width: 220px;
+	width: 310px;
 }
 
 #contact textarea {
@@ -5029,7 +5029,7 @@ table.standard-table.shop td {
 /* Shop Media Queries */
 @media only screen and (max-width: 767px) {
 	.container .four-shop.columns {
-		width: 260px;
+		width: 330px;
 	}
 }
 
@@ -5401,7 +5401,7 @@ table.standard-table.shop td {
 	#wrapper,
 	#footer,
 	#footer-bottom {
-		width: 320px;
+		width: 370px;
 	}
 
 	.selectnav {
@@ -5409,7 +5409,7 @@ table.standard-table.shop td {
 	}
 
 	.container.floated {
-		width: 320px;
+		width: 370px;
 		padding: 0;
 	}
 
@@ -5436,8 +5436,8 @@ table.standard-table.shop td {
 	}
 
 	#contact textarea {
-		max-width: 240px;
-		min-width: 240px;
+		max-width: 310px;
+		min-width: 310px;
 	}
 
 	.medium-image {

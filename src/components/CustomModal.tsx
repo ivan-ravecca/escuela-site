@@ -23,7 +23,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
           right: "auto",
           bottom: "auto",
           transform: "translate(-50%, -50%)",
-          width: "60%",
+          width: "85%",
           maxWidth: "650px",
         },
       }}

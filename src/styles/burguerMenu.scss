@@ -56,7 +56,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-item-list {
     color: colors.$medium-dark-gray;
     padding: 0.8em;
-    padding-bottom: 100px;
+    padding-bottom: 200px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 
@@ -89,4 +89,47 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para iconos sociales en el menú mobile */
+.mobile-social-icons {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    
+    a {
+        display: flex !important;
+        align-items: center;
+        margin: 15px 0 0 0;
+        font-size: 1.3em;
+        line-height: 1.5em;
+        color: colors.$white;
+        
+        &:visited {
+            color: colors.$white;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            &.facebook {
+                background-image: url('/images/social/facebook.png');
+            }
+            &.instagram {
+                background-image: url('/images/social/instagram.png');
+            }
+            &.linkedin {
+                background-image: url('/images/social/linkedin.png');
+            }
+            &.whatsapp {
+                background-image: url('/images/social/whatsapp.png');
+            }
+        }
+    }
 }

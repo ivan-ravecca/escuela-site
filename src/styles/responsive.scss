@@ -228,6 +228,12 @@
         #responsive {display: none;}
         #burguer {display: block;}
         #breadcrumbs {display: none;}
+        
+        /* Ocultar iconos sociales del header en mobile */
+        .social-icons {
+            display: none !important;
+        }
+        
                 .container {margin: 0 10px;}
         .container,
         .container.floated,

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { bubble as Menu } from "react-burger-menu";
-import { AULAS_URL } from "../../app.config";
+import { AULAS_URL, SOCIAL_URLS, SITE_NAME } from "../../app.config";
 import { breadcrumbParts } from "../data/courses";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 const MenuLinksBurguer: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -84,6 +85,62 @@ const MenuLinksBurguer: React.FC = () => {
       >
         <i className="halflings white envelope"></i> Contacto
       </Link>
+
+      {/* Redes sociales - solo visibles en mobile */}
+      <div className="mobile-social-icons">
+        <Link
+          to={SOCIAL_URLS.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={`Facebook de ${SITE_NAME}`}
+          aria-label={`Facebook de ${SITE_NAME}`}
+          onClick={() => {
+            AnalyticsService.trackEvent("Social", "Click", "Ir a Facebook");
+            closeHamburguerMenu();
+          }}
+        >
+          <i className="social-icon facebook"></i> Facebook
+        </Link>
+        <Link
+          to={SOCIAL_URLS.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={`Instagram de ${SITE_NAME}`}
+          aria-label={`Instagram de ${SITE_NAME}`}
+          onClick={() => {
+            AnalyticsService.trackEvent("Social", "Click", "Ir a Instagram");
+            closeHamburguerMenu();
+          }}
+        >
+          <i className="social-icon instagram"></i> Instagram
+        </Link>
+        <Link
+          to={SOCIAL_URLS.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={`Linkedin de ${SITE_NAME}`}
+          aria-label={`Linkedin de ${SITE_NAME}`}
+          onClick={() => {
+            AnalyticsService.trackEvent("Social", "Click", "Ir a Linkedin");
+            closeHamburguerMenu();
+          }}
+        >
+          <i className="social-icon linkedin"></i> Linkedin
+        </Link>
+        <Link
+          to={SOCIAL_URLS.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={`Chatea con nosotros ${SITE_NAME}`}
+          aria-label={`Chatea con nosotros ${SITE_NAME}`}
+          onClick={() => {
+            AnalyticsService.trackEvent("Social", "Click", "Ir a Whatsapp");
+            closeHamburguerMenu();
+          }}
+        >
+          <i className="social-icon whatsapp"></i> Whatsapp
+        </Link>
+      </div>
     </Menu>
   );
 };

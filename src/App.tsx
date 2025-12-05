@@ -25,6 +25,49 @@ import Login from "./pages/Login";
 import Administration from "./pages/Administration";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import { AnalyticsService } from "./services/AnalyticsService";
+import useDocumentTitle from "./hooks/useDocumentTitle";
+
+// Componente interno que usa los hooks de router
+const AppContent: React.FC = () => {
+  // Actualiza el título del documento según la ruta
+  useDocumentTitle();
+
+  return (
+    <>
+      <AnalyticsTracker />
+      <div id="wrapper">
+        <AppHeader />
+        <BreadCrumbs />
+        <div id="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/cursos/" element={<CoursesHome />} />
+            <Route path="/cursos/:course" element={<CourseDetails />} />
+            <Route path="/bedelia" element={<Bedelias />} />
+            <Route path="/contacto" element={<Contact />} />
+            <Route path="/material" element={<Materials />} />
+            <Route path="/diploma/:diplomaHash" element={<Diploma />} />
+
+            <Route path="/login" element={<Login />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/administracion" element={<Administration />} />
+              <Route
+                path="/administracion/qr"
+                element={<DiplomaGenerate />}
+              />
+              <Route
+                path="/administracion/certificado"
+                element={<CreateCertificate />}
+              />
+            </Route>
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </>
+  );
+};
 
 const App: React.FC = () => {
   // Inicializa GA4 al cargar la aplicación
@@ -35,37 +78,7 @@ const App: React.FC = () => {
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <AuthProvider>
         <BrowserRouter>
-          <AnalyticsTracker />
-          <div id="wrapper">
-            <AppHeader />
-            <BreadCrumbs />
-            <div id="content">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/cursos/" element={<CoursesHome />} />
-                <Route path="/cursos/:course" element={<CourseDetails />} />
-                <Route path="/bedelia" element={<Bedelias />} />
-                <Route path="/contacto" element={<Contact />} />
-                <Route path="/material" element={<Materials />} />
-                <Route path="/diploma/:diplomaHash" element={<Diploma />} />
-
-                <Route path="/login" element={<Login />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/administracion" element={<Administration />} />
-                  <Route
-                    path="/administracion/qr"
-                    element={<DiplomaGenerate />}
-                  />
-                  <Route
-                    path="/administracion/certificado"
-                    element={<CreateCertificate />}
-                  />
-                </Route>
-              </Routes>
-            </div>
-            <Footer />
-          </div>
+          <AppContent />
         </BrowserRouter>
       </AuthProvider>
     </GoogleOAuthProvider>

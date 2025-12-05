@@ -1,0 +1,47 @@
+@import '_variables';
+
+/* Animaciones para el widget de chat */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Estilo para el scroll del área de mensajes */
+.chat-widget-window > div:nth-child(2)::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-widget-window > div:nth-child(2)::-webkit-scrollbar-track {
+  background: $scrollbar-track-gray;
+}
+
+.chat-widget-window > div:nth-child(2)::-webkit-scrollbar-thumb {
+  background: $scrollbar-thumb-gray;
+  border-radius: 3px;
+}
+
+.chat-widget-window > div:nth-child(2)::-webkit-scrollbar-thumb:hover {
+  background: $scrollbar-thumb-hover-gray;
+}
+
+/* Ajustes para mobile */
+@media only screen and (max-width: 767px) {
+  .chat-widget-button {
+    width: 48px !important;
+    height: 48px !important;
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+  
+  .chat-widget-window {
+    width: calc(100vw - 32px) !important;
+    max-width: 360px !important;
+    height: 500px !important;
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+}

@@ -26,6 +26,7 @@ import Administration from "./pages/Administration";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import { AnalyticsService } from "./services/AnalyticsService";
 import SEOHead from "./components/SEOHead";
+import ChatWidget from "./components/assistant/ChatWidget";
 
 // Componente interno que usa los hooks de router
 const AppContent: React.FC = () => {
@@ -33,6 +34,7 @@ const AppContent: React.FC = () => {
     <>
       <SEOHead />
       <AnalyticsTracker />
+      <ChatWidget />
       <div id="wrapper">
         <AppHeader />
         <BreadCrumbs />

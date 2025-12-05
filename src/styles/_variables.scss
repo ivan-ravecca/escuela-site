@@ -1,9 +1,12 @@
 $school-green: #1FB57B;
+$school-green-primary: #2e8b57; // Verde principal para chat widget
+$school-green-hover: #237a47; // Verde hover para chat widget
 
 //$school-blue:#393971;
 $school-blue: #1A237E;
 
 $school-green-light: #DFF7EC;
+$school-green-extra-light: #f9fafb; // Fondo del chat
 
 $gray: #888;
         
@@ -32,7 +35,11 @@ $dark-gray: #4c4c4c;
 
 $light-medium-gray: #e4e4e4;
 $medium-gray: #707070;
-         
+
+// Colores para scrollbar del chat widget
+$scrollbar-track-gray: #f1f1f1;
+$scrollbar-thumb-gray: #c1c1c1;
+$scrollbar-thumb-hover-gray: #a1a1a1;
 
 $medium-light-gray-alt: #d6d6d6;
 $light-gray-alt: #e6e6e6;

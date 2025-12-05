@@ -8,7 +8,7 @@ const WhyUs: React.FC = () => {
       <div className="page-content">
         <div className="container">
           <div className="sixteen columns">
-            <h2>Escuela de enfermería en Pando</h2>
+            <h1>Escuela de enfermería en Pando</h1>
           </div>
           <div className="sixteen columns">
             <h3>Historia</h3>

@@ -53,6 +53,7 @@ const Materials: React.FC = () => {
     <div className="page-content">
       <div className="container">
         <div className="sixteen columns">
+          <h1>Material y Recursos</h1>
           <ImageSlider images={images} />
         </div>
       </div>

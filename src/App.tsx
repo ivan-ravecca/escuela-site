@@ -25,15 +25,13 @@ import Login from "./pages/Login";
 import Administration from "./pages/Administration";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import { AnalyticsService } from "./services/AnalyticsService";
-import useDocumentTitle from "./hooks/useDocumentTitle";
+import SEOHead from "./components/SEOHead";
 
 // Componente interno que usa los hooks de router
 const AppContent: React.FC = () => {
-  // Actualiza el título del documento según la ruta
-  useDocumentTitle();
-
   return (
     <>
+      <SEOHead />
       <AnalyticsTracker />
       <div id="wrapper">
         <AppHeader />

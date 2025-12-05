@@ -6,6 +6,9 @@ const CoursesHome: React.FC = () => {
   return (
     <div className="page-content portfolio">
       <div className="container">
+        <div className="sixteen columns">
+          <h1>Nuestros Cursos</h1>
+        </div>
         <div
           style={{
             display: "flex",

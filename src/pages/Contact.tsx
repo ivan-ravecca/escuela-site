@@ -86,7 +86,7 @@ const Contact: React.FC = () => {
         <ContactLeftColumn />
         <div className="eleven floated right">
           <section className="page-content">
-            <h3 className="margin">Formulario de contacto</h3>
+            <h1 className="margin">Formulario de contacto</h1>
             <section id="contact">
               <mark id="message">
                 <div

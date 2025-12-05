@@ -137,7 +137,7 @@ const Bedelias: React.FC = () => {
     <div className="page-content">
       <div className="container">
         <div className="sixteen columns">
-          <h2>Bedelias</h2>
+          <h1>Bedelía</h1>
           <p>
             Esta página está diseñada para facilitar el acceso a diversos
             certificados y constancias que los estudiantes pueden necesitar

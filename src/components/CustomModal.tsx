@@ -25,9 +25,30 @@ const CustomModal: React.FC<CustomModalProps> = ({
           transform: "translate(-50%, -50%)",
           width: "85%",
           maxWidth: "650px",
+          overflowY: "auto",
+          maxHeight: "90vh",
         },
       }}
     >
+      {/* Botón de cierre solo visible en mobile */}
+      <button
+        onClick={onClose}
+        style={{
+          position: "absolute",
+          top: 10,
+          right: 10,
+          background: "transparent",
+          border: "none",
+          fontSize: 28,
+          cursor: "pointer",
+          zIndex: 1100,
+          display: "block",
+        }}
+        className="modal-close-mobile"
+        aria-label="Cerrar"
+      >
+        &times;
+      </button>
       {content}
     </Modal>
   );

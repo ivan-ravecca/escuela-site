@@ -154,7 +154,7 @@ const ChatWidget: React.FC = () => {
         : [...prev, courseId]
     );
     
-    // Agregar o remover el nombre del curso
+    // Add or remove the course name
     if (courseName) {
       setSelectedCourseNames((prev) =>
         prev.includes(courseName)

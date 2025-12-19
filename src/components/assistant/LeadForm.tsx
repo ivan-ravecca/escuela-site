@@ -109,22 +109,22 @@ const LeadForm: React.FC<LeadFormProps> = ({
     } catch (err: any) {
       // Handle different error types
       if (err.response?.status === 429) {
-        setSubmitError("You've reached the limit of 3 requests per hour. Please try again later.");
+        setSubmitError("Has alcanzado el límite de 3 solicitudes por hora. Por favor, intenta nuevamente más tarde.");
       } else if (err.response?.status === 400) {
         // Handle missing field errors
         const errorData = err.response?.data;
         if (errorData?.missing_fields) {
           const missingFields = Object.values(errorData.missing_fields).join(", ");
-          setSubmitError(`Invalid fields: ${missingFields}`);
+          setSubmitError(`Campos inválidos: ${missingFields}`);
         } else {
-          setSubmitError(errorData?.error || "Invalid data. Please check the fields.");
+          setSubmitError(errorData?.error || "Datos inválidos. Por favor, verifica los campos.");
         }
       } else if (err.response?.data?.error) {
         setSubmitError(err.response.data.error);
       } else if (err.response?.data?.message) {
         setSubmitError(err.response.data.message);
       } else {
-        setSubmitError("Error sending the information. Please try again.");
+        setSubmitError("Error al enviar la información. Por favor, intenta nuevamente.");
       }
       console.error("Error submitting lead:", err);
     } finally {
@@ -138,8 +138,8 @@ const LeadForm: React.FC<LeadFormProps> = ({
       <div className="lead-form-success">
         <div className="success-content">
           <CheckCircle size={48} className="success-icon" />
-          <h3>Thank you!</h3>
-          <p>We'll contact you soon via WhatsApp to provide more information.</p>
+          <h3>¡Gracias!</h3>
+          <p>Nos contactaremos contigo pronto vía WhatsApp para brindarte más información.</p>
         </div>
       </div>
     );
@@ -149,7 +149,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
     <div className="lead-form-container">
       {/* Header */}
       <div className="lead-form-header">
-        <h3>Great! Leave your details and we'll reach out</h3>
+        <h3>Bien, deja tus datos y nos contactamos</h3>
         {onCancel && (
           <button
             onClick={onCancel}

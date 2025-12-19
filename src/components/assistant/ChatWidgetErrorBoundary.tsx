@@ -34,7 +34,7 @@ class ChatWidgetErrorBoundary extends Component<Props, State> {
     console.error('ChatWidget Error:', error);
     console.error('Error Info:', errorInfo);
     
-    // Aquí podrías enviar el error a un servicio de logging
+    // Here you could send the error to a logging service
     // logErrorToService(error, errorInfo);
   }
 
@@ -44,7 +44,7 @@ class ChatWidgetErrorBoundary extends Component<Props, State> {
       error: null,
     });
     
-    // Limpiar localStorage del chat si hay error
+    // Clear chat localStorage if there is an error
     try {
       localStorage.removeItem('assistant_conversation');
     } catch (err) {
@@ -54,12 +54,12 @@ class ChatWidgetErrorBoundary extends Component<Props, State> {
 
   render(): ReactNode {
     if (this.state.hasError) {
-      // Renderizar fallback personalizado si se proporciona
+      // Render custom fallback if provided
       if (this.props.fallback) {
         return this.props.fallback;
       }
 
-      // Fallback por defecto: botón oculto o mensaje mínimo
+      // Default fallback: hidden button or minimal message
       return (
         <div
           style={{

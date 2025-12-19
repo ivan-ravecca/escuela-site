@@ -157,7 +157,7 @@ export const useAssistant = (): UseAssistantReturn => {
         return;
       }
 
-      // Verificar rate limit
+      // Check rate limit
       if (!checkRateLimit()) {
         return;
       }
@@ -174,10 +174,10 @@ export const useAssistant = (): UseAssistantReturn => {
       };
 
       setMessages((prev) => {
-        // Limitar a MAX_HISTORY_LENGTH mensajes
+        // Limit to MAX_HISTORY_LENGTH messages
         const updated = [...prev, userMessage];
         if (updated.length > MAX_HISTORY_LENGTH) {
-          // Mantener solo los últimos MAX_HISTORY_LENGTH mensajes
+          // Keep only the last MAX_HISTORY_LENGTH messages
           return updated.slice(-MAX_HISTORY_LENGTH);
         }
         return updated;
@@ -214,7 +214,7 @@ export const useAssistant = (): UseAssistantReturn => {
         };
 
         setMessages((prev) => {
-          // Limitar a MAX_HISTORY_LENGTH mensajes
+          // Limit to MAX_HISTORY_LENGTH messages
           const updated = [...prev, assistantMessage];
           if (updated.length > MAX_HISTORY_LENGTH) {
             return updated.slice(-MAX_HISTORY_LENGTH);

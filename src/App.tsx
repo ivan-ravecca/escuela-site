@@ -1,4 +1,5 @@
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const ENABLE_AI = import.meta.env.VITE_ENABLE_AI === 'true';
 
 import React, { useEffect } from "react";
 import Footer from "./components/Footer";
@@ -26,6 +27,10 @@ import Administration from "./pages/Administration";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import { AnalyticsService } from "./services/AnalyticsService";
 import SEOHead from "./components/SEOHead";
+import { ChatWidgetProvider } from "./contexts/ChatWidgetContext";
+import ChatWidgetErrorBoundary from "./components/assistant/ChatWidgetErrorBoundary";
+import ChatWidgetContainer from "./components/assistant/ChatWidgetContainer";
+import ChatWidgetButton from "./components/assistant/ChatWidgetButton";
 
 // Componente interno que usa los hooks de router
 const AppContent: React.FC = () => {
@@ -33,6 +38,12 @@ const AppContent: React.FC = () => {
     <>
       <SEOHead />
       <AnalyticsTracker />
+      {ENABLE_AI && (
+        <ChatWidgetErrorBoundary>
+          <ChatWidgetButton />
+          <ChatWidgetContainer />
+        </ChatWidgetErrorBoundary>
+      )}
       <div id="wrapper">
         <AppHeader />
         <BreadCrumbs />
@@ -75,9 +86,11 @@ const App: React.FC = () => {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <AuthProvider>
-        <BrowserRouter>
-          <AppContent />
-        </BrowserRouter>
+        <ChatWidgetProvider>
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        </ChatWidgetProvider>
       </AuthProvider>
     </GoogleOAuthProvider>
   );

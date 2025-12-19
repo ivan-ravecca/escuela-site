@@ -5,6 +5,7 @@ interface ImportMetaEnv {
   readonly VITE_WORKSPACE_DOMAIN: string;
   readonly VITE_TOKEN_STORAGE_KEY: string;
   readonly VITE_GOOGLE_ANALYTICS_ID: string;
+  readonly VITE_ENABLE_AI: string;
 }
 
 interface ImportMeta {

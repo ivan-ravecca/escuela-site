@@ -1,4 +1,4 @@
-import apiClient from "../interceptors/apiClient";
+import apiClient, { initializeCSRF } from "../interceptors/apiClient";
 import {
   ChatResponse,
   ConversationHistory,
@@ -8,6 +8,11 @@ import {
 const API_BASE = "/assistant";
 
 export class AssistantService {
+  // Inicializar CSRF token
+  static async initializeCSRF(): Promise<void> {
+    return initializeCSRF();
+  }
+
   static async getWelcomeMessage(): Promise<string> {
     const response = await apiClient.get<{ message: string }>(
       `${API_BASE}/welcome`

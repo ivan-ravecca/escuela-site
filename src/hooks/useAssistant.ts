@@ -116,6 +116,12 @@ export const useAssistant = (): UseAssistantReturn => {
       setError(null);
 
       try {
+        // 1. Primero inicializar el token CSRF
+        await retryWithBackoff(() =>
+          AssistantService.initializeCSRF()
+        );
+        
+        // 2. Luego obtener el mensaje de bienvenida
         const welcomeText = await retryWithBackoff(() =>
           AssistantService.getWelcomeMessage()
         );
@@ -222,9 +228,6 @@ export const useAssistant = (): UseAssistantReturn => {
             : "Error al enviar el mensaje. Por favor, intenta nuevamente.";
         setError(errorMessage);
         console.error("Error sending message:", err);
-
-        // Opcional: Remover el mensaje del usuario si falló completamente
-        // setMessages((prev) => prev.filter((msg) => msg.id !== userMessage.id));
       } finally {
         setIsLoading(false);
       }
@@ -252,6 +255,11 @@ export const useAssistant = (): UseAssistantReturn => {
     };
 
     try {
+      // Reinicializar CSRF token
+      await retryWithBackoff(() =>
+        AssistantService.initializeCSRF()
+      );
+      
       // Recargar mensaje de bienvenida
       const welcomeText = await retryWithBackoff(() =>
         AssistantService.getWelcomeMessage()

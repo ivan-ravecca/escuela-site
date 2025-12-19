@@ -9,6 +9,70 @@ import { useAssistant } from "../../hooks/useAssistant";
 import { useChatWidget } from "../../contexts/ChatWidgetContext";
 import "../../styles/chatWidget.scss";
 
+// Helper to format assistant messages that list courses as:
+// 1. Course Name
+// 🔗 https://example.com/course
+// Then justification lines.
+// Renders course name in bold and replaces raw URL line with a clickable
+// "ver en la web" link that opens in a new tab.
+function renderAssistantContent(content: string) {
+  const lines = content.split(/\r?\n/);
+  const elements: React.ReactNode[] = [];
+
+  const urlRegex = /(https?:\/\/[^\s]+)/i;
+  const itemRegex = /^\s*(\d+)\.\s+(.*)$/; // captures index and course name
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const itemMatch = line.match(itemRegex);
+
+    if (itemMatch) {
+      const index = itemMatch[1];
+      const courseName = itemMatch[2];
+
+      // Render the numbered item with the course name in bold
+      elements.push(
+        <div key={`item-${i}`} style={{ fontSize: "14px", margin: 0 }}>
+          <span>{index}. </span>
+          <span style={{ fontWeight: 700 }}>{courseName}</span>
+        </div>
+      );
+
+      // Check next line for a URL (with or without the "🔗" prefix)
+      const nextLine = lines[i + 1] ?? "";
+      const normalizedNext = nextLine.replace(/^\s*🔗\s*/, "");
+      const urlMatch = normalizedNext.match(urlRegex);
+      if (urlMatch) {
+        const href = urlMatch[1];
+        elements.push(
+          <div key={`link-${i}`} style={{ marginTop: 2, marginBottom: 6 }}>
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              ver en la web
+            </a>
+          </div>
+        );
+        // Skip the URL line
+        i += 1;
+      }
+      continue;
+    }
+
+    // Default: render the line as a paragraph
+    if (line.trim().length > 0) {
+      elements.push(
+        <p key={`text-${i}`} style={{ fontSize: "14px", margin: 0 }}>
+          {line}
+        </p>
+      );
+    } else {
+      // Preserve blank lines as spacing
+      elements.push(<div key={`spacer-${i}`} style={{ height: 6 }} />);
+    }
+  }
+
+  return <>{elements}</>;
+}
+
 const ChatWidget: React.FC = () => {
   const { isOpen, setIsOpen } = useChatWidget();
   const [inputValue, setInputValue] = useState("");
@@ -342,15 +406,19 @@ const ChatWidget: React.FC = () => {
                       : "none",
                 }}
               >
-                <p
-                  style={{
-                    fontSize: "14px",
-                    whiteSpace: "pre-wrap",
-                    margin: 0,
-                  }}
-                >
-                  {message.content}
-                </p>
+                {message.role === "assistant" ? (
+                  renderAssistantContent(message.content)
+                ) : (
+                  <p
+                    style={{
+                      fontSize: "14px",
+                      whiteSpace: "pre-wrap",
+                      margin: 0,
+                    }}
+                  >
+                    {message.content}
+                  </p>
+                )}
                 {message.recommendedCourses &&
                   message.recommendedCourses.length > 0 && (
                     <div style={{ marginTop: "12px" }}>

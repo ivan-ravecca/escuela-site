@@ -36,11 +36,11 @@ const formatDuration = (hours?: number): string => {
   const months = Math.round(hours / 40); // Assuming 40 hours per month
   
   if (months === 0) {
-    return `${hours} hours`;
+    return `${hours} horas`;
   } else if (months === 1) {
-    return `${hours} hours - ~1 month`;
+    return `${hours} horas - ~1 mes`;
   } else {
-    return `${hours} hours - ~${months} months`;
+    return `${hours} horas - ~${months} meses`;
   }
 };
 
@@ -219,7 +219,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
       </div>
 
       {/* Job opportunities indicator (optional) */}
-      {course.job_opportunities && course.job_opportunities.length > 0 && (
+      {/* {course.job_opportunities && course.job_opportunities.length > 0 && (
         <div
           style={{
             padding: "8px 14px",
@@ -232,7 +232,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
         >
           💼 {course.job_opportunities.length} oportunidades laborales
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -4,8 +4,8 @@ import { X, CheckCircle, Loader2 } from "lucide-react";
 import { LeadCaptureData } from "../../types/assistant";
 
 interface LeadFormProps {
-  interestedCourses?: string[]; // Array con un solo ID
-  courseNames?: string[]; // Array con un solo nombre
+  interestedCourses?: string[]; // Array with a single ID
+  courseNames?: string[]; // Array with a single name
   onSubmit: (data: LeadCaptureData) => Promise<void>;
   onCancel?: () => void;
 }
@@ -17,18 +17,18 @@ interface FormData {
   acceptWhatsApp: boolean;
 }
 
-// Validación de formato de teléfono uruguayo
-const PHONE_REGEX = /^0?9[1-9]\d{6,7}$/; // Acepta 099123456 o 99123456
+// Uruguayan phone format validation
+const PHONE_REGEX = /^0?9[1-9]\d{6,7}$/; // Accepts 099123456 or 99123456
 const formatPhoneNumber = (value: string): string => {
-  // Eliminar espacios y guiones
+  // Remove spaces and hyphens
   const cleaned = value.replace(/[\s-]/g, '');
   
-  // Si tiene 9 dígitos y empieza con 09, formatear como XXX XXX XXX
+  // If it has 9 digits and starts with 09, format as XXX XXX XXX
   if (cleaned.length === 9 && cleaned.startsWith('09')) {
     return `${cleaned.slice(0, 3)} ${cleaned.slice(3, 6)} ${cleaned.slice(6)}`;
   }
   
-  // Si tiene 8 dígitos y empieza con 9, formatear como XX XXX XXX
+  // If it has 8 digits and starts with 9, format as XX XXX XXX
   if (cleaned.length === 8 && cleaned.startsWith('9')) {
     return `${cleaned.slice(0, 2)} ${cleaned.slice(2, 5)} ${cleaned.slice(5)}`;
   }
@@ -64,7 +64,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
 
   const phoneValue = watch("phone");
 
-  // Formatear teléfono mientras el usuario escribe
+  // Format phone while the user types
   useEffect(() => {
     if (phoneValue) {
       const formatted = formatPhoneNumber(phoneValue);
@@ -79,10 +79,10 @@ const LeadForm: React.FC<LeadFormProps> = ({
     setSubmitError(null);
 
     try {
-      // Limpiar teléfono para enviar sin espacios
+      // Sanitize phone to send without spaces
       const cleanedPhone = data.phone.replace(/[\s-]/g, '');
 
-      // Obtener el primer curso (solo debería haber uno)
+      // Get the first selected course (there should be only one)
       const courseId = interestedCourses?.[0] || '';
       const courseName = courseNames?.[0] || '';
 
@@ -102,29 +102,29 @@ const LeadForm: React.FC<LeadFormProps> = ({
 
       setSubmitSuccess(true);
 
-      // Cerrar el formulario después de 2 segundos
+      // Close the form after 2 seconds
       setTimeout(() => {
         onCancel?.();
       }, 2000);
     } catch (err: any) {
-      // Manejar diferentes tipos de errores
+      // Handle different error types
       if (err.response?.status === 429) {
-        setSubmitError("Has alcanzado el límite de 3 solicitudes por hora. Por favor, intentá más tarde.");
+        setSubmitError("You've reached the limit of 3 requests per hour. Please try again later.");
       } else if (err.response?.status === 400) {
-        // Manejar errores de campos faltantes
+        // Handle missing field errors
         const errorData = err.response?.data;
         if (errorData?.missing_fields) {
           const missingFields = Object.values(errorData.missing_fields).join(", ");
-          setSubmitError(`Campos inválidos: ${missingFields}`);
+          setSubmitError(`Invalid fields: ${missingFields}`);
         } else {
-          setSubmitError(errorData?.error || "Datos inválidos. Por favor, verificá los campos.");
+          setSubmitError(errorData?.error || "Invalid data. Please check the fields.");
         }
       } else if (err.response?.data?.error) {
         setSubmitError(err.response.data.error);
       } else if (err.response?.data?.message) {
         setSubmitError(err.response.data.message);
       } else {
-        setSubmitError("Error al enviar la información. Por favor, intentá nuevamente.");
+        setSubmitError("Error sending the information. Please try again.");
       }
       console.error("Error submitting lead:", err);
     } finally {
@@ -132,14 +132,14 @@ const LeadForm: React.FC<LeadFormProps> = ({
     }
   };
 
-  // Mostrar mensaje de éxito
+  // Show success message
   if (submitSuccess) {
     return (
       <div className="lead-form-success">
         <div className="success-content">
           <CheckCircle size={48} className="success-icon" />
-          <h3>¡Gracias!</h3>
-          <p>Nos contactaremos pronto por WhatsApp para brindarte más información.</p>
+          <h3>Thank you!</h3>
+          <p>We'll contact you soon via WhatsApp to provide more information.</p>
         </div>
       </div>
     );
@@ -149,18 +149,18 @@ const LeadForm: React.FC<LeadFormProps> = ({
     <div className="lead-form-container">
       {/* Header */}
       <div className="lead-form-header">
-        <h3>¡Genial! Déjanos tus datos y te contactaremos</h3>
+        <h3>Great! Leave your details and we'll reach out</h3>
         {onCancel && (
           <button
             onClick={onCancel}
-            aria-label="Cerrar formulario"
+            aria-label="Close form"
           >
             <X size={18} />
           </button>
         )}
       </div>
 
-      {/* Cursos recomendados (chips) */}
+      {/* Selected course (chips) */}
       {courseNames.length > 0 && (
         <div className="lead-form-courses">
           <p>Cursos de tu interés:</p>
@@ -174,9 +174,9 @@ const LeadForm: React.FC<LeadFormProps> = ({
         </div>
       )}
 
-      {/* Formulario */}
+      {/* Form */}
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        {/* Nombre */}
+        {/* Full name */}
         <div className="lead-form-field">
           <label>
             Nombre completo <span className="required">*</span>
@@ -201,7 +201,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
           )}
         </div>
 
-        {/* Teléfono */}
+        {/* Phone */}
         <div className="lead-form-field">
           <label>
             Teléfono <span className="required">*</span>
@@ -247,7 +247,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
           )}
         </div>
 
-        {/* Checkbox WhatsApp */}
+        {/* WhatsApp checkbox */}
         <div className="lead-form-checkbox">
           <div className="checkbox-wrapper">
             <input
@@ -267,7 +267,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
           )}
         </div>
 
-        {/* Error general */}
+        {/* General error */}
         {submitError && (
           <div className="lead-form-error">
             <span className="error-icon">⚠️</span>
@@ -275,7 +275,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
           </div>
         )}
 
-        {/* Botones */}
+        {/* Actions */}
         <div className="lead-form-actions">
           <button
             type="submit"

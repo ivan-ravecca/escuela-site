@@ -1,6 +1,6 @@
 @use 'variables' as *;
 
-/* Animaciones para el widget de chat */
+/* Animations for the chat widget */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -19,7 +19,7 @@
   }
 }
 
-/* Estilo para el scroll del área de mensajes */
+/* Scrollbar styles for the messages area */
 .chat-widget-window > div:nth-child(2)::-webkit-scrollbar {
   width: 6px;
 }
@@ -37,7 +37,7 @@
   background: $scrollbar-thumb-hover-gray;
 }
 
-/* Estilos para LeadForm */
+/* LeadForm styles */
 .lead-form-container {
   background-color: #f0fdf4;
   border: 1px solid #86efac;
@@ -308,7 +308,7 @@
   }
 }
 
-// /* Ajustes para mobile */
+// /* Mobile adjustments */
 // @media only screen and (max-width: 767px) {
 //   .chat-widget-button {
 //     width: 48px !important;

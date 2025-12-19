@@ -1,19 +1,19 @@
 const API_URL = import.meta.env.VITE_API_URL;
 import axios from "axios";
 
-// Variable para almacenar el token CSRF
+// Variable to store the CSRF token
 let csrfToken: string | null = null;
 
-// Crear instancia de axios con la URL base
+// Create axios instance with base URL
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // CRÍTICO: Permite enviar/recibir cookies
+  withCredentials: true, // CRITICAL: Allows sending/receiving cookies
 });
 
-// Función para obtener el token CSRF
+// Function to fetch the CSRF token
 export async function initializeCSRF(): Promise<void> {
   try {
     console.log('[CSRF] Requesting new CSRF token...');
@@ -27,21 +27,21 @@ export async function initializeCSRF(): Promise<void> {
   }
 }
 
-// Obtener el token actual (útil para debugging)
+// Get the current token (useful for debugging)
 export function getCSRFToken(): string | null {
   return csrfToken;
 }
 
-// Interceptor para agregar el token a las peticiones
+// Request interceptor to add the token to requests
 apiClient.interceptors.request.use(
   (config) => {
-    // Agregar Bearer token si existe
+    // Add Bearer token if present
     const token = localStorage.getItem("auth_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     
-    // Agregar CSRF token a todos los POST requests que vayan a /assistant
+    // Add CSRF token to all POST requests that go to /assistant
     const url = config.url || '';
     const isAssistantEndpoint = url.startsWith('/assistant/') || url.includes('/assistant/');
     
@@ -59,7 +59,7 @@ apiClient.interceptors.request.use(
   },
 );
 
-// Interceptor para manejar respuestas
+// Response interceptor
 apiClient.interceptors.response.use(
   (response) => {
     return response;
@@ -69,7 +69,7 @@ apiClient.interceptors.response.use(
     const url = originalRequest?.url || '';
     const isAssistantEndpoint = url.startsWith('/assistant/') || url.includes('/assistant/');
     
-    // Si obtenemos un 403 en /assistant/* y no hemos reintentado, obtener nuevo token CSRF
+    // If we get a 403 on /assistant/* and haven't retried, fetch a new CSRF token
     if (
       error.response?.status === 403 && 
       isAssistantEndpoint &&
@@ -79,19 +79,19 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       
       try {
-        await initializeCSRF(); // Obtener nuevo token
+        await initializeCSRF(); // Fetch new token
         originalRequest.headers['X-CSRF-Token'] = csrfToken;
         console.log('[CSRF] Retrying request with new token...');
-        return apiClient.request(originalRequest); // Reintentar request
+        return apiClient.request(originalRequest); // Retry request
       } catch (csrfError) {
         console.error('[CSRF] Failed to refresh CSRF token:', csrfError);
         return Promise.reject(error);
       }
     }
     
-    // Si obtenemos un 401 (no autorizado), podría ser que el token expiró
+    // If we get a 401 (Unauthorized), the token may have expired
     if (error.response && error.response.status === 401) {
-      // Redirigir al login o realizar alguna acción
+      // Redirect to login or perform another action
       localStorage.removeItem("auth_token");
       window.location.href = "/login";
     }

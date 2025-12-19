@@ -9,45 +9,45 @@ interface CourseCardProps {
   onContactInterest?: (courseId: string, courseName: string) => void;
 }
 
-// Mapeo de colores para categorías
+// Color mapping for categories
 const categoryColors: Record<string, string> = {
   inicial: COLORS.categoryInicial,
   avanzado: COLORS.categoryAvanzado,
   especialización: COLORS.categoryEspecializacion,
 };
 
-// Mapeo de colores para modalidades
+// Color mapping for modalities
 const modalityColors: Record<string, string> = {
   presencial: COLORS.modalityPresencial,
   virtual: COLORS.modalityVirtual,
   semipresencial: COLORS.modalitySemipresencial,
 };
 
-// Función helper para truncar texto
+// Helper function to truncate text
 const truncateText = (text: string, maxLength: number): string => {
   if (text.length <= maxLength) return text;
   return text.substring(0, maxLength).trim() + "...";
 };
 
-// Función para convertir horas a formato legible
+// Function to convert hours to a readable format
 const formatDuration = (hours?: number): string => {
   if (!hours) return "";
   
-  const months = Math.round(hours / 40); // Asumiendo 40 horas por mes
+  const months = Math.round(hours / 40); // Assuming 40 hours per month
   
   if (months === 0) {
-    return `${hours} horas`;
+    return `${hours} hours`;
   } else if (months === 1) {
-    return `${hours} horas - 1 mes aprox`;
+    return `${hours} hours - ~1 month`;
   } else {
-    return `${hours} horas - ${months} meses aprox`;
+    return `${hours} hours - ~${months} months`;
   }
 };
 
 const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInterest }) => {
   const [isHovered, setIsHovered] = React.useState(false);
   
-  // Compatibilidad con campos legacy
+  // Compatibility with legacy fields
   const courseName = course.name || course.title || "Curso sin título";
   const courseUrl = course.url || course.path || "#";
   const description = course.description || "";
@@ -69,7 +69,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
       onMouseLeave={() => setIsHovered(false)}
     >
       <div style={{ padding: "14px" }}>
-        {/* Header con badges */}
+        {/* Header with badges */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "10px" }}>
           {course.category && (
             <span
@@ -107,7 +107,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
           )}
         </div>
 
-        {/* Título del curso */}
+        {/* Course title */}
         <h3
           style={{ 
             fontSize: "15px",
@@ -120,7 +120,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
           {courseName}
         </h3>
 
-        {/* Descripción */}
+        {/* Description */}
         {description && (
           <p
             style={{
@@ -134,7 +134,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
           </p>
         )}
 
-        {/* Duración */}
+        {/* Duration */}
         {course.duration_hours && (
           <div
             style={{
@@ -151,7 +151,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
           </div>
         )}
 
-        {/* Botones de acción */}
+        {/* Action buttons */}
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <a
             href={courseUrl}
@@ -218,7 +218,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
         </div>
       </div>
 
-      {/* Indicador de oportunidades laborales (opcional) */}
+      {/* Job opportunities indicator (optional) */}
       {course.job_opportunities && course.job_opportunities.length > 0 && (
         <div
           style={{

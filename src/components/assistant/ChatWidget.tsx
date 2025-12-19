@@ -18,7 +18,7 @@ const ChatWidget: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   
-  // Usar el hook personalizado
+  // Use the custom assistant hook
   const { messages, isLoading, error, sendMessage, clearConversation, requestContactForCourse, addAssistantMessage } = useAssistant();
 
   const scrollToBottom = () => {
@@ -29,7 +29,7 @@ const ChatWidget: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Manejo de teclado: ESC para cerrar
+  // Keyboard handling: ESC to close
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -41,7 +41,7 @@ const ChatWidget: React.FC = () => {
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, setIsOpen]);
 
-  // Focus management: enfocar input cuando se abre
+  // Focus management: focus input when chat opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
       setTimeout(() => {
@@ -50,7 +50,7 @@ const ChatWidget: React.FC = () => {
     }
   }, [isOpen]);
 
-  // Debounce para el input (opcional, mejora performance)
+  // Debounced input handler (optional, improves performance)
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }, []);
@@ -61,7 +61,7 @@ const ChatWidget: React.FC = () => {
     const messageToSend = inputValue.trim();
     setInputValue("");
 
-    // Detectar si el usuario quiere ser contactado
+    // Detect if the user wants to be contacted
     const lowerContent = messageToSend.toLowerCase();
     if (
       lowerContent.includes("contactar") ||
@@ -101,14 +101,14 @@ const ChatWidget: React.FC = () => {
   };
 
   const handleContactInterest = (courseId: string, courseName: string) => {
-    // Agregar el curso a los cursos seleccionados
+    // Add the course to selected courses
     setSelectedCourses([courseId]);
     setSelectedCourseNames([courseName]);
     
-    // Solicitar información de contacto a través del asistente
+    // Ask for contact details via assistant
     requestContactForCourse(courseId, courseName);
     
-    // Mostrar el formulario de contacto
+    // Show the lead/contact form
     setShowLeadForm(true);
   };
 
@@ -117,22 +117,21 @@ const ChatWidget: React.FC = () => {
       await AssistantService.captureInterest(data);
       setShowLeadForm(false);
       
-      // Limpiar los cursos seleccionados
+      // Clear selected courses
       setSelectedCourses([]);
       setSelectedCourseNames([]);
       
-      // Agregar mensaje de confirmación directamente sin llamar a la API
+      // Add confirmation message directly without calling the chat API
       addAssistantMessage("¡Perfecto! Hemos recibido tu información. Nos pondremos en contacto contigo muy pronto por WhatsApp. ¡Gracias por tu interés!");
     } catch (error: any) {
       console.error("Error submitting lead:", error);
-      // El error será manejado por LeadForm
       throw error;
     }
   };
 
   return (
     <>
-      {/* Botón flotante */}
+      {/* Floating button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="chat-widget-button"
@@ -167,7 +166,7 @@ const ChatWidget: React.FC = () => {
         <MessageCircle size={24} />
       </button>
 
-      {/* Ventana de chat */}
+      {/* Chat window */}
       <div
         className="chat-widget-window"
         style={{
@@ -287,7 +286,7 @@ const ChatWidget: React.FC = () => {
           </div>
         </div>
 
-        {/* Área de error */}
+        {/* Error area */}
         {error && (
           <div
             style={{
@@ -306,7 +305,7 @@ const ChatWidget: React.FC = () => {
           </div>
         )}
 
-        {/* Área de mensajes */}
+        {/* Messages area */}
         <div
           style={{
             flex: 1,

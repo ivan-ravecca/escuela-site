@@ -17,21 +17,21 @@ interface RateLimitTracker {
   resetTime: number;
 }
 
-const RATE_LIMIT = 10; // mensajes por minuto
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minuto en ms
+const RATE_LIMIT = 10; // messages per minute
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute in ms
 const MAX_RETRIES = 3;
-const RETRY_DELAY = 1000; // 1 segundo
-const MAX_HISTORY_LENGTH = 20; // Máximo 20 mensajes en memoria
+const RETRY_DELAY = 1000; // 1 second
+const MAX_HISTORY_LENGTH = 20; // Maximum 20 messages in memory
 const STORAGE_KEY = 'assistant_conversation';
 
 export const useAssistant = (): UseAssistantReturn => {
-  // Cargar mensajes desde localStorage si existen
+  // Load messages from localStorage if they exist
   const [messages, setMessages] = useState<Message[]>(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Convertir timestamps de string a Date
+        // Convert timestamps from string to Date
         return parsed.map((msg: any) => ({
           ...msg,
           timestamp: new Date(msg.timestamp),
@@ -45,24 +45,24 @@ export const useAssistant = (): UseAssistantReturn => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   
-  // Tracking de rate limit
+  // Rate limit tracking
   const rateLimitRef = useRef<RateLimitTracker>({
     count: 0,
     resetTime: Date.now() + RATE_LIMIT_WINDOW,
   });
 
-  // Verificar si estamos dentro del rate limit
+  // Check if within rate limit
   const checkRateLimit = useCallback((): boolean => {
     const now = Date.now();
     const tracker = rateLimitRef.current;
 
-    // Resetear contador si pasó la ventana de tiempo
+    // Reset counter if time window passed
     if (now >= tracker.resetTime) {
       tracker.count = 0;
       tracker.resetTime = now + RATE_LIMIT_WINDOW;
     }
 
-    // Verificar si excedemos el límite
+    // Check if limit exceeded
     if (tracker.count >= RATE_LIMIT) {
       const waitTime = Math.ceil((tracker.resetTime - now) / 1000);
       setError(
@@ -75,7 +75,7 @@ export const useAssistant = (): UseAssistantReturn => {
     return true;
   }, []);
 
-  // Función helper para retry con backoff exponencial
+  // Helper function to retry with exponential backoff
   const retryWithBackoff = async <T,>(
     fn: () => Promise<T>,
     retries: number = MAX_RETRIES
@@ -87,7 +87,7 @@ export const useAssistant = (): UseAssistantReturn => {
         throw err;
       }
 
-      // Esperar antes de reintentar (backoff exponencial)
+      // Wait before retrying (exponential backoff)
       const delay = RETRY_DELAY * Math.pow(2, MAX_RETRIES - retries);
       await new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -95,7 +95,7 @@ export const useAssistant = (): UseAssistantReturn => {
     }
   };
 
-  // Persistir mensajes en localStorage cuando cambien
+  // Persist messages to localStorage when they change
   useEffect(() => {
     if (messages.length > 0) {
       try {
@@ -106,22 +106,22 @@ export const useAssistant = (): UseAssistantReturn => {
     }
   }, [messages]);
 
-  // Cargar mensaje de bienvenida al montar (solo si no hay mensajes guardados)
+  // Load welcome message on mount (only if no saved messages)
   useEffect(() => {
     const loadWelcomeMessage = async () => {
-      // No cargar si ya hay mensajes en el estado
+      // Do not load if messages already exist in state
       if (messages.length > 0) return;
 
       setIsLoading(true);
       setError(null);
 
       try {
-        // 1. Primero inicializar el token CSRF
+        // 1. Initialize CSRF token first
         await retryWithBackoff(() =>
           AssistantService.initializeCSRF()
         );
         
-        // 2. Luego obtener el mensaje de bienvenida
+        // 2. Then fetch welcome message
         const welcomeText = await retryWithBackoff(() =>
           AssistantService.getWelcomeMessage()
         );
@@ -149,7 +149,7 @@ export const useAssistant = (): UseAssistantReturn => {
     loadWelcomeMessage();
   }, []);
 
-  // Enviar mensaje del usuario
+  // Send user message
   const sendMessage = useCallback(
     async (messageContent: string): Promise<void> => {
       if (!messageContent.trim()) {
@@ -165,7 +165,7 @@ export const useAssistant = (): UseAssistantReturn => {
       setIsLoading(true);
       setError(null);
 
-      // Agregar mensaje del usuario inmediatamente
+      // Add user message immediately
       const userMessage: Message = {
         id: `user-${Date.now()}`,
         role: "user",
@@ -184,7 +184,7 @@ export const useAssistant = (): UseAssistantReturn => {
       });
 
       try {
-        // Construir historial de conversación (limitar a últimos 10 para el API)
+        // Build conversation history (limit to last 10 for API)
         const recentMessages = messages.slice(-10);
         const conversationHistory: ConversationHistory[] = recentMessages.map(
           (msg) => ({
@@ -193,18 +193,18 @@ export const useAssistant = (): UseAssistantReturn => {
           })
         );
 
-        // Agregar el mensaje actual al historial
+        // Add current message to history
         conversationHistory.push({
           role: "user",
           content: messageContent.trim(),
         });
 
-        // Enviar al backend con retry logic
+        // Send to backend with retry logic
         const response = await retryWithBackoff(() =>
           AssistantService.sendMessage(messageContent.trim(), conversationHistory)
         );
 
-        // Agregar respuesta del asistente
+        // Add assistant response
         const assistantMessage: Message = {
           id: `assistant-${Date.now()}`,
           role: "assistant",
@@ -235,32 +235,32 @@ export const useAssistant = (): UseAssistantReturn => {
     [messages, checkRateLimit]
   );
 
-  // Limpiar conversación
+  // Clear conversation
   const clearConversation = useCallback(async () => {
     setMessages([]);
     setError(null);
     setIsLoading(true);
 
-    // Limpiar localStorage
+    // Clear localStorage
     try {
       localStorage.removeItem(STORAGE_KEY);
     } catch (err) {
       console.error('Error clearing storage:', err);
     }
 
-    // Resetear rate limit al limpiar
+    // Reset rate limit after clearing
     rateLimitRef.current = {
       count: 0,
       resetTime: Date.now() + RATE_LIMIT_WINDOW,
     };
 
     try {
-      // Reinicializar CSRF token
+      // Reinitialize CSRF token
       await retryWithBackoff(() =>
         AssistantService.initializeCSRF()
       );
       
-      // Recargar mensaje de bienvenida
+      // Reload welcome message
       const welcomeText = await retryWithBackoff(() =>
         AssistantService.getWelcomeMessage()
       );
@@ -285,8 +285,10 @@ export const useAssistant = (): UseAssistantReturn => {
     }
   }, []);
 
-  // Solicitar que el asistente pida información de contacto para un curso específico
+  // Ask the assistant to request contact details for a specific course
   const requestContactForCourse = useCallback((courseId: string, courseName: string) => {
+    // Mark parameter as used to satisfy TS no-unused-parameters
+    void courseId;
     const contactMessage: Message = {
       id: `contact-request-${Date.now()}`,
       role: "assistant",
@@ -297,7 +299,7 @@ export const useAssistant = (): UseAssistantReturn => {
     setMessages((prev) => [...prev, contactMessage]);
   }, []);
 
-  // Agregar un mensaje del asistente sin llamar a la API
+  // Add an assistant message without calling the API
   const addAssistantMessage = useCallback((content: string) => {
     const message: Message = {
       id: `assistant-${Date.now()}`,

@@ -1,19 +1,19 @@
-// Ejemplo de uso del componente LeadForm (LeadCaptureForm)
-// Este archivo muestra cómo usar el formulario de captura de leads
+// Example usage of the LeadForm component (LeadCaptureForm)
+// This file shows how to use the lead capture form
 
 import LeadForm from './LeadForm';
 import { LeadCaptureData } from '../../types/assistant';
 
-// Ejemplo 1: Formulario básico sin cursos
+// Example 1: Basic form without courses
 const BasicLeadFormExample = () => {
   const handleSubmit = async (data: LeadCaptureData) => {
     console.log('Datos enviados:', data);
-    // Aquí iría la llamada al API
+    // Here you would call the API
     // await AssistantService.captureInterest(data);
   };
 
   const handleCancel = () => {
-    console.log('Formulario cancelado');
+    console.log('Form canceled');
   };
 
   return (
@@ -24,7 +24,7 @@ const BasicLeadFormExample = () => {
   );
 };
 
-// Ejemplo 2: Formulario con cursos recomendados
+// Example 2: Form with recommended courses
 const LeadFormWithCoursesExample = () => {
   const courseIds = ['curso-1', 'curso-2', 'curso-3'];
   const courseNames = [
@@ -34,7 +34,7 @@ const LeadFormWithCoursesExample = () => {
   ];
 
   const handleSubmit = async (data: LeadCaptureData) => {
-    console.log('Lead capturado con cursos:', data);
+    console.log('Lead captured with courses:', data);
     // POST /assistant/interest
   };
 
@@ -43,27 +43,27 @@ const LeadFormWithCoursesExample = () => {
       interestedCourses={courseIds}
       courseNames={courseNames}
       onSubmit={handleSubmit}
-      onCancel={() => console.log('Cancelado')}
+      onCancel={() => console.log('Canceled')}
     />
   );
 };
 
-// Ejemplo 3: Integración completa con estado de éxito
+// Example 3: Full integration with success state
 const FullIntegrationExample = () => {
   const [showForm, setShowForm] = React.useState(false);
 
   const handleSubmit = async (data: LeadCaptureData) => {
     try {
-      // Simulación de API call
+      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
-      console.log('¡Éxito!', data);
-      // El formulario se cierra automáticamente después de 2 segundos
+      console.log('Success!', data);
+      // The form closes automatically after 2 seconds
       setTimeout(() => {
         setShowForm(false);
       }, 2000);
     } catch (error) {
       console.error('Error:', error);
-      throw error; // El formulario manejará el error
+      throw error; // The form will handle the error
     }
   };
 
@@ -88,30 +88,30 @@ const FullIntegrationExample = () => {
   );
 };
 
-// Datos de prueba válidos
+// Valid test data
 export const VALID_TEST_DATA = {
   name: 'Juan Pérez',
-  phone: '099 123 456', // Formato uruguayo válido
+  phone: '099 123 456', // Valid Uruguayan format
   email: 'juan@example.com',
   acceptWhatsApp: true,
 };
 
-// Casos de validación
+// Validation cases
 export const VALIDATION_CASES = {
-  // Nombres válidos
+  // Valid names
   validNames: [
     'Juan',
     'María García',
     'José Luis Rodríguez',
   ],
   
-  // Nombres inválidos
+  // Invalid names
   invalidNames: [
     'AB', // Muy corto (menos de 3 caracteres)
     '  ', // Solo espacios
   ],
   
-  // Teléfonos válidos (Uruguay)
+  // Valid phones (Uruguay)
   validPhones: [
     '099123456',
     '099 123 456',
@@ -119,7 +119,7 @@ export const VALIDATION_CASES = {
     '91234567', // Sin 0 inicial
   ],
   
-  // Teléfonos inválidos
+  // Invalid phones
   invalidPhones: [
     '123456', // Muy corto
     '012345678', // No empieza con 09X
@@ -127,14 +127,14 @@ export const VALIDATION_CASES = {
     '099-123-456', // Formato incorrecto (usa guiones)
   ],
   
-  // Emails válidos
+  // Valid emails
   validEmails: [
     'usuario@dominio.com',
     'nombre.apellido@empresa.uy',
     'test+tag@ejemplo.com.ar',
   ],
   
-  // Emails inválidos
+  // Invalid emails
   invalidEmails: [
     'invalido@', // Sin dominio
     '@dominio.com', // Sin usuario
@@ -143,24 +143,24 @@ export const VALIDATION_CASES = {
   ],
 };
 
-// Mensajes de error esperados
+// Expected error messages
 export const ERROR_MESSAGES = {
-  nameRequired: 'El nombre es requerido',
-  nameMinLength: 'El nombre debe tener al menos 3 caracteres',
-  phoneRequired: 'El teléfono es requerido',
-  phoneInvalid: 'Formato inválido. Ej: 099 123 456',
-  emailInvalid: 'Formato de email inválido',
-  whatsappRequired: 'Debes aceptar ser contactado por WhatsApp',
-  rateLimit: 'Has alcanzado el límite de solicitudes. Por favor, intenta más tarde.',
-  genericError: 'Error al enviar la información. Por favor, intenta nuevamente.',
+  nameRequired: 'Name is required',
+  nameMinLength: 'Name must be at least 3 characters',
+  phoneRequired: 'Phone is required',
+  phoneInvalid: 'Invalid format. Eg: 099 123 456',
+  emailInvalid: 'Invalid email format',
+  whatsappRequired: 'You must accept to be contacted via WhatsApp',
+  rateLimit: 'You have reached the request limit. Please try again later.',
+  genericError: 'Error sending the information. Please try again.',
 };
 
-// Estados del formulario
+// Form states
 export const FORM_STATES = {
-  idle: 'Estado inicial, esperando entrada del usuario',
-  submitting: 'Enviando datos al servidor (botón con loading)',
-  success: 'Datos enviados correctamente (mensaje de éxito)',
-  error: 'Error en el envío (mensaje de error visible)',
+  idle: 'Initial state, waiting for user input',
+  submitting: 'Submitting data to the server (button with loading)',
+  success: 'Data sent successfully (success message)',
+  error: 'Error during submission (error message visible)',
 };
 
 export default {

@@ -8,9 +8,16 @@ export interface Message {
 
 export interface Course {
   id: string;
-  title: string;
+  name: string;
+  url: string;
   description?: string;
-  path: string;
+  duration_hours?: number;
+  modality?: 'presencial' | 'virtual' | 'semipresencial';
+  category?: 'inicial' | 'avanzado' | 'especialización';
+  job_opportunities?: string[];
+  // Legacy fields for backwards compatibility
+  title?: string;
+  path?: string;
 }
 
 export interface ConversationHistory {
@@ -26,6 +33,7 @@ export interface ChatResponse {
 export interface LeadCaptureData {
   name: string;
   phone: string;
-  email?: string;
-  interested_courses?: string[];
+  email: string;
+  course_id: string;
+  course_name: string;
 }

@@ -26,7 +26,11 @@ export class AssistantService {
     return response.data;
   }
 
-  static async captureInterest(data: LeadCaptureData): Promise<void> {
-    await apiClient.post(`${API_BASE}/interest`, data);
+  static async captureInterest(data: LeadCaptureData): Promise<{ message: string; success: boolean }> {
+    const response = await apiClient.post<{ message: string; success: boolean }>(
+      `${API_BASE}/interest`,
+      data
+    );
+    return response.data;
   }
 }

@@ -20,4 +20,8 @@ export default defineConfig({
       scss: {},
     },
   },
+  server: {
+    port: 3000, // Cambia este número al puerto que desees
+    host: true, // Esto permite acceso desde la red
+  },
 });

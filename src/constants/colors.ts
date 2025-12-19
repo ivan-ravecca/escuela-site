@@ -39,6 +39,21 @@ export const COLORS = {
   scrollbarTrackGray: '#f1f1f1',
   scrollbarThumbGray: '#c1c1c1',
   scrollbarThumbHoverGray: '#a1a1a1',
+  
+  // Error states
+  errorBackground: '#fee2e2',
+  errorBorder: '#fecaca',
+  errorText: '#991b1b',
+  
+  // Course category badges
+  categoryInicial: '#10b981', // verde
+  categoryAvanzado: '#3b82f6', // azul
+  categoryEspecializacion: '#8b5cf6', // morado
+  
+  // Modality badges
+  modalityPresencial: '#f97316', // naranja
+  modalityVirtual: '#06b6d4', // cyan
+  modalitySemipresencial: '#eab308', // amarillo
 } as const;
 
 export type ColorKey = keyof typeof COLORS;

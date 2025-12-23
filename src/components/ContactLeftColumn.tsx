@@ -10,10 +10,8 @@ import {
 import { Link } from "react-router-dom";
 
 const ContactLeftColumn: React.FC = () => {
-  // Función para determinar los horarios según la fecha actual
   const getSchedule = () => {
     const now = new Date();
-    const currentYear = now.getFullYear();
     const month = now.getMonth(); // 0 = Enero, 1 = Febrero, etc.
     const day = now.getDate();
 

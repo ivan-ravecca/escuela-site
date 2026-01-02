@@ -88,7 +88,7 @@ const enfermeria: CourseInterface = {
   id: "auxiliar-enfermeria",
   title: "Auxiliar de Enfermería",
   term: "Con una duración aproximada de 24 meses presencial, este programa intensivo está diseñado para satisfacer la creciente demanda de profesionales cualificados en el sector sanitario, tanto público como privado",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Programa del curso</h4>
@@ -182,7 +182,7 @@ const servicioTisaneria: CourseInterface = {
   term: "Se trata de un curso de 6 meses de duración con teórico y práctico presencial.",
   openRegistration: (
     <>
-      <p>Nuevo inicio de cursos 2025.</p>
+      <p>Nuevo inicio de cursos 2026.</p>
       <p>
         Las inscripciones estan abiertas, curso presencial. Clínica en el
         laboratorio equipado como la unidad del paciente con modelos anatómicos
@@ -224,7 +224,7 @@ const farmacia: CourseInterface = {
   term: "Se trata de un curso de 12 meses en ambas modalidades (virtual por medio de plataforma y presencial).",
   openRegistration: (
     <>
-      <p>Nuevo inicio de cursos 2025.</p>
+      <p>Nuevo inicio de cursos 2026.</p>
     </>
   ),
   info: (
@@ -302,7 +302,7 @@ const camillero: CourseInterface = {
   title: "Camillero",
   term: "Clases online una vez a la semana, duración total es de 3 meses.",
   openRegistration:
-    "Ya están abiertas las inscripciones para 2025, consulte por fechas de comienzo.",
+    "Ya están abiertas las inscripciones para 2026, consulte por fechas de comienzo.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -410,7 +410,7 @@ const higiene: CourseInterface = {
   id: "supervision-de-higiene-hospitalaria",
   title: "Supervisión de Higiene Hospitalaria",
   term: "Se trata de un curso corto de 3 meses de duración con alta demanda laboral tanto en el ámbito público como el privado.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -453,7 +453,7 @@ const chofer: CourseInterface = {
   id: "chofer-sanitario",
   title: "Chofer Sanitario",
   term: "Se trata de un curso corto de 3 meses de duración con alta demanda laboral tanto en el ámbito público como el privado.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -498,7 +498,7 @@ const blockQuirurgico: CourseInterface = {
   id: "auxiliar-de-servicio-adiestrado-en-block-quirurgico-y-cti",
   title: "Auxiliar de servicio adiestrado en Block Quirúrgico y CTI",
   term: "Se trata de un curso corto virtual de 3 meses de duración con alta demanda laboral tanto en el ámbito público como el privado.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -576,7 +576,7 @@ const emergenciaUrgencia: CourseInterface = {
   id: "emergencia-y-urgencia",
   title: "Emergencia y Urgencia",
   term: "Se trata de un curso corto virtual de 3 meses de duración con alta demanda laboral tanto en el ámbito público como el privado.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -610,7 +610,7 @@ const economato: CourseInterface = {
   id: "economato-y-esterilizacion",
   title: "Economato y Esterilización",
   term: "Se trata de un curso presencial, corto de 4 clases de duración con alta demanda laboral tanto en el ámbito público como el privado.",
-  openRegistration: "Consulte por inscripciones para el año 2025.",
+  openRegistration: "Consulte por inscripciones para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -655,7 +655,7 @@ const cosmetologia: CourseInterface = {
   id: "cosmetologia-nivel-1",
   title: "Cosmetologia Nivel 1",
   term: "Se trata de un curso corto y presencial de 2 véces por semana, 4 horas por clase para un total de 30 horas.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -685,7 +685,7 @@ const iass: CourseInterface = {
   id: "iass",
   title: "IASS",
   term: "Se trata de un curso virtual de unas 30 horas en total.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -719,7 +719,7 @@ const actualizacionHeridas: CourseInterface = {
   id: "actualizacion-manejo-heridas-curaciones-avanzadas",
   title: "Actualización en el manejo de heridas y curaciones avanzadas",
   term: "Se trata de un curso corto virtual de 4 clases de duración.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -778,7 +778,7 @@ const auxiliarEstadisticas: CourseInterface = {
   id: "auxiliar-estadisticas-de-salud-registros-medicos",
   title: "Auxiliar de Estadísticas de Salud y Registros Médicos",
   term: "Se trata de un curso corto de unos 6~7 meses de duración aproximadamente con alta demanda laboral tanto en el ámbito público como el privado.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -847,7 +847,7 @@ const hematoOncologia: CourseInterface = {
   id: "actualizacion-hemato-oncologia",
   title: "Actualización en HEMATO ONCOLOGÍA",
   term: "Se trata de un curso corto una instancia en ambas modalidades (virtual o presencial).",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -879,7 +879,7 @@ const ostomias: CourseInterface = {
   id: "ostomias",
   title: "Masterclass de OSTOMÍAS",
   term: "Se trata de un curso corto una instancia en ambas modalidades (virtual o presencial).",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -920,7 +920,7 @@ const actualizacionVacunas: CourseInterface = {
   id: "actualizacion-en-vacunas",
   title: "Actualizacion en Vacunas",
   term: "Se trata de un curso corto de una única instancia presencial.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -957,7 +957,7 @@ const tallerPrimerosAuxiliosRCP: CourseInterface = {
   id: "taller-primeros-auxilios-rcp",
   title: "Taller de Primeros Auxilios y RCP",
   term: "Se trata de un curso corto de una sola instancia presencial.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>
@@ -1030,7 +1030,7 @@ const lavanderiaHospitalaria: CourseInterface = {
   id: "lavanderia-hospitalaria",
   title: "Lavandería Hospitalaria",
   term: "Se trata de un curso corto de 3 meses de duración con alta demanda laboral tanto en el ámbito público como el privado.",
-  openRegistration: "Inscripciones abiertas para el año 2025.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
   info: (
     <>
       <h4>Información del curso</h4>

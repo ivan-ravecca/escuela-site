@@ -173,7 +173,7 @@ const CreateCertificate: React.FC = () => {
                   value={formData.courseDate}
                   onChange={handleInputChange}
                   style={{ width: "100%" }}
-                  placeholder="Ej: 25 de Mayo de 2025"
+                  placeholder="Ej: 25 de Mayo de 2026"
                   required
                 />
               </div>

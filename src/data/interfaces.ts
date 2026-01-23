@@ -81,7 +81,17 @@ export interface SocialIconProps {
 }
 
 // Diplomaservice
-export type ProgramOption = "op1" | "op2" | "op3";
+export type ProgramOption = 
+  | "prog-ac-heridas-curaciones" 
+  | "prog-ac-iaas" 
+  | "prog-ac-sup-higiene" 
+  | "prog-ac-lavanderia-hospitalaria" 
+  | "prog-ac-emergencia-urgencia" 
+  | "prog-ac-atuss" 
+  | "prog-ac-ad-bq-cti" 
+  | "prog-ac-camillero" 
+  | "prog-ac-economato" 
+  | "prog-ac-chofer-sanitario";
 
 interface CertificateBaseData {
   studentName: string;
@@ -97,9 +107,9 @@ export interface CertificateCourseData extends CertificateBaseData {
   certMec: false;
   programOption: ProgramOption;
 }
-export interface CertificateOtherData extends CertificateBaseData {
-  certMec: false;
-  programOption?: ProgramOption;
+
+export interface CertificateQRData extends CertificateBaseData {
+  // Solo contiene los datos base, sin certMec ni programOption
 }
 
-export type CertificateData = CertificateMecData | CertificateCourseData | CertificateOtherData;
+export type CertificateData = CertificateMecData | CertificateCourseData | CertificateQRData;

@@ -81,9 +81,25 @@ export interface SocialIconProps {
 }
 
 // Diplomaservice
-export interface CertificateData {
+export type ProgramOption = "op1" | "op2" | "op3";
+
+interface CertificateBaseData {
   studentName: string;
   courseName: string;
   courseDate: string;
-  driveUrl: string;
 }
+
+export interface CertificateMecData extends CertificateBaseData {
+  certMec: true;
+}
+
+export interface CertificateCourseData extends CertificateBaseData {
+  certMec: false;
+  programOption: ProgramOption;
+}
+export interface CertificateOtherData extends CertificateBaseData {
+  certMec: false;
+  programOption?: ProgramOption;
+}
+
+export type CertificateData = CertificateMecData | CertificateCourseData | CertificateOtherData;

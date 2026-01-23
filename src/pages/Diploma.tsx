@@ -120,7 +120,7 @@ const Diploma: React.FC = () => {
 
             {pdfUrl && !isLoading && !error && (
               <div className="w-full flex justify-center">
-                <div className="mb-4 flex justify-end w-full">
+                <div className="mb-4 flex justify-end">
                   <a
                     href={pdfUrl}
                     download={fileName || "diploma.pdf"}

@@ -21,7 +21,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000, // Change this number to your desired port
+    port: 5173, // Change this number to your desired port
     host: true, // This allows access from the local network
   },
 });

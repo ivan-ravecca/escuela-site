@@ -1,23 +1,55 @@
 import React, { useState } from "react";
 import { createCertificate } from "../services/DiplomaService";
+import type { ProgramOption } from "../data/interfaces";
+
+const PROGRAM_OPTIONS = [
+  { value: "prog-ac-heridas-curaciones", label: "PROG. ACADÉMICO HERIDAS Y CURACIONES" },
+  { value: "prog-ac-iaas", label: "PROG. ACADÉMICO IAAS" },
+  { value: "prog-ac-sup-higiene", label: "PROG. ACADÉMICO SUP. HIGIENE" },
+  { value: "prog-ac-lavanderia-hospitalaria", label: "PROG. ACADÉMICO LAVANDERIA HOSPITALARIA" },
+  { value: "prog-ac-emergencia-urgencia", label: "PROG. ACADÉMICO EMERGENCIA Y URGENCIA" },
+  { value: "prog-ac-atuss", label: "PROG. ACADÉMICO ATUSS" },
+  { value: "prog-ac-ad-bq-cti", label: "PROG. ACADÉMICO AD. BQ y CTI" },
+  { value: "prog-ac-camillero", label: "PROG. ACADÉMICO CAMILLERO" },
+  { value: "prog-ac-economato", label: "PROG. ACADEMICO ECONOMATO" },
+  { value: "prog-ac-chofer-sanitario", label: "PROG. ACADEMICO CHOFER SANITARIO" },
+];
 
 const CreateCertificate: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState<{
+    studentName: string;
+    courseName: string;
+    courseDate: string;
+    certificateType: "certMec" | "certCurso" | "qr";
+    programOption: ProgramOption | "";
+  }>({
     studentName: "",
     courseName: "",
     courseDate: "",
-    certMec: false,
-    driveUrl: "",
+    certificateType: "certMec",
+    programOption: "",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
     // Clear error when user starts typing
+    if (error) setError(null);
+  };
+
+  const handleCertificateTypeChange = (certificateType: "certMec" | "certCurso" | "qr") => {
+    setFormData((prev) => ({
+      ...prev,
+      certificateType,
+      programOption: certificateType === "certCurso" ? prev.programOption : "",
+    }));
     if (error) setError(null);
   };
 
@@ -26,8 +58,8 @@ const CreateCertificate: React.FC = () => {
       studentName: "",
       courseName: "",
       courseDate: "",
-      certMec: false,
-      driveUrl: "",
+      certificateType: "certMec",
+      programOption: "",
     });
     setError(null);
 
@@ -47,6 +79,11 @@ const CreateCertificate: React.FC = () => {
       return;
     }
 
+    if (formData.certificateType === "certCurso" && !formData.programOption) {
+      setError("Seleccione una opción de programa");
+      return;
+    }
+
     try {
       setIsLoading(true);
       setError(null);
@@ -56,7 +93,33 @@ const CreateCertificate: React.FC = () => {
         URL.revokeObjectURL(pdfUrl);
       }
 
-      const response = await createCertificate(formData);
+      let payload;
+      if (formData.certificateType === "certMec") {
+        payload = {
+          studentName: formData.studentName,
+          courseName: formData.courseName,
+          courseDate: formData.courseDate,
+          certMec: true as true,
+        };
+      } else if (formData.certificateType === "certCurso") {
+        payload = {
+          studentName: formData.studentName,
+          courseName: formData.courseName,
+          courseDate: formData.courseDate,
+          certMec: false as false,
+          programOption: formData.programOption as ProgramOption,
+        };
+      } else {
+        // For "qr", send a valid CertificateOtherData with required description
+        payload = {
+          studentName: formData.studentName,
+          courseName: formData.courseName,
+          courseDate: formData.courseDate,
+          certMec: false as false,
+        };
+      }
+
+      const response = await createCertificate(payload);
 
       if (!response) {
         throw new Error("No se recibió respuesta del servidor");
@@ -178,42 +241,78 @@ const CreateCertificate: React.FC = () => {
                 />
               </div>
               <div className="form-field" style={{ marginBottom: "15px" }}>
-                <div className="form-field" style={{ marginBottom: "15px" }}>
+                <label style={{ display: "block", marginBottom: "8px" }}>
+                  Tipo de certificado
+                </label>
+                <div style={{ display: "flex", gap: "20px" }}>
                   <label
                     htmlFor="certMec"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      cursor: "pointer",
-                    }}
+                    style={{ display: "inline-flex", alignItems: "center", cursor: "pointer" }}
                   >
                     <input
-                      type="checkbox"
+                      type="radio"
                       id="certMec"
-                      name="certMec"
-                      checked={formData.certMec}
-                      onChange={(e) => {
-                        const { name, checked } = e.target;
-                        setFormData((prev) => ({ ...prev, [name]: checked }));
-                      }}
+                      name="certType"
+                      value="certMec"
+                      checked={formData.certificateType === "certMec"}
+                      onChange={() => handleCertificateTypeChange("certMec")}
                       style={{ marginRight: "8px" }}
                     />
                     Certifica MEC
                   </label>
+                  <label
+                    htmlFor="certCurso"
+                    style={{ display: "inline-flex", alignItems: "center", cursor: "pointer" }}
+                  >
+                    <input
+                      type="radio"
+                      id="certCurso"
+                      name="certType"
+                      value="certCurso"
+                      checked={formData.certificateType === "certCurso"}
+                      onChange={() => handleCertificateTypeChange("certCurso")}
+                      style={{ marginRight: "8px" }}
+                    />
+                    Diploma con Programa y QR
+                  </label>
+                  <label
+                    htmlFor="qr"
+                    style={{ display: "inline-flex", alignItems: "center", cursor: "pointer" }}
+                  >
+                    <input
+                      type="radio"
+                      id="qr"
+                      name="certType"
+                      value="qr"
+                      checked={formData.certificateType === "qr"}
+                      onChange={() => handleCertificateTypeChange("qr")}
+                      style={{ marginRight: "8px" }}
+                    />
+                    Solo diploma con QR
+                  </label>
                 </div>
               </div>
-              {!formData.certMec && (
+
+              {formData.certificateType === "certCurso" && (
                 <div className="form-field" style={{ marginBottom: "15px" }}>
-                  <label htmlFor="driveUrl">URL de Drive</label>
-                  <input
-                    type="text"
-                    id="driveUrl"
-                    name="driveUrl"
-                    value={formData.driveUrl}
+                  <label htmlFor="programOption">Programa</label>
+                  <select
+                    id="programOption"
+                    name="programOption"
+                    value={formData.programOption}
                     onChange={handleInputChange}
                     style={{ width: "100%" }}
-                    placeholder="https://drive.google.com/file/d/..."
-                  />
+                    required={formData.certificateType === "certCurso"}
+                  >
+                    <option value="" disabled>
+                      Seleccionar
+                    </option>
+                    {PROGRAM_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               )}
 

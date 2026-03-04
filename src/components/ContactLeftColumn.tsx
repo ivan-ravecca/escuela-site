@@ -10,38 +10,38 @@ import {
 import { Link } from "react-router-dom";
 
 const ContactLeftColumn: React.FC = () => {
-  const getSchedule = () => {
-    const now = new Date();
-    const month = now.getMonth(); // 0 = Enero, 1 = Febrero, etc.
-    const day = now.getDate();
+  // const getSchedule = () => {
+  //   const now = new Date();
+  //   const month = now.getMonth(); // 0 = Enero, 1 = Febrero, etc.
+  //   const day = now.getDate();
 
-    // Solo aplica horarios especiales en enero
-    if (month === 0) { // Enero
-      // Del 2 al 10 de enero (inclusive)
-      if (day >= 2 && day <= 10) {
-        return {
-          weekdays: "9 am a 5:30 pm",
-          saturday: "Cerrado",
-          sunday: "Cerrado"
-        };
-      }
-      // Del 12 de enero en adelante
-      else if (day >= 12) {
-        return {
-          weekdays: "8 am a 4:30 pm",
-          saturday: "Cerrado",
-          sunday: "Cerrado"
-        };
-      }
-    }
+  //   // Solo aplica horarios especiales en enero
+  //   if (month === 0) { // Enero
+  //     // Del 2 al 10 de enero (inclusive)
+  //     if (day >= 2 && day <= 10) {
+  //       return {
+  //         weekdays: "9 am a 5:30 pm",
+  //         saturday: "Cerrado",
+  //         sunday: "Cerrado"
+  //       };
+  //     }
+  //     // Del 12 de enero en adelante
+  //     else if (day >= 12) {
+  //       return {
+  //         weekdays: "8 am a 4:30 pm",
+  //         saturday: "Cerrado",
+  //         sunday: "Cerrado"
+  //       };
+  //     }
+  //   }
 
-    // Horarios normales (fuera de enero o 1 y 11 de enero)
-    return {
-      weekdays: "8 am a 8 pm",
-      saturday: "9 am a 1 pm",
-      sunday: "Cerrado"
-    };
-  };
+  //   // Horarios normales (fuera de enero o 1 y 11 de enero)
+  //   return {
+  //     weekdays: "8 am a 8 pm",
+  //     saturday: "9 am a 1 pm",
+  //     sunday: "Cerrado"
+  //   };
+  // };
 
   // const schedule = getSchedule();
   const schedule = {

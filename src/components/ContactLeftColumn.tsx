@@ -43,7 +43,12 @@ const ContactLeftColumn: React.FC = () => {
     };
   };
 
-  const schedule = getSchedule();
+  // const schedule = getSchedule();
+  const schedule = {
+    weekdays: "8 am a 5:30 pm",
+    saturday: "Cerrado",
+    sunday: "Cerrado"
+  };
 
   return (
     <div className="four floated sidebar left">

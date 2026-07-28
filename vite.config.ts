@@ -39,13 +39,44 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],
-      include: ["src/**/*.{ts,tsx}"],
+      include: [
+        "src/helpers/**/*.{ts,tsx}",
+        "src/hooks/**/*.{ts,tsx}",
+        "src/contexts/**/*.{ts,tsx}",
+        "src/interceptors/**/*.{ts,tsx}",
+        "src/services/**/*.{ts,tsx}",
+      ],
       exclude: [
         "src/**/*.d.ts",
         "src/main.tsx",
         "src/App.tsx",
+        "src/hooks/**/*.test.{ts,tsx}",
+        "src/contexts/**/*.test.{ts,tsx}",
+        "src/interceptors/**/*.test.{ts,tsx}",
+        "src/services/**/*.test.{ts,tsx}",
+        "src/helpers/**/*.test.{ts,tsx}",
         "src/styles/**",
       ],
+      thresholds: {
+        lines: 80,
+        statements: 80,
+        functions: 80,
+        "src/hooks/useAssistant.ts": {
+          lines: 80,
+          statements: 80,
+          functions: 90,
+        },
+        "src/contexts/AuthContext.tsx": {
+          lines: 90,
+          statements: 90,
+          functions: 80,
+        },
+        "src/interceptors/apiClient.ts": {
+          lines: 80,
+          statements: 80,
+          functions: 65,
+        },
+      },
     },
   },
 });

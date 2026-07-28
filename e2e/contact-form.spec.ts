@@ -75,9 +75,16 @@ test.describe("Contact Form", () => {
     // Submit
     await submitButton.click();
 
-    // Esperar que aparezca el mensaje de procesamiento o éxito
-    const notificationMessage = page.locator(".notification");
-    await expect(notificationMessage).toBeVisible({ timeout: 5000 });
+    // Puede mostrarse primero el aviso de procesamiento y luego el resultado.
+    // Usamos selectores explícitos para evitar strict-mode con múltiples .notification.
+    const processingNotice = page.locator(".notification.notice");
+    const resultMessage = page.locator(
+      ".notification.success.closeable, .notification.error.closeable",
+    );
+
+    await expect(
+      processingNotice.or(resultMessage).first(),
+    ).toBeVisible({ timeout: 8000 });
   });
 
   test("15. Formulario limpia campos después de envío exitoso", async ({
@@ -99,15 +106,20 @@ test.describe("Contact Form", () => {
     // Submit
     await submitButton.click();
 
-    // Esperar a que aparezca el mensaje de procesamiento o resultado
-    const notification = page.locator(".notification");
-    await expect(notification).toBeVisible({ timeout: 8000 });
+    // Esperar a que aparezca el resultado final del envío.
+    const resultMessage = page.locator(
+      ".notification.success.closeable, .notification.error.closeable",
+    );
+    await expect(resultMessage).toBeVisible({ timeout: 10000 });
 
-    // Esperar a que se resuelva (puede ser success o error, pero algo debe pasar)
-    await page.waitForTimeout(1000);
+    // Esperar a que termine el estado de procesamiento para validar estado final.
+    await expect(submitButton).toBeEnabled({ timeout: 10000 });
 
-    // Después del procesamiento, el input debe estar deshabilitado mientras se procesa,
-    // y luego debe poder ser rellenado nuevamente
-    await expect(submitButton).toBeEnabled();
+    // Si fue éxito, el formulario se limpia.
+    if (await page.locator(".notification.success.closeable").isVisible()) {
+      await expect(nameInput).toHaveValue("");
+      await expect(emailInput).toHaveValue("");
+      await expect(commentsInput).toHaveValue("");
+    }
   });
 });

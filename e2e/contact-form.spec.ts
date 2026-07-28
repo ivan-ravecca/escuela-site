@@ -75,16 +75,12 @@ test.describe("Contact Form", () => {
     // Submit
     await submitButton.click();
 
-    // Puede mostrarse primero el aviso de procesamiento y luego el resultado.
-    // Usamos selectores explícitos para evitar strict-mode con múltiples .notification.
-    const processingNotice = page.locator(".notification.notice");
+    // Validar estado final estable: el mensaje de resultado del envío.
     const resultMessage = page.locator(
       ".notification.success.closeable, .notification.error.closeable",
     );
 
-    await expect(
-      processingNotice.or(resultMessage).first(),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(resultMessage).toBeVisible({ timeout: 10000 });
   });
 
   test("15. Formulario limpia campos después de envío exitoso", async ({

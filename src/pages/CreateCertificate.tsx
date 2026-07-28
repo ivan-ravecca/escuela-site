@@ -11,8 +11,9 @@ const PROGRAM_OPTIONS = [
   { value: "prog-ac-atuss", label: "PROG. ACADÉMICO ATUSS" },
   { value: "prog-ac-ad-bq-cti", label: "PROG. ACADÉMICO AD. BQ y CTI" },
   { value: "prog-ac-camillero", label: "PROG. ACADÉMICO CAMILLERO" },
-  { value: "prog-ac-economato", label: "PROG. ACADEMICO ECONOMATO" },
-  { value: "prog-ac-chofer-sanitario", label: "PROG. ACADEMICO CHOFER SANITARIO" },
+  { value: "prog-ac-economato", label: "PROG. ACADÉMICO ECONOMATO" },
+  { value: "prog-ac-economato-2026", label: "PROG. ACADÉMICO ECONOMATO 2026" },
+  { value: "prog-ac-chofer-sanitario", label: "PROG. ACADÉMICO CHOFER SANITARIO" },
 ];
 
 const CreateCertificate: React.FC = () => {

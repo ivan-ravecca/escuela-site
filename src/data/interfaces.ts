@@ -91,6 +91,7 @@ export type ProgramOption =
   | "prog-ac-ad-bq-cti" 
   | "prog-ac-camillero" 
   | "prog-ac-economato" 
+  | "prog-ac-economato-2026"
   | "prog-ac-chofer-sanitario";
 
 interface CertificateBaseData {

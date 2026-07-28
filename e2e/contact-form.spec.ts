@@ -108,6 +108,6 @@ test.describe("Contact Form", () => {
 
     // Después del procesamiento, el input debe estar deshabilitado mientras se procesa,
     // y luego debe poder ser rellenado nuevamente
-    await expect(submitButton).toBeTruthy();
+    await expect(submitButton).toBeEnabled();
   });
 });

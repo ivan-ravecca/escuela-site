@@ -68,7 +68,7 @@ test.describe("Main Pages Navigation and Rendering", () => {
     ).toBeVisible();
 
     // Debe tener form con campos
-    await expect(page.locator("input[name]")).toBeTruthy();
+    expect(await page.locator("input[name]").count()).toBeGreaterThan(0);
   });
 
   test("11. Link Aulas abre en pestaña nueva (external link)", async ({

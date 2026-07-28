@@ -25,9 +25,9 @@ test.describe("Footer and Social Links", () => {
     const linkedinLink = page.locator("a[href*='linkedin']");
     const whatsappLink = page.locator("a[href*='whatsapp']");
 
-    await expect(instagramLink).toBeTruthy();
-    await expect(linkedinLink).toBeTruthy();
-    await expect(whatsappLink).toBeTruthy();
+    expect(await instagramLink.count()).toBeGreaterThan(0);
+    expect(await linkedinLink.count()).toBeGreaterThan(0);
+    expect(await whatsappLink.count()).toBeGreaterThan(0);
   });
 
   test("24. Links de redes sociales en footer funcionan (abren en nueva pestaña)", async ({

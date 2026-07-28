@@ -1,0 +1,131 @@
+name: CI Tests & Coverage
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    name: Unit and Integration Tests
+    runs-on: ubuntu-latest
+    env:
+      VITE_GOOGLE_CLIENT_ID: test-client-id
+      VITE_ENABLE_AI: "false"
+      VITE_API_URL: http://127.0.0.1:3999
+      VITE_WORKSPACE_DOMAIN: example.com
+      VITE_TOKEN_STORAGE_KEY: auth_token
+      VITE_GOOGLE_ANALYTICS_ID: ""
+      CI: "true"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Unit and integration tests
+        run: npm run test:coverage
+
+      - name: Check coverage thresholds
+        run: |
+          if [ ! -f coverage/lcov.info ] && [ ! -f coverage/index.html ]; then
+            echo "Coverage report not found!"
+            echo "Available coverage files:"
+            find coverage -maxdepth 2 -type f | sort || true
+            exit 1
+          fi
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    env:
+      VITE_GOOGLE_CLIENT_ID: test-client-id
+      VITE_ENABLE_AI: "false"
+      VITE_API_URL: http://127.0.0.1:3999
+      VITE_WORKSPACE_DOMAIN: example.com
+      VITE_TOKEN_STORAGE_KEY: auth_token
+      VITE_GOOGLE_ANALYTICS_ID: ""
+      CI: "true"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: E2E tests
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+
+  report:
+    name: Test Results Report
+    runs-on: ubuntu-latest
+    needs:
+      - unit-tests
+      - e2e-tests
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Comment PR with test results
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const unitResult = '${{ needs.unit-tests.result }}';
+            const e2eResult = '${{ needs.e2e-tests.result }}';
+
+            const statusEmoji = (result) => {
+              if (result === 'success') return '✅ Passed';
+              if (result === 'failure') return '❌ Failed';
+              if (result === 'cancelled') return '⚪ Cancelled';
+              return `⚠️ ${result}`;
+            };
+
+            const comment = [
+              '## 🧪 Test Results',
+              '',
+              `- **Unit/Integration Tests**: ${statusEmoji(unitResult)}`,
+              `- **E2E Tests**: ${statusEmoji(e2eResult)}`,
+              '',
+              'See the artifacts for the detailed coverage and Playwright reports.',
+            ].join('\n');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

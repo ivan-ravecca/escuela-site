@@ -8,6 +8,13 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "ci:test": "npm run test:coverage && npm run test:e2e",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,md}\"",
     "postinstall": "npm run build",
     "prepare": "husky"
@@ -28,19 +35,27 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@playwright/test": "^1.62.0",
     "@tailwindcss/postcss": "^4.1.17",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/jquery": "^3.5.32",
     "@types/react": "^19.0.8",
     "@types/react-burger-menu": "^2.8.7",
     "@types/react-dom": "^19.0.3",
     "@types/react-modal": "^3.16.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/ui": "^4.1.10",
     "autoprefixer": "^10.4.22",
     "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
     "husky": "^9.1.7",
+    "jsdom": "^29.1.1",
+    "msw": "^2.15.0",
     "postcss": "^8.5.6",
     "prettier": "^3.5.1",
     "sass": "^1.85.1",
@@ -49,10 +64,12 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.22.0",
     "vite": "^6.1.0",
-    "vite-plugin-static-copy": "^2.2.0"
+    "vite-plugin-static-copy": "^2.2.0",
+    "vitest": "^4.1.10"
   },
   "allowScripts": {
     "@parcel/watcher@2.5.1": true,
-    "esbuild@0.25.5": true
+    "esbuild@0.25.5": true,
+    "msw@2.15.0": true
   }
 }

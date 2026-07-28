@@ -36,8 +36,10 @@ jobs:
 
       - name: Check coverage thresholds
         run: |
-          if [ ! -f coverage/coverage-final.json ]; then
+          if [ ! -f coverage/lcov.info ] && [ ! -f coverage/index.html ]; then
             echo "Coverage report not found!"
+            echo "Available coverage files:"
+            find coverage -maxdepth 2 -type f | sort || true
             exit 1
           fi
 

@@ -173,7 +173,7 @@ const MenuLinks: React.FC = () => {
                     {breadcrumbParts["economato-y-esterilizacion"].title}
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to={breadcrumbParts["cosmetologia-nivel-1"].url}
                     title={breadcrumbParts["cosmetologia-nivel-1"].title}
@@ -181,7 +181,7 @@ const MenuLinks: React.FC = () => {
                   >
                     {breadcrumbParts["cosmetologia-nivel-1"].title}
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to={breadcrumbParts["iass"].url}
@@ -237,12 +237,33 @@ const MenuLinks: React.FC = () => {
                     Curso Auxiliar de Estadísticas de Salud y Registros Médicos
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to={
+                      breadcrumbParts[
+                        "cuidado-humanizado-asistente-del-adulto-mayor"
+                      ].url
+                    }
+                    title={
+                      breadcrumbParts[
+                        "cuidado-humanizado-asistente-del-adulto-mayor"
+                      ].title
+                    }
+                    aria-label={
+                      breadcrumbParts[
+                        "cuidado-humanizado-asistente-del-adulto-mayor"
+                      ].title
+                    }
+                  >
+                    Cuidado Humanizado - Asistente del Adulto Mayor
+                  </Link>
+                </li>
               </ol>
             </li>
             <li className="col2 menu-cursos">
               <h5>Masterclass</h5>
               <ol>
-                <li>
+                {/* <li>
                   <Link
                     to={breadcrumbParts["actualizacion-hemato-oncologia"].url}
                     title={
@@ -254,7 +275,7 @@ const MenuLinks: React.FC = () => {
                   >
                     {breadcrumbParts["actualizacion-hemato-oncologia"].title}
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to={breadcrumbParts["ostomias"].url}

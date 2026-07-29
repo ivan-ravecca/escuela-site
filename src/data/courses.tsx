@@ -42,10 +42,10 @@ const urlParts: BreadcrumbInterface[] = [
     url: "/cursos/iass",
     title: "IASS",
   },
-  // {
-  //   url: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
-  //   title: "Actualización en el manejo de heridas y curaciones avanzadas",
-  // },
+  {
+    url: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
+    title: "Actualización en el manejo de heridas y curaciones avanzadas",
+  },
   {
     url: "/cursos/auxiliar-estadisticas-de-salud-registros-medicos",
     title: "Auxiliar de Estadísticas de Salud y Registros Médicos",
@@ -54,10 +54,10 @@ const urlParts: BreadcrumbInterface[] = [
     url: "/cursos/cuidado-humanizado-asistente-del-adulto-mayor",
     title: "Cuidado Humanizado - Asistente del Adulto Mayor",
   },
-  {
-    url: "/cursos/actualizacion-hemato-oncologia",
-    title: "Actualización en HEMATO ONCOLOGÍA",
-  },
+  // {
+  //   url: "/cursos/actualizacion-hemato-oncologia",
+  //   title: "Actualización en HEMATO ONCOLOGÍA",
+  // },
   {
     url: "/cursos/ostomias",
     title: "OSTOMÍAS",
@@ -718,64 +718,64 @@ const iass: CourseInterface = {
   ],
 };
 
-// const actualizacionHeridas: CourseInterface = {
-//   path: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
-//   id: "actualizacion-manejo-heridas-curaciones-avanzadas",
-//   title: "Actualización en el manejo de heridas y curaciones avanzadas",
-//   term: "Se trata de un curso corto virtual de 4 clases de duración.",
-//   openRegistration: "Inscripciones abiertas para el año 2026.",
-//   info: (
-//     <>
-//       <h4>Información del curso</h4>
-//       <div>
-//         <strong>Temario</strong>
-//         <ul className="check-list">
-//           <li>
-//             Evaluar heridas complejas de forma más exhaustiva, identificando
-//             factores que podrían retrasar la cicatrización.
-//           </li>
-//           <li>
-//             Seleccionar los apósitos y terapias más adecuadas, según el tipo de
-//             herida, su fase de cicatrización y las necesidades del paciente.
-//           </li>
-//           <li>
-//             Manejar técnicas avanzadas de curación, como el plasma autólogo.
-//           </li>
-//           <li>
-//             Prevenir y tratar complicaciones, infecciones, dehiscencias entre
-//             otras.
-//           </li>
-//           <li>
-//             Optimizar el confort del paciente y mejorar su calidad de vida
-//             durante el proceso de curación.
-//           </li>
-//           <li>
-//             Rol de la enfermera navegante, una opción cada vez más ofertada por
-//             los servicios de salud.
-//           </li>
-//           <li>
-//             Trabajar de forma interdisciplinaria, con otros profesionales de la
-//             salud para un abordaje integral.
-//           </li>
-//           <li>Casos clínicos.</li>
-//           <li>
-//             Mantenerse al día con las últimas investigaciones y mejores
-//             prácticas en el campo.
-//           </li>
-//         </ul>
-//       </div>
-//     </>
-//   ),
-//   requirements: ["A todo público"],
-//   curriculum: undefined,
-//   images: [
-//     {
-//       src: "/images/shop/curacion_heridas_complejas.jpeg",
-//       alt: "Curso de block",
-//       isActive: true,
-//     },
-//   ],
-// };
+const actualizacionHeridas: CourseInterface = {
+  path: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
+  id: "actualizacion-manejo-heridas-curaciones-avanzadas",
+  title: "Actualización en el manejo de heridas y curaciones avanzadas",
+  term: "Se trata de un curso corto virtual de 4 clases de duración.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
+  info: (
+    <>
+      <h4>Información del curso</h4>
+      <div>
+        <strong>Temario</strong>
+        <ul className="check-list">
+          <li>
+            Evaluar heridas complejas de forma más exhaustiva, identificando
+            factores que podrían retrasar la cicatrización.
+          </li>
+          <li>
+            Seleccionar los apósitos y terapias más adecuadas, según el tipo de
+            herida, su fase de cicatrización y las necesidades del paciente.
+          </li>
+          <li>
+            Manejar técnicas avanzadas de curación, como el plasma autólogo.
+          </li>
+          <li>
+            Prevenir y tratar complicaciones, infecciones, dehiscencias entre
+            otras.
+          </li>
+          <li>
+            Optimizar el confort del paciente y mejorar su calidad de vida
+            durante el proceso de curación.
+          </li>
+          <li>
+            Rol de la enfermera navegante, una opción cada vez más ofertada por
+            los servicios de salud.
+          </li>
+          <li>
+            Trabajar de forma interdisciplinaria, con otros profesionales de la
+            salud para un abordaje integral.
+          </li>
+          <li>Casos clínicos.</li>
+          <li>
+            Mantenerse al día con las últimas investigaciones y mejores
+            prácticas en el campo.
+          </li>
+        </ul>
+      </div>
+    </>
+  ),
+  requirements: ["A todo público"],
+  curriculum: undefined,
+  images: [
+    {
+      src: "/images/shop/curacion_heridas_complejas.jpeg",
+      alt: "Curso de block",
+      isActive: true,
+    },
+  ],
+};
 
 const auxiliarEstadisticas: CourseInterface = {
   path: "/cursos/auxiliar-estadisticas-de-salud-registros-medicos",
@@ -846,37 +846,37 @@ const auxiliarEstadisticas: CourseInterface = {
   ],
 };
 
-const hematoOncologia: CourseInterface = {
-  path: "/cursos/actualizacion-hemato-oncologia",
-  id: "actualizacion-hemato-oncologia",
-  title: "Actualización en HEMATO ONCOLOGÍA",
-  term: "Se trata de un curso corto una instancia en ambas modalidades (virtual o presencial).",
-  openRegistration: "Inscripciones abiertas para el año 2026.",
-  info: (
-    <>
-      <h4>Información del curso</h4>
-      <div>
-        <p>
-          Abordaje multidisciplinario en el paciente hematooncológico, desde
-          principios básicos hasta cuidados del paciente durante y post
-          tratamiento.
-        </p>
-      </div>
-    </>
-  ),
-  requirements: [
-    "Dirigido a estudiantes y/o egresados de Enfermería.",
-    "Lic. en Enfemeria.",
-  ],
-  curriculum: undefined,
-  images: [
-    {
-      src: "/images/shop/hematooncologia_01.jpeg",
-      alt: "Curso de Hemato Oncología",
-      isActive: true,
-    },
-  ],
-};
+// const hematoOncologia: CourseInterface = {
+//   path: "/cursos/actualizacion-hemato-oncologia",
+//   id: "actualizacion-hemato-oncologia",
+//   title: "Actualización en HEMATO ONCOLOGÍA",
+//   term: "Se trata de un curso corto una instancia en ambas modalidades (virtual o presencial).",
+//   openRegistration: "Inscripciones abiertas para el año 2026.",
+//   info: (
+//     <>
+//       <h4>Información del curso</h4>
+//       <div>
+//         <p>
+//           Abordaje multidisciplinario en el paciente hematooncológico, desde
+//           principios básicos hasta cuidados del paciente durante y post
+//           tratamiento.
+//         </p>
+//       </div>
+//     </>
+//   ),
+//   requirements: [
+//     "Dirigido a estudiantes y/o egresados de Enfermería.",
+//     "Lic. en Enfemeria.",
+//   ],
+//   curriculum: undefined,
+//   images: [
+//     {
+//       src: "/images/shop/hematooncologia_01.jpeg",
+//       alt: "Curso de Hemato Oncología",
+//       isActive: true,
+//     },
+//   ],
+// };
 
 const ostomias: CourseInterface = {
   path: "/cursos/ostomias",
@@ -1127,9 +1127,9 @@ export const COURSES: CourseInterface[] = [
   economato,
   // cosmetologia,
   iass,
-  // actualizacionHeridas,
+  actualizacionHeridas,
   auxiliarEstadisticas,
-  hematoOncologia,
+  // hematoOncologia,
   ostomias,
   actualizacionVacunas,
   cuidadoHumanizado,

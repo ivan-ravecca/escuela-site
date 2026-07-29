@@ -191,7 +191,7 @@ const MenuLinks: React.FC = () => {
                     {breadcrumbParts["iass"].title}
                   </Link>
                 </li>
-                {/* <li>
+                <li>
                   <Link
                     to={
                       breadcrumbParts[
@@ -215,7 +215,7 @@ const MenuLinks: React.FC = () => {
                       ].title
                     }
                   </Link>
-                </li> */}
+                </li>
                 <li>
                   <Link
                     to={
@@ -263,7 +263,7 @@ const MenuLinks: React.FC = () => {
             <li className="col2 menu-cursos">
               <h5>Masterclass</h5>
               <ol>
-                <li>
+                {/* <li>
                   <Link
                     to={breadcrumbParts["actualizacion-hemato-oncologia"].url}
                     title={
@@ -275,7 +275,7 @@ const MenuLinks: React.FC = () => {
                   >
                     {breadcrumbParts["actualizacion-hemato-oncologia"].title}
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to={breadcrumbParts["ostomias"].url}

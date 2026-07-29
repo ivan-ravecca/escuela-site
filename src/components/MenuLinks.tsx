@@ -173,7 +173,7 @@ const MenuLinks: React.FC = () => {
                     {breadcrumbParts["economato-y-esterilizacion"].title}
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to={breadcrumbParts["cosmetologia-nivel-1"].url}
                     title={breadcrumbParts["cosmetologia-nivel-1"].title}
@@ -181,7 +181,7 @@ const MenuLinks: React.FC = () => {
                   >
                     {breadcrumbParts["cosmetologia-nivel-1"].title}
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to={breadcrumbParts["iass"].url}
@@ -191,7 +191,7 @@ const MenuLinks: React.FC = () => {
                     {breadcrumbParts["iass"].title}
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to={
                       breadcrumbParts[
@@ -215,7 +215,7 @@ const MenuLinks: React.FC = () => {
                       ].title
                     }
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to={
@@ -235,6 +235,27 @@ const MenuLinks: React.FC = () => {
                     }
                   >
                     Curso Auxiliar de Estadísticas de Salud y Registros Médicos
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={
+                      breadcrumbParts[
+                        "cuidado-humanizado-asistente-del-adulto-mayor"
+                      ].url
+                    }
+                    title={
+                      breadcrumbParts[
+                        "cuidado-humanizado-asistente-del-adulto-mayor"
+                      ].title
+                    }
+                    aria-label={
+                      breadcrumbParts[
+                        "cuidado-humanizado-asistente-del-adulto-mayor"
+                      ].title
+                    }
+                  >
+                    Cuidado Humanizado - Asistente del Adulto Mayor
                   </Link>
                 </li>
               </ol>

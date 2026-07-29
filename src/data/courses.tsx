@@ -34,21 +34,25 @@ const urlParts: BreadcrumbInterface[] = [
     url: "/cursos/economato-y-esterilizacion",
     title: "Economato y Esterilización",
   },
-  {
-    url: "/cursos/cosmetologia-nivel-1",
-    title: "Cosmetología Nivel 1",
-  },
+  // {
+  //   url: "/cursos/cosmetologia-nivel-1",
+  //   title: "Cosmetología Nivel 1",
+  // },
   {
     url: "/cursos/iass",
     title: "IASS",
   },
-  {
-    url: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
-    title: "Actualización en el manejo de heridas y curaciones avanzadas",
-  },
+  // {
+  //   url: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
+  //   title: "Actualización en el manejo de heridas y curaciones avanzadas",
+  // },
   {
     url: "/cursos/auxiliar-estadisticas-de-salud-registros-medicos",
     title: "Auxiliar de Estadísticas de Salud y Registros Médicos",
+  },
+  {
+    url: "/cursos/cuidado-humanizado-asistente-del-adulto-mayor",
+    title: "Cuidado Humanizado - Asistente del Adulto Mayor",
   },
   {
     url: "/cursos/actualizacion-hemato-oncologia",
@@ -471,7 +475,7 @@ const chofer: CourseInterface = {
   requirements: [
     "Más de 18 años al momento de inscripción.",
     "Primaria completa.",
-    "Dirigido a Auxiliares de Servicio, Licenciadas de Enfermería.",
+    "Dirigido al público en general con ganas de capacitarse.",
   ],
   curriculum: undefined,
   images: [
@@ -650,35 +654,35 @@ const economato: CourseInterface = {
   ],
 };
 
-const cosmetologia: CourseInterface = {
-  path: "/cursos/cosmetologia-nivel-1",
-  id: "cosmetologia-nivel-1",
-  title: "Cosmetologia Nivel 1",
-  term: "Se trata de un curso corto y presencial de 2 véces por semana, 4 horas por clase para un total de 30 horas.",
-  openRegistration: "Inscripciones abiertas para el año 2026.",
-  info: (
-    <>
-      <h4>Información del curso</h4>
-      <div>
-        <p>
-          Preparar al participante como esteticista facial capaz de realizar
-          tratamientos de limpieza de rostro, hidratación, máscaras, peeling,
-          etc., para desarrollarse profesionalmente en salones, institutos de
-          belleza, laboratorios, o de manera independiente.
-        </p>
-      </div>
-    </>
-  ),
-  requirements: ["A todo público"],
-  curriculum: undefined,
-  images: [
-    {
-      src: "/images/shop/cosmetologia_01.jpeg",
-      alt: "Curso de Cosmetología",
-      isActive: true,
-    },
-  ],
-};
+// const cosmetologia: CourseInterface = {
+//   path: "/cursos/cosmetologia-nivel-1",
+//   id: "cosmetologia-nivel-1",
+//   title: "Cosmetologia Nivel 1",
+//   term: "Se trata de un curso corto y presencial de 2 véces por semana, 4 horas por clase para un total de 30 horas.",
+//   openRegistration: "Inscripciones abiertas para el año 2026.",
+//   info: (
+//     <>
+//       <h4>Información del curso</h4>
+//       <div>
+//         <p>
+//           Preparar al participante como esteticista facial capaz de realizar
+//           tratamientos de limpieza de rostro, hidratación, máscaras, peeling,
+//           etc., para desarrollarse profesionalmente en salones, institutos de
+//           belleza, laboratorios, o de manera independiente.
+//         </p>
+//       </div>
+//     </>
+//   ),
+//   requirements: ["A todo público"],
+//   curriculum: undefined,
+//   images: [
+//     {
+//       src: "/images/shop/cosmetologia_01.jpeg",
+//       alt: "Curso de Cosmetología",
+//       isActive: true,
+//     },
+//   ],
+// };
 
 const iass: CourseInterface = {
   path: "/cursos/iass",
@@ -714,64 +718,64 @@ const iass: CourseInterface = {
   ],
 };
 
-const actualizacionHeridas: CourseInterface = {
-  path: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
-  id: "actualizacion-manejo-heridas-curaciones-avanzadas",
-  title: "Actualización en el manejo de heridas y curaciones avanzadas",
-  term: "Se trata de un curso corto virtual de 4 clases de duración.",
-  openRegistration: "Inscripciones abiertas para el año 2026.",
-  info: (
-    <>
-      <h4>Información del curso</h4>
-      <div>
-        <strong>Temario</strong>
-        <ul className="check-list">
-          <li>
-            Evaluar heridas complejas de forma más exhaustiva, identificando
-            factores que podrían retrasar la cicatrización.
-          </li>
-          <li>
-            Seleccionar los apósitos y terapias más adecuadas, según el tipo de
-            herida, su fase de cicatrización y las necesidades del paciente.
-          </li>
-          <li>
-            Manejar técnicas avanzadas de curación, como el plasma autólogo.
-          </li>
-          <li>
-            Prevenir y tratar complicaciones, infecciones, dehiscencias entre
-            otras.
-          </li>
-          <li>
-            Optimizar el confort del paciente y mejorar su calidad de vida
-            durante el proceso de curación.
-          </li>
-          <li>
-            Rol de la enfermera navegante, una opción cada vez más ofertada por
-            los servicios de salud.
-          </li>
-          <li>
-            Trabajar de forma interdisciplinaria, con otros profesionales de la
-            salud para un abordaje integral.
-          </li>
-          <li>Casos clínicos.</li>
-          <li>
-            Mantenerse al día con las últimas investigaciones y mejores
-            prácticas en el campo.
-          </li>
-        </ul>
-      </div>
-    </>
-  ),
-  requirements: ["A todo público"],
-  curriculum: undefined,
-  images: [
-    {
-      src: "/images/shop/curacion_heridas_complejas.jpeg",
-      alt: "Curso de block",
-      isActive: true,
-    },
-  ],
-};
+// const actualizacionHeridas: CourseInterface = {
+//   path: "/cursos/actualizacion-manejo-heridas-curaciones-avanzadas",
+//   id: "actualizacion-manejo-heridas-curaciones-avanzadas",
+//   title: "Actualización en el manejo de heridas y curaciones avanzadas",
+//   term: "Se trata de un curso corto virtual de 4 clases de duración.",
+//   openRegistration: "Inscripciones abiertas para el año 2026.",
+//   info: (
+//     <>
+//       <h4>Información del curso</h4>
+//       <div>
+//         <strong>Temario</strong>
+//         <ul className="check-list">
+//           <li>
+//             Evaluar heridas complejas de forma más exhaustiva, identificando
+//             factores que podrían retrasar la cicatrización.
+//           </li>
+//           <li>
+//             Seleccionar los apósitos y terapias más adecuadas, según el tipo de
+//             herida, su fase de cicatrización y las necesidades del paciente.
+//           </li>
+//           <li>
+//             Manejar técnicas avanzadas de curación, como el plasma autólogo.
+//           </li>
+//           <li>
+//             Prevenir y tratar complicaciones, infecciones, dehiscencias entre
+//             otras.
+//           </li>
+//           <li>
+//             Optimizar el confort del paciente y mejorar su calidad de vida
+//             durante el proceso de curación.
+//           </li>
+//           <li>
+//             Rol de la enfermera navegante, una opción cada vez más ofertada por
+//             los servicios de salud.
+//           </li>
+//           <li>
+//             Trabajar de forma interdisciplinaria, con otros profesionales de la
+//             salud para un abordaje integral.
+//           </li>
+//           <li>Casos clínicos.</li>
+//           <li>
+//             Mantenerse al día con las últimas investigaciones y mejores
+//             prácticas en el campo.
+//           </li>
+//         </ul>
+//       </div>
+//     </>
+//   ),
+//   requirements: ["A todo público"],
+//   curriculum: undefined,
+//   images: [
+//     {
+//       src: "/images/shop/curacion_heridas_complejas.jpeg",
+//       alt: "Curso de block",
+//       isActive: true,
+//     },
+//   ],
+// };
 
 const auxiliarEstadisticas: CourseInterface = {
   path: "/cursos/auxiliar-estadisticas-de-salud-registros-medicos",
@@ -1059,6 +1063,57 @@ const lavanderiaHospitalaria: CourseInterface = {
     },
   ],
 };
+
+const cuidadoHumanizado: CourseInterface = {
+  path: "/cursos/cuidado-humanizado-asistente-del-adulto-mayor",
+  id: "cuidado-humanizado-asistente-del-adulto-mayor",
+  title: "Cuidado Humanizado - Asistente del Adulto Mayor",
+  term: "Se trata de un curso corto de 4 meses de duración con alta demanda laboral tanto en el ámbito público como el privado.",
+  openRegistration: "Inscripciones abiertas para el año 2026.",
+  info: (
+    <>
+      <h4>Información del curso</h4>
+      <div>
+        <p>
+          El curso de Cuidado Humanizado - Asistente del Adulto Mayor está diseñado para brindar conocimientos y habilidades esenciales para el cuidado integral de los adultos mayores, promoviendo su bienestar físico, emocional y social. Los participantes aprenderán sobre la atención personalizada, la comunicación efectiva, la gestión de actividades diarias y la promoción de la autonomía del adulto mayor.
+          Este curso está diseñado para quienes buscan una formación técnica sólida y un perfil profesional destacado en la asistencia del adulto mayor.
+          Duración: 4 meses (Híbrido: Virtual + Laboratorios presenciales + Práctica final).
+          Certificación: incluye un Certificado de aprobación emitido por nuestra institución de Primeros Auxilios y RCP y un Certificado del curso Especialista en cuidado humanizado - Asistente del Adulto Mayor.
+        </p>
+      </div>
+      <div>
+        <strong>Modalidad:</strong>
+        <ul className="check-list">
+          <li>Aula Virtual: Materiales didácticos disponibles 24 horas los 7 días de la semana (con posibilidad de acceder a la grabación de la clase en caso de no poder asistir).</li>
+          <li>
+            Laboratorio de Simulación: Prácticas presenciales de RCP, Movilización e Higiene antes de ir al paciente real.
+          </li>
+          <li>
+            Práctica en Residencia: 4 jornadas finales de experiencia en entorno real.
+          </li>
+          <li>
+            Módulo de Empleo: Te ayudamos a armar tu CV y prepararte para entrevistas.
+          </li>
+          <li>
+            Nota de Transparencia: Este curso es una iniciativa de formación profesional privada. Si bien no se encuentra integrado al Sistema Nacional de Cuidados (BPS), el programa está desarrollado por expertos de la salud para garantizar una formación de alta calidad técnica y ética, aplicable en el ámbito asistencial privado y residencial.
+          </li>
+        </ul>
+      </div>
+    </>
+  ),
+  requirements: [
+    "Más de 18 años al momento de inscripción.",
+    "Primaria completa.",
+  ],
+  curriculum: undefined,
+  images: [
+    {
+      src: "/images/shop/cuidado-humanizado.jpeg",
+      alt: "Curso de Cuidado Humanizado - Asistente del Adulto Mayor",
+      isActive: true,
+    },
+  ],
+};
 export const COURSES: CourseInterface[] = [
   enfermeria,
   servicioTisaneria,
@@ -1070,12 +1125,13 @@ export const COURSES: CourseInterface[] = [
   blockQuirurgico,
   emergenciaUrgencia,
   economato,
-  cosmetologia,
+  // cosmetologia,
   iass,
-  actualizacionHeridas,
+  // actualizacionHeridas,
   auxiliarEstadisticas,
   hematoOncologia,
   ostomias,
   actualizacionVacunas,
+  cuidadoHumanizado,
   tallerPrimerosAuxiliosRCP,
 ];

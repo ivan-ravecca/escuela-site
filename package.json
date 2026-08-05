@@ -14,7 +14,10 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "test:e2e:integration": "node ./scripts/run-integration-e2e.mjs",
     "ci:test": "npm run test:coverage && npm run test:e2e",
+    "integration:up": "docker compose -f docker-compose.integration.yml up -d --build --wait",
+    "integration:down": "docker compose -f docker-compose.integration.yml down -v --remove-orphans",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,md}\"",
     "postinstall": "npm run build",
     "prepare": "husky"

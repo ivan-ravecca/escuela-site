@@ -1,0 +1,96 @@
+services:
+  mariadb:
+    image: mariadb:11.2
+    environment:
+      MYSQL_ROOT_PASSWORD: ${INTEGRATION_DB_PASSWORD:-integration-password}
+      MYSQL_DATABASE: ${INTEGRATION_DB_NAME:-escuela}
+      MYSQL_USER: ${INTEGRATION_DB_USER:-escuelaapi}
+      MYSQL_PASSWORD: ${INTEGRATION_DB_PASSWORD:-integration-password}
+    volumes:
+      - integration_mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - integration
+
+  backend:
+    build:
+      context: ${BACKEND_REPO_PATH:-../escuela-api}
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-7d}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      ALLOWED_DOMAIN: ${ALLOWED_DOMAIN}
+      SITE_URL: ${INTEGRATION_SITE_URL:-http://localhost:8080}
+      CORS_ALLOWED_ORIGINS: ${INTEGRATION_CORS_ALLOWED_ORIGINS:-http://localhost:8080}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      EMAIL_TO: ${EMAIL_TO}
+      EMAIL_FROM: ${EMAIL_FROM}
+      HASH_SECRET: ${HASH_SECRET}
+      CSRF_SECRET: ${CSRF_SECRET}
+      DRIVE_FOLDER_ID: ${DRIVE_FOLDER_ID:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-haiku-4-5-20251001}
+      ANTHROPIC_MAX_TOKENS: ${ANTHROPIC_MAX_TOKENS:-2048}
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USER: ${INTEGRATION_DB_USER:-escuelaapi}
+      DB_PASSWORD: ${INTEGRATION_DB_PASSWORD:-integration-password}
+      DB_NAME: ${INTEGRATION_DB_NAME:-escuela}
+      DB_WAIT_MAX_ATTEMPTS: ${DB_WAIT_MAX_ATTEMPTS:-30}
+      DB_WAIT_RETRY_DELAY_MS: ${DB_WAIT_RETRY_DELAY_MS:-2000}
+    volumes:
+      - ${BACKEND_GOOGLE_SERVICE_ACCOUNT_PATH:-../escuela-api/keys/service-account-key.json}:/app/keys/service-account-key.json:ro
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/health').then((response)=>process.exit(response.ok?0:1)).catch(()=>process.exit(1))"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - integration
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.integration
+      args:
+        VITE_API_URL: ${INTEGRATION_VITE_API_URL:-}
+        VITE_SITE_URL: ${INTEGRATION_SITE_URL:-http://localhost:8080}
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-${GOOGLE_CLIENT_ID}}
+        VITE_WORKSPACE_DOMAIN: ${VITE_WORKSPACE_DOMAIN:-${ALLOWED_DOMAIN}}
+        VITE_TOKEN_STORAGE_KEY: ${VITE_TOKEN_STORAGE_KEY:-auth_token}
+        VITE_GOOGLE_ANALYTICS_ID: ${VITE_GOOGLE_ANALYTICS_ID:-}
+        VITE_ENABLE_AI: ${VITE_ENABLE_AI:-true}
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - integration
+
+volumes:
+  integration_mariadb_data:
+
+networks:
+  integration:

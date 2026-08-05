@@ -2,9 +2,21 @@ name: CI Tests & Coverage
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      backend_branch:
+        description: Optional backend branch override
+        required: false
+        type: string
 
 jobs:
   unit-tests:
@@ -87,12 +99,127 @@ jobs:
           name: playwright-report
           path: playwright-report/
 
+  integration-e2e:
+    name: Integration E2E
+    runs-on: ubuntu-latest
+    needs:
+      - unit-tests
+      - e2e-tests
+    if: >-
+      always() &&
+      needs.unit-tests.result == 'success' &&
+      needs.e2e-tests.result == 'success' &&
+      (
+        github.event_name == 'workflow_dispatch' ||
+        (
+          github.event_name == 'pull_request' &&
+          contains(join(github.event.pull_request.labels.*.name, ','), 'integration-e2e')
+        )
+      )
+    environment: integration
+    permissions:
+      contents: read
+    env:
+      CI: "true"
+      BACKEND_REPO_PATH: ./backend-src
+      BACKEND_GOOGLE_SERVICE_ACCOUNT_PATH: ./backend-src/keys/service-account-key.json
+      INTEGRATION_SITE_URL: http://localhost:8080
+      INTEGRATION_CORS_ALLOWED_ORIGINS: http://localhost:8080
+      INTEGRATION_DB_USER: escuelaapi
+      INTEGRATION_DB_PASSWORD: integration-password
+      INTEGRATION_DB_NAME: escuela
+      DB_WAIT_MAX_ATTEMPTS: "60"
+      DB_WAIT_RETRY_DELAY_MS: "2000"
+      JWT_SECRET: ${{ secrets.INTEGRATION_JWT_SECRET }}
+      JWT_EXPIRATION: 7d
+      GOOGLE_CLIENT_ID: ${{ secrets.INTEGRATION_GOOGLE_CLIENT_ID }}
+      ALLOWED_DOMAIN: escuelaenfermeria.com.uy
+      RESEND_API_KEY: ${{ secrets.INTEGRATION_RESEND_API_KEY }}
+      EMAIL_TO: ${{ secrets.INTEGRATION_EMAIL_TO }}
+      EMAIL_FROM: ${{ secrets.INTEGRATION_EMAIL_FROM }}
+      HASH_SECRET: ${{ secrets.INTEGRATION_HASH_SECRET }}
+      CSRF_SECRET: ${{ secrets.INTEGRATION_CSRF_SECRET }}
+      DRIVE_FOLDER_ID: ${{ secrets.INTEGRATION_DRIVE_FOLDER_ID }}
+      ANTHROPIC_API_KEY: ${{ secrets.INTEGRATION_ANTHROPIC_API_KEY }}
+      ANTHROPIC_MODEL: claude-haiku-4-5-20251001
+      ANTHROPIC_MAX_TOKENS: "2048"
+      VITE_API_URL: ""
+      VITE_GOOGLE_CLIENT_ID: ${{ secrets.INTEGRATION_GOOGLE_CLIENT_ID }}
+      VITE_WORKSPACE_DOMAIN: escuelaenfermeria.com.uy
+      VITE_TOKEN_STORAGE_KEY: auth_token
+      VITE_GOOGLE_ANALYTICS_ID: ""
+      VITE_ENABLE_AI: "true"
+    steps:
+      - name: Checkout frontend
+        uses: actions/checkout@v4
+
+      - name: Resolve backend branch
+        id: backend-branch
+        run: ./scripts/ci/resolve-backend-branch.sh
+        shell: bash
+        env:
+          DEFAULT_BACKEND_BRANCH: master
+          WORKFLOW_DISPATCH_BACKEND_BRANCH: ${{ github.event.inputs.backend_branch || '' }}
+          PR_LABELS: ${{ github.event_name == 'pull_request' && join(github.event.pull_request.labels.*.name, ',') || '' }}
+
+      - name: Checkout backend
+        uses: actions/checkout@v4
+        with:
+          repository: ivan-ravecca/escuela-api
+          ref: ${{ steps.backend-branch.outputs.backend_branch }}
+          path: backend-src
+
+      - name: Materialize Google service account key
+        shell: bash
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.INTEGRATION_GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          mkdir -p backend-src/keys
+          printf '%s' "$GOOGLE_SERVICE_ACCOUNT_JSON" > backend-src/keys/service-account-key.json
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Start integration stack
+        run: docker compose -f docker-compose.integration.yml up -d --build --wait
+
+      - name: Run integration E2E
+        run: npm run test:e2e:integration
+
+      - name: Capture integration stack logs
+        if: always()
+        run: docker compose -f docker-compose.integration.yml logs --no-color > integration-stack.log
+
+      - name: Upload integration artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-e2e-artifacts
+          path: |
+            playwright-report/
+            test-results/
+            integration-stack.log
+
+      - name: Cleanup integration stack
+        if: always()
+        run: docker compose -f docker-compose.integration.yml down -v --remove-orphans
+
   report:
     name: Test Results Report
     runs-on: ubuntu-latest
     needs:
       - unit-tests
       - e2e-tests
+      - integration-e2e
     if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       contents: read
@@ -106,11 +233,13 @@ jobs:
           script: |
             const unitResult = '${{ needs.unit-tests.result }}';
             const e2eResult = '${{ needs.e2e-tests.result }}';
+            const integrationResult = '${{ needs.integration-e2e.result }}';
 
             const statusEmoji = (result) => {
               if (result === 'success') return '✅ Passed';
               if (result === 'failure') return '❌ Failed';
               if (result === 'cancelled') return '⚪ Cancelled';
+              if (result === 'skipped') return '⏭️ Skipped';
               return `⚠️ ${result}`;
             };
 
@@ -119,6 +248,7 @@ jobs:
               '',
               `- **Unit/Integration Tests**: ${statusEmoji(unitResult)}`,
               `- **E2E Tests**: ${statusEmoji(e2eResult)}`,
+              `- **Integration E2E**: ${statusEmoji(integrationResult)}`,
               '',
               'See the artifacts for the detailed coverage and Playwright reports.',
             ].join('\n');

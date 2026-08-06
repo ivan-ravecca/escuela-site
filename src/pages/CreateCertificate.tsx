@@ -14,6 +14,7 @@ const PROGRAM_OPTIONS = [
   { value: "prog-ac-economato", label: "PROG. ACADÉMICO ECONOMATO" },
   { value: "prog-ac-economato-2026", label: "PROG. ACADÉMICO ECONOMATO 2026" },
   { value: "prog-ac-chofer-sanitario", label: "PROG. ACADÉMICO CHOFER SANITARIO" },
+  { value: "prog-mc-ostomias", label: "PROG. Master Class Ostomías" },
 ];
 
 const CreateCertificate: React.FC = () => {

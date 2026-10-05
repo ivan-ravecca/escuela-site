@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
           <div className="eight columns">
             <p>
               <strong className="highlight color">{SITE_NAME}</strong> es una
-              joven institución educativa presente en Pando, habilitada por el{" "}
+              institución educativa con una década de presencia en Pando, habilitada por el{" "}
               <Link
                 to={MEC_URL}
                 target="_blank"

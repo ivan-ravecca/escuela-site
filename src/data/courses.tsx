@@ -70,6 +70,10 @@ const urlParts: BreadcrumbInterface[] = [
     url: "/cursos/taller-primeros-auxilios-rcp",
     title: "Taller de Primeros Auxilios y RCP",
   },
+  {
+    url: "/cursos/porteria-control-accesos",
+    title: "Curso Integral de Portería y Control de Accesos",
+  },
   { url: "/material", title: "Material" },
   { url: "/bedelia", title: "Bedelía" },
   { url: "/contacto", title: "Contáctanos" },
@@ -1114,6 +1118,66 @@ const cuidadoHumanizado: CourseInterface = {
     },
   ],
 };
+
+const porteriaControlAccesos: CourseInterface = {
+  path: "/cursos/porteria-control-accesos",
+  id: "porteria-control-accesos",
+  title: "Curso Integral de Portería y Control de Accesos",
+  term: `¿Buscas una salida laboral rápida, versátil y con alta demanda en el mercado actual?`,
+  openRegistration: "Inscripciones abiertas para el año 2026.",
+  info: (
+    <>
+      <div>
+        <p>
+          Capacítate con nuestro Curso Integral de Portería y Control de Accesos. Residencial corporativo sanitario y hospitalario
+          Diseñado para todo público mayores de 18 años que deseen desempeñarse profesionalmente en edificios de propiedad horizontal, complejos corporativos, empresas e instituciones de salud.
+        A diferencia de los cursos tradicionales, este programa incorpora un módulo sanitario exclusivo, preparándote para trabajar en hospitales y sanatorios privados, un sector que exige altos estándares de bioseguridad, empatía y profesionalismo.
+        </p>
+        <p>
+          <strong>¿Por qué elegir este curso?</strong>
+          <ul className="star-list">
+            <li>Formación Multi-Sectorial: Salis llsta/o para trabajar tanto en edificios residenciales y oficinas como en el ámbito de la salud.</li>
+            <li>100% Online y a tu ritmo: Estudia desde cualquier lugar del país, adaptando los horarios de visualización de las clases grabadas a tu rutina diaria, con ejercicios prácticos.</li>
+            <li>Inserción Laboral Real: Incluye un bloque completo sobre legislación laboral uruguaya, armado de CV moderno y claves para superar con éxito una entrevista de trabajo.</li>
+          </ul>
+        </p>
+        <p>
+          <strong>Agunos de los contenidos que vas a aprender:</strong>
+          <ul className="star-list">
+            <li>El Rol Profesional y la Comunicación</li>
+            <li>Seguridad y Control de Accesos</li>
+            <li>Emergencias y Mantenimiento Básico</li>
+            <li>Módulo Sanitario Exclusivo</li>
+            <li>Bioseguridad, Leyes Laborales y Empleabilidad</li>
+            <li>Normativa del MTSS</li>
+            <li>Se entrega certificado institucional de 40 horas académicas con código QR de validación</li>
+          </ul>
+        </p>
+      </div>
+      <div>
+        <strong>Modalidad:</strong>
+        <ul className="check-list">
+          <li>Aula Virtual: Materiales didácticos disponibles 24 horas los 7 días de la semana, estudia a tu ritmo y en tus tiempos libres.</li>
+          <li>
+            Nota de Transparencia: Este curso es una iniciativa de formación profesional privada. El programa está desarrollado por expertos en seguridad para garantizar una formación de alta calidad técnica y ética, aplicable en el ámbito profesional privado.
+          </li>
+        </ul>
+      </div>
+    </>
+  ),
+  requirements: [
+    "Más de 18 años al momento de inscripción."
+  ],
+  curriculum: undefined,
+  images: [
+    {
+      src: "/images/shop/porteria.jpeg",
+      alt: "Curso Integral de Portería y Control de Accesos",
+      isActive: true,
+    },
+  ],
+};
+
 export const COURSES: CourseInterface[] = [
   enfermeria,
   servicioTisaneria,
@@ -1134,4 +1198,5 @@ export const COURSES: CourseInterface[] = [
   actualizacionVacunas,
   cuidadoHumanizado,
   tallerPrimerosAuxiliosRCP,
+  porteriaControlAccesos
 ];

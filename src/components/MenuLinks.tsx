@@ -258,6 +258,27 @@ const MenuLinks: React.FC = () => {
                     Cuidado Humanizado - Asistente del Adulto Mayor
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to={
+                      breadcrumbParts[
+                        "porteria-control-accesos"
+                      ].url
+                    }
+                    title={
+                      breadcrumbParts[
+                        "porteria-control-accesos"
+                      ].title
+                    }
+                    aria-label={
+                      breadcrumbParts[
+                        "porteria-control-accesos"
+                      ].title
+                    }
+                  >
+                    Curso Integral de Portería y Control de Accesos
+                  </Link>
+                </li>
               </ol>
             </li>
             <li className="col2 menu-cursos">

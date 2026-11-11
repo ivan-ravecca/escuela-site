@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { COURSES } from "../data/courses";
+import { useCourses } from "../contexts/CourseContext";
 import { RequestInfoProps } from "../data/interfaces";
 import { sendInquire } from "../services/EmailService";
 import { emailPattern, phonePattern, ciPattern } from "../helpers/tools";
@@ -11,6 +11,7 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
   requiresPhysicalPresence,
   requiresGraduationYear,
 }) => {
+  const { courses, loading, error, refresh } = useCourses();
   const [ongoing, setOngoing] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -230,6 +231,8 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
           <label htmlFor="course" accessKey="C">
             Curso: <span>*</span>
           </label>
+          {loading && <p>Cargando cursos...</p>}
+          {error && <p role="alert">{error} <button type="button" onClick={() => void refresh()}>Reintentar</button></p>}
           <select
             name="course"
             id="course"
@@ -238,12 +241,13 @@ const RequestInfo: React.FC<RequestInfoProps> = ({
             }}
             defaultValue="-1"
             value={formFields.course || "-1"}
+            disabled={loading || Boolean(error)}
           >
             <option key="-1" value="-1" disabled>
               Seleccionar
             </option>
-            {COURSES.map((course, index) => (
-              <option key={index} value={course.title}>
+            {courses.map((course) => (
+              <option key={course.recordId} value={course.title}>
                 {course.title}
               </option>
             ))}

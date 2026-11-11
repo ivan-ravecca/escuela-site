@@ -46,6 +46,23 @@ Development recommendations:
 
 ## Setup and Installation
 
+El listado y las páginas de `/cursos` consultan la API y no incluyen un
+catálogo local de respaldo. Si la API falla se muestra un error con opción de
+reintentar. El ABM está en `/administracion/cursos` y requiere una sesión
+autorizada; permite editar contenido HTML básico, requisitos, clasificación
+del menú, imágenes y campos opcionales del asistente. Los cambios de ID
+conservan la URL anterior como alias y las bajas se pueden restaurar.
+En el ABM las posiciones empiezan en 1 y cuentan únicamente cursos publicados:
+una para el listado y otra independiente por cada categoría del menú. Al
+guardar se desplazan los demás cursos; una posición mayor a la cantidad
+disponible ubica el curso al final. Los cursos despublicados recuperan su
+posición solicitada al restaurarse, limitada a las posiciones disponibles.
+
+Antes de desplegar esta versión, aplicar en la base las migraciones de
+`escuela-api/migrations` (incluida `004_course_positions.sql`) y configurar allí la carpeta persistente de imágenes
+`SHOP_IMAGES_DIR`. Consultar las instrucciones de migración del backend.
+El proceso de publicación del frontend no debe borrar las imágenes subidas.
+
 1. **Clone the repository**
 
 ```bash
@@ -143,4 +160,3 @@ Implemented in:
 	- Confirm the backend allows `credentials: true` and the frontend `origin`
 	- Check in DevTools (Network) that cookies and the `X-CSRF-Token` header are sent
 	- Refresh the token with `initializeCSRF()` if it expired
-

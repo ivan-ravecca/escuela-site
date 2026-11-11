@@ -14,6 +14,7 @@ const categoryColors: Record<string, string> = {
   inicial: COLORS.categoryInicial,
   avanzado: COLORS.categoryAvanzado,
   especialización: COLORS.categoryEspecializacion,
+  especializacion: COLORS.categoryEspecializacion,
 };
 
 // Color mapping for modalities
@@ -135,7 +136,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
         )}
 
         {/* Duration */}
-        {course.duration_hours && (
+        {(course.duration_hours || course.duration_text) && (
           <div
             style={{
               display: "flex",
@@ -147,7 +148,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect, onContactInte
             }}
           >
             <Clock size={14} />
-            <span>{formatDuration(course.duration_hours)}</span>
+            <span>{course.duration_hours ? formatDuration(course.duration_hours) : course.duration_text}</span>
           </div>
         )}
 

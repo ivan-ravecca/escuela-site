@@ -1,14 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { CourseInterface } from "../data/interfaces";
-const CourseExtraInfoBox: React.FC<{ course: CourseInterface }> = ({
+import { SiteCourse } from "../types/siteCourse";
+const CourseExtraInfoBox: React.FC<{ course: SiteCourse }> = ({
   course,
 }) => {
   const [activeTab, setActiveTab] = React.useState("tab1");
-  useEffect(() => {
-    setActiveTab("tab1");
-  }, [course]);
-
   return (
     <div className="fifteen columns">
       <ul className="tabs-nav">
@@ -59,21 +55,14 @@ const CourseExtraInfoBox: React.FC<{ course: CourseInterface }> = ({
           id="tab2"
           style={{ display: activeTab === "tab2" ? "block" : "none" }}
         >
-          {course.openRegistration}
+          <div dangerouslySetInnerHTML={{ __html: course.openRegistration }} />
         </div>
         <div
           className="tab-content"
           id="tab3"
           style={{ display: activeTab === "tab3" ? "block" : "none" }}
         >
-          <ul className="check-list">
-            {course.curriculum &&
-              Array.isArray(course.curriculum) &&
-              course.curriculum.map((c, i) => <li key={i}>{c}</li>)}
-          </ul>
-          {course.curriculum && React.isValidElement(course.curriculum)
-            ? course.curriculum
-            : ""}
+          {course.curriculum && <div dangerouslySetInnerHTML={{ __html: course.curriculum }} />}
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { SITE_NAME } from "../../app.config";
-import { breadcrumbParts } from "../data/courses";
+import { breadcrumbParts as staticBreadcrumbs } from "../data/breadcrumbs";
+import { useCourses } from "../contexts/CourseContext";
 
 /**
  * Hook para actualizar el título del documento según la ruta actual
@@ -9,8 +10,15 @@ import { breadcrumbParts } from "../data/courses";
 export const useDocumentTitle = () => {
   const location = useLocation();
   const params = useParams();
+  const { courses } = useCourses();
 
   useEffect(() => {
+    const breadcrumbParts = {
+      ...staticBreadcrumbs,
+      ...Object.fromEntries(courses.map((course) => [
+        course.id, { url: course.path, title: course.title },
+      ])),
+    };
     const pathSegments = location.pathname.split("/").filter(Boolean);
     let title = SITE_NAME;
 
@@ -41,7 +49,7 @@ export const useDocumentTitle = () => {
     }
 
     document.title = title;
-  }, [location.pathname, params]);
+  }, [location.pathname, params, courses]);
 };
 
 export default useDocumentTitle;

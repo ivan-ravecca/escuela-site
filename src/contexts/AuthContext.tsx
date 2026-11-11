@@ -11,7 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import { User, AuthContextType, AuthProviderProps } from "../data/interfaces";
 
 const WORKSPACE_DOMAIN = import.meta.env.VITE_WORKSPACE_DOMAIN;
-const TOKEN_STORAGE_KEY = import.meta.env.VITE_TOKEN_STORAGE_KEY;
+const TOKEN_STORAGE_KEY = import.meta.env.VITE_TOKEN_STORAGE_KEY || "auth_token";
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Creamos el contexto con valores por defecto

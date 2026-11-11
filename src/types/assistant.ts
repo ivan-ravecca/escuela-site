@@ -12,9 +12,10 @@ export interface Course {
   url: string;
   description?: string;
   duration_hours?: number;
+  duration_text?: string;
   modality?: 'presencial' | 'virtual' | 'semipresencial';
-  category?: 'inicial' | 'avanzado' | 'especialización';
-  job_opportunities?: string[];
+  category?: 'inicial' | 'avanzado' | 'especializacion' | 'especialización';
+  job_opportunities?: string | string[];
   // Legacy fields for backwards compatibility
   title?: string;
   path?: string;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CourseImageBox from "./CourseImageBox";
 import { CourseImageInterface } from "../data/interfaces";
@@ -7,10 +7,6 @@ const ImageSlider: React.FC<{ images: CourseImageInterface[] }> = ({
   images,
 }) => {
   const [myImages, setMyImages] = useState<CourseImageInterface[]>(images);
-  useEffect(() => {
-    setMyImages(images);
-  }, [images]);
-
   const manageImageClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     next: boolean,
@@ -32,10 +28,10 @@ const ImageSlider: React.FC<{ images: CourseImageInterface[] }> = ({
     } else {
       indexActive -= 1;
     }
-    const updatedImages = myImages.map((img, i) => {
-      img.isActive = i === indexActive;
-      return img;
-    });
+    const updatedImages = myImages.map((img, i) => ({
+      ...img,
+      isActive: i === indexActive,
+    }));
     setMyImages(updatedImages);
   };
 

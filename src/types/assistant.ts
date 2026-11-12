@@ -4,6 +4,7 @@ export interface Message {
   content: string;
   timestamp: Date;
   recommendedCourses?: Course[];
+  catalogStale?: boolean;
 }
 
 export interface Course {
@@ -29,6 +30,7 @@ export interface ConversationHistory {
 export interface ChatResponse {
   response: string;
   recommended_courses?: Course[];
+  catalog_stale?: boolean;
 }
 
 export interface LeadCaptureData {

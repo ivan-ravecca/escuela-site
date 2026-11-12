@@ -20,7 +20,7 @@ export async function initializeCSRF(): Promise<void> {
     console.log('[CSRF] Requesting new CSRF token...');
     const response = await apiClient.get('/assistant/csrf-token');
     csrfToken = response.data.csrfToken;
-    console.log('[CSRF] Token obtained successfully:', csrfToken ? csrfToken.substring(0, 20) + '...' : 'null');
+    console.log('[CSRF] Token obtained successfully');
     console.log('[CSRF] Cookie should be set by server');
   } catch (error) {
     console.error('[CSRF] Failed to get CSRF token:', error);
@@ -48,7 +48,7 @@ apiClient.interceptors.request.use(
     
     if (config.method === 'post' && isAssistantEndpoint && csrfToken) {
       config.headers['X-CSRF-Token'] = csrfToken;
-      console.log('[CSRF] Token added to request:', url, 'Token:', csrfToken.substring(0, 20) + '...');
+      console.log('[CSRF] Token added to request:', url);
     } else if (config.method === 'post' && isAssistantEndpoint && !csrfToken) {
       console.warn('[CSRF] POST to assistant endpoint but no CSRF token available:', url);
     }

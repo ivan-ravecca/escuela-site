@@ -35,6 +35,7 @@ Create an `.env` file at the root (or `.env.local`) and define variables with th
 ```
 # Backend base URL
 VITE_API_URL=http://localhost:3000
+VITE_ENABLE_AI=false
 
 # Note: if you change the frontend port or origin,
 # ensure the backend allows CORS with credentials from that origin.
@@ -104,6 +105,20 @@ npm run preview
 
 ## Chat Assistant
 
+The widget is disabled unless `VITE_ENABLE_AI=true`. Set it in the frontend
+build environment and rebuild/redeploy to enable it; Vite embeds this value at
+build time. Keep it disabled until the API, course migrations and provider
+configuration are ready. See the backend's `ASSISTANT_README.md` for deployment
+and cache details. Chat messages and published course information are sent to
+the configured AI provider; contact details are sent to the configured email
+service.
+
+The API caches published courses and checks the catalog revision on each
+message. If the database fails, the assistant can use a snapshot no older than
+24 hours and displays a warning; the snapshot may include courses since
+unpublished. Without a usable snapshot, the chat reports that the catalog is
+unavailable. The cache is per API instance and is lost on restart.
+
 The chat suggests courses and lets the user express interest. Clicking “I'm interested, please contact me” on a course card opens a form that requests:
 
 - Full name
@@ -117,7 +132,7 @@ When the form is submitted, a POST is made to `/assistant/interest` with the fol
 	"name": "John Doe",
 	"phone": "+598 99 123 456",
 	"email": "juan@example.com",
-	"course_id": "1",
+	"course_id": "auxiliar-enfermeria",
 	"course_name": "Nursing Assistant"
 }
 ```
@@ -130,6 +145,10 @@ The bot adds a confirmation message and does not re-list courses after submissio
 - `POST /assistant/chat` — Messaging with course suggestions
 - `POST /assistant/interest` — Interest capture (sends email to the team)
 - `GET /assistant/csrf-token` — CSRF token retrieval
+
+The chat response includes `catalog_stale: true` when a cached snapshot is
+used during a database failure. A `503` with code `CATALOG_UNAVAILABLE` means
+no usable snapshot is available.
 
 ### CSRF Protection (Frontend)
 

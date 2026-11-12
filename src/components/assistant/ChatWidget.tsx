@@ -187,7 +187,7 @@ const ChatWidget: React.FC = () => {
       
       // Add confirmation message directly without calling the chat API
       addAssistantMessage("¡Perfecto! Hemos recibido tu información. Nos pondremos en contacto contigo muy pronto por WhatsApp. ¡Gracias por tu interés!");
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error submitting lead:", error);
       throw error;
     }
@@ -353,6 +353,7 @@ const ChatWidget: React.FC = () => {
         {/* Error area */}
         {error && (
           <div
+            role="alert"
             style={{
               padding: "12px 16px",
               backgroundColor: COLORS.errorBackground,
@@ -417,6 +418,11 @@ const ChatWidget: React.FC = () => {
                     }}
                   >
                     {message.content}
+                  </p>
+                )}
+                {message.catalogStale && (
+                  <p className="chat-catalog-warning" role="status">
+                    La información de los cursos podría estar desactualizada. Confirmá los detalles antes de inscribirte.
                   </p>
                 )}
                 {message.recommendedCourses &&

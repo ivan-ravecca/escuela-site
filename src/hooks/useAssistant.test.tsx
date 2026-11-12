@@ -2,6 +2,7 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useAssistant } from "./useAssistant";
 import { AssistantService } from "../services/AssistantService";
+import { AxiosError, AxiosHeaders } from "axios";
 
 vi.mock("../services/AssistantService", () => ({
   AssistantService: {
@@ -26,7 +27,7 @@ describe("useAssistant", () => {
     });
   });
 
-  it("hydrates messages from localStorage and skips welcome request", async () => {
+  it("hydrates messages and initializes CSRF without reloading the welcome message", async () => {
     localStorage.setItem(
       "assistant_conversation",
       JSON.stringify([
@@ -46,7 +47,7 @@ describe("useAssistant", () => {
     expect(result.current.messages[0].timestamp).toBeInstanceOf(Date);
 
     await waitFor(() => {
-      expect(AssistantService.initializeCSRF).not.toHaveBeenCalled();
+      expect(AssistantService.initializeCSRF).toHaveBeenCalledTimes(1);
       expect(AssistantService.getWelcomeMessage).not.toHaveBeenCalled();
     });
   });
@@ -64,12 +65,7 @@ describe("useAssistant", () => {
 
     expect(AssistantService.sendMessage).toHaveBeenCalledWith(
       "Necesito informacion",
-      expect.arrayContaining([
-        expect.objectContaining({
-          role: "user",
-          content: "Necesito informacion",
-        }),
-      ])
+      [{ role: "assistant", content: "Hola, soy tu asistente" }]
     );
 
     expect(
@@ -79,6 +75,36 @@ describe("useAssistant", () => {
           message.content === "Respuesta del asistente"
       )
     ).toBe(true);
+  });
+
+  it("preserva el aviso de catálogo desactualizado en la respuesta", async () => {
+    vi.mocked(AssistantService.sendMessage).mockResolvedValue({
+      response: "Te recomiendo este curso",
+      recommended_courses: [],
+      catalog_stale: true,
+    });
+    const { result } = renderHook(() => useAssistant());
+    await waitFor(() => expect(AssistantService.getWelcomeMessage).toHaveBeenCalled());
+    await act(async () => { await result.current.sendMessage("Hola"); });
+    expect(result.current.messages[result.current.messages.length - 1]?.catalogStale).toBe(true);
+  });
+
+  it("informa la indisponibilidad del catálogo sin reintentos automáticos", async () => {
+    const error = new AxiosError("unavailable", undefined, undefined, undefined, {
+      status: 503, statusText: "Unavailable", headers: {}, config: { headers: new AxiosHeaders() },
+      data: { code: "CATALOG_UNAVAILABLE", error: "El catálogo no está disponible." },
+    });
+    vi.mocked(AssistantService.sendMessage).mockRejectedValue(error);
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      const { result } = renderHook(() => useAssistant());
+      await waitFor(() => expect(AssistantService.getWelcomeMessage).toHaveBeenCalled());
+      await act(async () => { await result.current.sendMessage("Hola"); });
+      expect(result.current.error).toBe("El catálogo no está disponible.");
+      expect(AssistantService.sendMessage).toHaveBeenCalledTimes(1);
+    } finally {
+      consoleError.mockRestore();
+    }
   });
 
   it("blocks message after reaching per-minute rate limit", async () => {
@@ -159,7 +185,7 @@ describe("useAssistant", () => {
     expect(localStorage.getItem("assistant_conversation")).toBeTruthy();
     expect(result.current.messages).toHaveLength(1);
     expect(result.current.messages[0].content).toBe("Bienvenida recargada");
-    expect(AssistantService.initializeCSRF).toHaveBeenCalledTimes(1);
+    expect(AssistantService.initializeCSRF).toHaveBeenCalledTimes(2);
     expect(AssistantService.getWelcomeMessage).toHaveBeenCalledTimes(1);
   });
 

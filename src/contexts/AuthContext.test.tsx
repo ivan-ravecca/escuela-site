@@ -74,6 +74,26 @@ describe("AuthContext", () => {
     vi.stubEnv("VITE_API_URL", "http://api.test");
   });
 
+  it("provides unauthenticated defaults when used without a provider", async () => {
+    const { useAuth } = await import("./AuthContext");
+    const Consumer = () => {
+      const { user, loading, isAuthenticated, login, logout } = useAuth();
+      return (
+        <>
+          <div data-testid="defaults">{`${user === null}:${loading}:${isAuthenticated}`}</div>
+          <button type="button" onClick={login}>login</button>
+          <button type="button" onClick={logout}>logout</button>
+        </>
+      );
+    };
+
+    render(<Consumer />);
+    expect(screen.getByTestId("defaults")).toHaveTextContent("true:false:false");
+    fireEvent.click(screen.getByRole("button", { name: "login" }));
+    fireEvent.click(screen.getByRole("button", { name: "logout" }));
+    expect(googleLoginTrigger).not.toHaveBeenCalled();
+  });
+
   it("authenticates user when token is valid and domain matches", async () => {
     localStorage.setItem("auth_token", "jwt-token");
     vi.mocked(axios.post).mockResolvedValueOnce({ data: { valid: true } });
@@ -224,6 +244,30 @@ describe("AuthContext", () => {
     expect(axios.post).not.toHaveBeenCalledWith("http://api.test/auth/login", {
       googleToken: "google-access",
     });
+  });
+
+  it("reports an error when the Google user info request fails", async () => {
+    const alertSpy = vi.spyOn(window, "alert").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.mocked(axios.get).mockRejectedValueOnce(new Error("network error"));
+
+    try {
+      await renderAuthContext();
+      await waitFor(() => expect(capturedGoogleOptions).toBeDefined());
+      capturedGoogleOptions?.onSuccess({ access_token: "google-access" });
+
+      await waitFor(() => {
+        expect(alertSpy).toHaveBeenCalledWith(
+          "Error al iniciar sesión. Por favor, intenta de nuevo."
+        );
+      });
+      expect(consoleSpy).toHaveBeenCalledWith("Error en el proceso de login:", expect.any(Error));
+      expect(localStorage.getItem("auth_token")).toBeNull();
+      expect(screen.getByTestId("authenticated")).toHaveTextContent("false");
+    } finally {
+      alertSpy.mockRestore();
+      consoleSpy.mockRestore();
+    }
   });
 
   it("shows alert when google login returns error callback", async () => {

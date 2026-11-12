@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { AssistantService } from "../services/AssistantService";
 import { Message, ConversationHistory } from "../types/assistant";
+import axios from "axios";
 
 interface UseAssistantReturn {
   messages: Message[];
@@ -24,15 +25,35 @@ const RETRY_DELAY = 1000; // 1 second
 const MAX_HISTORY_LENGTH = 20; // Maximum 20 messages in memory
 const STORAGE_KEY = 'assistant_conversation';
 
+const retryWithBackoff = async <T,>(
+  fn: () => Promise<T>,
+  retries: number = MAX_RETRIES
+): Promise<T> => {
+  try {
+    return await fn();
+  } catch (err) {
+    if (retries <= 0 || (axios.isAxiosError(err) && (
+      (err.response?.status !== undefined && err.response.status < 500) ||
+      err.response?.data?.code === "CATALOG_UNAVAILABLE"
+    ))) {
+      throw err;
+    }
+
+    const delay = RETRY_DELAY * Math.pow(2, MAX_RETRIES - retries);
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    return retryWithBackoff(fn, retries - 1);
+  }
+};
+
 export const useAssistant = (): UseAssistantReturn => {
   // Load messages from localStorage if they exist
   const [messages, setMessages] = useState<Message[]>(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        const parsed = JSON.parse(stored);
+        const parsed: Array<Omit<Message, "timestamp"> & { timestamp: string }> = JSON.parse(stored);
         // Convert timestamps from string to Date
-        return parsed.map((msg: any) => ({
+        return parsed.map((msg) => ({
           ...msg,
           timestamp: new Date(msg.timestamp),
         }));
@@ -44,11 +65,12 @@ export const useAssistant = (): UseAssistantReturn => {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const initialHasMessages = useRef(messages.length > 0);
   
   // Rate limit tracking
   const rateLimitRef = useRef<RateLimitTracker>({
     count: 0,
-    resetTime: Date.now() + RATE_LIMIT_WINDOW,
+    resetTime: 0,
   });
 
   // Check if within rate limit
@@ -75,26 +97,6 @@ export const useAssistant = (): UseAssistantReturn => {
     return true;
   }, []);
 
-  // Helper function to retry with exponential backoff
-  const retryWithBackoff = async <T,>(
-    fn: () => Promise<T>,
-    retries: number = MAX_RETRIES
-  ): Promise<T> => {
-    try {
-      return await fn();
-    } catch (err) {
-      if (retries <= 0) {
-        throw err;
-      }
-
-      // Wait before retrying (exponential backoff)
-      const delay = RETRY_DELAY * Math.pow(2, MAX_RETRIES - retries);
-      await new Promise((resolve) => setTimeout(resolve, delay));
-
-      return retryWithBackoff(fn, retries - 1);
-    }
-  };
-
   // Persist messages to localStorage when they change
   useEffect(() => {
     if (messages.length > 0) {
@@ -109,9 +111,6 @@ export const useAssistant = (): UseAssistantReturn => {
   // Load welcome message on mount (only if no saved messages)
   useEffect(() => {
     const loadWelcomeMessage = async () => {
-      // Do not load if messages already exist in state
-      if (messages.length > 0) return;
-
       setIsLoading(true);
       setError(null);
 
@@ -120,6 +119,7 @@ export const useAssistant = (): UseAssistantReturn => {
         await retryWithBackoff(() =>
           AssistantService.initializeCSRF()
         );
+        if (initialHasMessages.current) return;
         
         // 2. Then fetch welcome message
         const welcomeText = await retryWithBackoff(() =>
@@ -193,12 +193,6 @@ export const useAssistant = (): UseAssistantReturn => {
           })
         );
 
-        // Add current message to history
-        conversationHistory.push({
-          role: "user",
-          content: messageContent.trim(),
-        });
-
         // Send to backend with retry logic
         const response = await retryWithBackoff(() =>
           AssistantService.sendMessage(messageContent.trim(), conversationHistory)
@@ -211,6 +205,7 @@ export const useAssistant = (): UseAssistantReturn => {
           content: response.response,
           timestamp: new Date(),
           recommendedCourses: response.recommended_courses,
+          catalogStale: response.catalog_stale,
         };
 
         setMessages((prev) => {
@@ -222,10 +217,9 @@ export const useAssistant = (): UseAssistantReturn => {
           return updated;
         });
       } catch (err) {
-        const errorMessage =
-          err instanceof Error
-            ? err.message
-            : "Error al enviar el mensaje. Por favor, intenta nuevamente.";
+        const errorMessage = axios.isAxiosError(err) && typeof err.response?.data?.error === "string"
+          ? err.response.data.error
+          : "Error al enviar el mensaje. Por favor, intenta nuevamente.";
         setError(errorMessage);
         console.error("Error sending message:", err);
       } finally {
@@ -292,7 +286,7 @@ export const useAssistant = (): UseAssistantReturn => {
     const contactMessage: Message = {
       id: `contact-request-${Date.now()}`,
       role: "assistant",
-      content: `¡Excelente! Veo que te interesa el curso "${courseName}". Para que podamos ponernos en contacto contigo, necesito los siguientes datos:\n\n• Nombre completo\n• Teléfono\n• Email (opcional)\n\nPor favor, completa el formulario que aparece a continuación.`,
+      content: `¡Excelente! Veo que te interesa el curso "${courseName}". Para que podamos ponernos en contacto contigo, necesito los siguientes datos:\n\n• Nombre completo\n• Teléfono\n• Email\n\nPor favor, completa el formulario que aparece a continuación.`,
       timestamp: new Date(),
     };
     

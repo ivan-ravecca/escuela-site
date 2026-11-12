@@ -26,6 +26,7 @@ interface MockErrorConfig {
 const setupApiClientModule = async () => {
   vi.resetModules();
   vi.stubEnv("VITE_API_URL", "http://api.test");
+  vi.stubEnv("VITE_TOKEN_STORAGE_KEY", "custom_auth_token");
 
   const requestHandlers: Array<(config: any) => any> = [];
   const responseErrorHandlers: Array<(error: any) => Promise<unknown>> = [];
@@ -79,7 +80,7 @@ describe("apiClient interceptors", () => {
     instance.get.mockResolvedValueOnce({ data: { csrfToken: "csrf-value" } });
 
     await module.initializeCSRF();
-    localStorage.setItem("auth_token", "auth-value");
+    localStorage.setItem("custom_auth_token", "auth-value");
 
     const requestInterceptor = requestHandlers[0];
     const config = requestInterceptor({
@@ -119,7 +120,7 @@ describe("apiClient interceptors", () => {
 
   it("clears auth token on 401 responses", async () => {
     const { responseErrorHandlers } = await setupApiClientModule();
-    localStorage.setItem("auth_token", "auth-value");
+    localStorage.setItem("custom_auth_token", "auth-value");
 
     const responseErrorInterceptor = responseErrorHandlers[0];
     const config: MockErrorConfig = {
@@ -135,6 +136,6 @@ describe("apiClient interceptors", () => {
     await expect(responseErrorInterceptor(originalError)).rejects.toEqual(
       originalError
     );
-    expect(localStorage.getItem("auth_token")).toBeNull();
+    expect(localStorage.getItem("custom_auth_token")).toBeNull();
   });
 });

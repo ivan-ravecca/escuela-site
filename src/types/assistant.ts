@@ -4,6 +4,7 @@ export interface Message {
   content: string;
   timestamp: Date;
   recommendedCourses?: Course[];
+  catalogStale?: boolean;
 }
 
 export interface Course {
@@ -12,9 +13,10 @@ export interface Course {
   url: string;
   description?: string;
   duration_hours?: number;
+  duration_text?: string;
   modality?: 'presencial' | 'virtual' | 'semipresencial';
-  category?: 'inicial' | 'avanzado' | 'especialización';
-  job_opportunities?: string[];
+  category?: 'inicial' | 'avanzado' | 'especializacion' | 'especialización';
+  job_opportunities?: string | string[];
   // Legacy fields for backwards compatibility
   title?: string;
   path?: string;
@@ -28,6 +30,7 @@ export interface ConversationHistory {
 export interface ChatResponse {
   response: string;
   recommended_courses?: Course[];
+  catalog_stale?: boolean;
 }
 
 export interface LeadCaptureData {

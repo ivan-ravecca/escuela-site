@@ -31,6 +31,8 @@ import { ChatWidgetProvider } from "./contexts/ChatWidgetContext";
 import ChatWidgetErrorBoundary from "./components/assistant/ChatWidgetErrorBoundary";
 import ChatWidgetContainer from "./components/assistant/ChatWidgetContainer";
 import ChatWidgetButton from "./components/assistant/ChatWidgetButton";
+import { CourseProvider } from "./contexts/CourseContext";
+import AdminCourses from "./pages/AdminCourses";
 
 // Componente interno que usa los hooks de router
 const AppContent: React.FC = () => {
@@ -61,6 +63,7 @@ const AppContent: React.FC = () => {
             <Route path="/login" element={<Login />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/administracion" element={<Administration />} />
+              <Route path="/administracion/cursos" element={<AdminCourses />} />
               <Route
                 path="/administracion/qr"
                 element={<DiplomaGenerate />}
@@ -88,7 +91,9 @@ const App: React.FC = () => {
       <AuthProvider>
         <ChatWidgetProvider>
           <BrowserRouter>
-            <AppContent />
+            <CourseProvider>
+              <AppContent />
+            </CourseProvider>
           </BrowserRouter>
         </ChatWidgetProvider>
       </AuthProvider>

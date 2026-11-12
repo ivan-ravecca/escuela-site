@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { bubble as Menu } from "react-burger-menu";
 import { AULAS_URL, SOCIAL_URLS, SITE_NAME } from "../../app.config";
-import { breadcrumbParts } from "../data/courses";
+import { breadcrumbParts } from "../data/breadcrumbs";
 import { AnalyticsService } from "../services/AnalyticsService";
 
 const MenuLinksBurguer: React.FC = () => {

@@ -1,4 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL;
+const TOKEN_STORAGE_KEY = import.meta.env.VITE_TOKEN_STORAGE_KEY || "auth_token";
 import axios from "axios";
 
 // Variable to store the CSRF token
@@ -19,7 +20,7 @@ export async function initializeCSRF(): Promise<void> {
     console.log('[CSRF] Requesting new CSRF token...');
     const response = await apiClient.get('/assistant/csrf-token');
     csrfToken = response.data.csrfToken;
-    console.log('[CSRF] Token obtained successfully:', csrfToken ? csrfToken.substring(0, 20) + '...' : 'null');
+    console.log('[CSRF] Token obtained successfully');
     console.log('[CSRF] Cookie should be set by server');
   } catch (error) {
     console.error('[CSRF] Failed to get CSRF token:', error);
@@ -36,7 +37,7 @@ export function getCSRFToken(): string | null {
 apiClient.interceptors.request.use(
   (config) => {
     // Add Bearer token if present
-    const token = localStorage.getItem("auth_token");
+    const token = localStorage.getItem(TOKEN_STORAGE_KEY);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -47,7 +48,7 @@ apiClient.interceptors.request.use(
     
     if (config.method === 'post' && isAssistantEndpoint && csrfToken) {
       config.headers['X-CSRF-Token'] = csrfToken;
-      console.log('[CSRF] Token added to request:', url, 'Token:', csrfToken.substring(0, 20) + '...');
+      console.log('[CSRF] Token added to request:', url);
     } else if (config.method === 'post' && isAssistantEndpoint && !csrfToken) {
       console.warn('[CSRF] POST to assistant endpoint but no CSRF token available:', url);
     }
@@ -92,7 +93,7 @@ apiClient.interceptors.response.use(
     // If we get a 401 (Unauthorized), the token may have expired
     if (error.response && error.response.status === 401) {
       // Redirect to login or perform another action
-      localStorage.removeItem("auth_token");
+      localStorage.removeItem(TOKEN_STORAGE_KEY);
       window.location.href = "/login";
     }
     

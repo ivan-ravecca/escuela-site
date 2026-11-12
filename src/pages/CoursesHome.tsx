@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { COURSES } from "../data/courses";
+import { useCourses } from "../contexts/CourseContext";
 
 const CoursesHome: React.FC = () => {
+  const { courses, loading, error, refresh } = useCourses();
+  if (loading) return <p>Cargando cursos...</p>;
+  if (error) return <div role="alert">{error} <button onClick={() => void refresh()}>Reintentar</button></div>;
   return (
     <div className="page-content portfolio">
       <div className="container">
@@ -12,9 +15,9 @@ const CoursesHome: React.FC = () => {
             flexWrap: "wrap",
           }}
         >
-          {COURSES.map((course, index) => {
+          {courses.map((course) => {
             return (
-              <div className="one-third column isotope-item" key={index}>
+              <div className="one-third column isotope-item" key={course.recordId}>
                 <Link to={course.path} className="portfolio-item isotope">
                   <figure>
                     {course.images && course.images[0] && (

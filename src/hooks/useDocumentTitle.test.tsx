@@ -1,8 +1,18 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { SITE_NAME } from "../../app.config";
 import { useDocumentTitle } from "./useDocumentTitle";
+
+vi.mock("../contexts/CourseContext", () => ({
+  useCourses: () => ({
+    courses: [{
+      id: "auxiliar-enfermeria",
+      title: "Auxiliar de Enfermería",
+      path: "/cursos/auxiliar-enfermeria",
+    }],
+  }),
+}));
 
 const HookConsumer = () => {
   useDocumentTitle();

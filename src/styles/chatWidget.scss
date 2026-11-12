@@ -1,5 +1,15 @@
 @use 'variables' as *;
 
+.chat-catalog-warning {
+  margin: 10px 0 0;
+  padding: 8px;
+  border: 1px solid $light-olive;
+  border-radius: 4px;
+  background: $off-white;
+  color: $olive;
+  font-size: 12px;
+}
+
 /* Animations for the chat widget */
 @keyframes bounce {
   0%, 100% {

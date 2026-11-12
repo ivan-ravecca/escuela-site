@@ -35,6 +35,7 @@ Create an `.env` file at the root (or `.env.local`) and define variables with th
 ```
 # Backend base URL
 VITE_API_URL=http://localhost:3000
+VITE_ENABLE_AI=false
 
 # Note: if you change the frontend port or origin,
 # ensure the backend allows CORS with credentials from that origin.
@@ -45,6 +46,23 @@ Development recommendations:
 - Backend must allow `credentials: true` in CORS and the frontend `origin`
 
 ## Setup and Installation
+
+El listado y las páginas de `/cursos` consultan la API y no incluyen un
+catálogo local de respaldo. Si la API falla se muestra un error con opción de
+reintentar. El ABM está en `/administracion/cursos` y requiere una sesión
+autorizada; permite editar contenido HTML básico, requisitos, clasificación
+del menú, imágenes y campos opcionales del asistente. Los cambios de ID
+conservan la URL anterior como alias y las bajas se pueden restaurar.
+En el ABM las posiciones empiezan en 1 y cuentan únicamente cursos publicados:
+una para el listado y otra independiente por cada categoría del menú. Al
+guardar se desplazan los demás cursos; una posición mayor a la cantidad
+disponible ubica el curso al final. Los cursos despublicados recuperan su
+posición solicitada al restaurarse, limitada a las posiciones disponibles.
+
+Antes de desplegar esta versión, aplicar en la base las migraciones de
+`escuela-api/migrations` (incluida `004_course_positions.sql`) y configurar allí la carpeta persistente de imágenes
+`SHOP_IMAGES_DIR`. Consultar las instrucciones de migración del backend.
+El proceso de publicación del frontend no debe borrar las imágenes subidas.
 
 1. **Clone the repository**
 
@@ -87,6 +105,20 @@ npm run preview
 
 ## Chat Assistant
 
+The widget is disabled unless `VITE_ENABLE_AI=true`. Set it in the frontend
+build environment and rebuild/redeploy to enable it; Vite embeds this value at
+build time. Keep it disabled until the API, course migrations and provider
+configuration are ready. See the backend's `ASSISTANT_README.md` for deployment
+and cache details. Chat messages and published course information are sent to
+the configured AI provider; contact details are sent to the configured email
+service.
+
+The API caches published courses and checks the catalog revision on each
+message. If the database fails, the assistant can use a snapshot no older than
+24 hours and displays a warning; the snapshot may include courses since
+unpublished. Without a usable snapshot, the chat reports that the catalog is
+unavailable. The cache is per API instance and is lost on restart.
+
 The chat suggests courses and lets the user express interest. Clicking “I'm interested, please contact me” on a course card opens a form that requests:
 
 - Full name
@@ -100,7 +132,7 @@ When the form is submitted, a POST is made to `/assistant/interest` with the fol
 	"name": "John Doe",
 	"phone": "+598 99 123 456",
 	"email": "juan@example.com",
-	"course_id": "1",
+	"course_id": "auxiliar-enfermeria",
 	"course_name": "Nursing Assistant"
 }
 ```
@@ -113,6 +145,10 @@ The bot adds a confirmation message and does not re-list courses after submissio
 - `POST /assistant/chat` — Messaging with course suggestions
 - `POST /assistant/interest` — Interest capture (sends email to the team)
 - `GET /assistant/csrf-token` — CSRF token retrieval
+
+The chat response includes `catalog_stale: true` when a cached snapshot is
+used during a database failure. A `503` with code `CATALOG_UNAVAILABLE` means
+no usable snapshot is available.
 
 ### CSRF Protection (Frontend)
 
@@ -143,4 +179,3 @@ Implemented in:
 	- Confirm the backend allows `credentials: true` and the frontend `origin`
 	- Check in DevTools (Network) that cookies and the `X-CSRF-Token` header are sent
 	- Refresh the token with `initializeCSRF()` if it expired
-

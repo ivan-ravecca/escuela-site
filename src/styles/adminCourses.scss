@@ -1,0 +1,209 @@
+@use "./variables" as colors;
+
+.admin-courses {
+  h2 {
+    margin-bottom: 25px;
+  }
+
+  &__toolbar {
+    margin-bottom: 25px;
+  }
+
+  &__list {
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 20px;
+    border: 1px solid colors.$light-gray;
+    background: colors.$white;
+    margin-bottom: 10px;
+  }
+
+  &__item-info {
+    min-width: 0;
+
+    h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+  }
+
+  &__status {
+    display: inline-block;
+    padding: 3px 8px;
+    margin-right: 10px;
+    border-radius: 2px;
+    background: colors.$light-gray;
+    color: colors.$medium-dark-gray-alt;
+    font-size: 12px;
+  }
+
+  &__status--published {
+    background: colors.$school-green-light;
+    color: colors.$school-green-hover;
+  }
+
+  &__path {
+    color: colors.$medium-dark-gray;
+    overflow-wrap: anywhere;
+  }
+
+  a.admin-courses__path {
+    color: colors.$school-green-primary;
+    text-decoration: underline;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__form {
+    max-width: 900px;
+
+    .headline {
+      margin-bottom: 20px;
+    }
+
+    label:not(.admin-courses__choice) {
+      display: block;
+      margin-bottom: 16px;
+      color: colors.$medium-dark-gray-alt;
+    }
+
+    input:not([type]),
+    input[type="number"],
+    textarea,
+    select {
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    input:not([type]),
+    input[type="number"] {
+      display: block;
+      padding: 8px 9px;
+      border: 1px solid colors.$light-gray;
+      border-radius: 2px;
+      background: colors.$white;
+      color: colors.$gray;
+      font-size: 13px;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03);
+    }
+
+    select {
+      padding: 8px 9px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input[type="file"] {
+      display: block;
+      max-width: 100%;
+      margin-top: 8px;
+    }
+
+    :focus-visible {
+      outline: 2px solid colors.$school-green-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__hint {
+    margin: -5px 0 16px;
+    color: colors.$medium-dark-gray;
+    overflow-wrap: anywhere;
+  }
+
+  &__html-field {
+    margin-bottom: 20px;
+
+    label:not(.admin-courses__choice) {
+      margin-bottom: 8px;
+    }
+
+    summary {
+      color: colors.$school-green-primary;
+      cursor: pointer;
+    }
+
+    iframe {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 150px;
+      margin-top: 10px;
+      border: 1px solid colors.$light-gray;
+      background: colors.$white;
+    }
+  }
+
+  &__section {
+    min-width: 0;
+    padding: 20px;
+    margin: 0 0 25px;
+    border: 1px solid colors.$light-gray;
+    background: colors.$white-smoke;
+
+    legend {
+      padding: 0 8px;
+      color: colors.$dark-medium-gray;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+  &__choice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+
+  &__image {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 15px 0;
+    border-top: 1px solid colors.$light-gray;
+
+    img {
+      width: 120px;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &__image-details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-courses {
+    &__item,
+    &__image {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    &__section {
+      padding: 15px;
+    }
+  }
+}

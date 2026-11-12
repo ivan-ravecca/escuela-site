@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { breadcrumbParts } from "../data/courses";
+import { breadcrumbParts } from "../data/breadcrumbs";
 import { useAuth } from "../contexts/AuthContext";
 
 const AdminMenu: React.FC = () => {
   const { logout } = useAuth();
   return (
     <ul className="cols2">
+      <li className="col2">
+        <Link to="/administracion/cursos">Cursos</Link>
+      </li>
       <li className="col2">
         <Link
           to={breadcrumbParts["certificado"].url}

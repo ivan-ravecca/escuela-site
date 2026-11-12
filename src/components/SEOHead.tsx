@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { SITE_NAME, CONTACT_EMAIL, PHONE_NUMBER, SITE_ADDRESS } from "../../app.config";
-import { breadcrumbParts, COURSES } from "../data/courses";
+import { breadcrumbParts as staticBreadcrumbs } from "../data/breadcrumbs";
+import { useCourses } from "../contexts/CourseContext";
+import { SiteCourse } from "../types/siteCourse";
 
 const BASE_URL = "https://escuelaenfermeria.com.uy";
 const DEFAULT_IMAGE = `${BASE_URL}/images/logos/logo_ancho_nuevo.png`;
@@ -17,11 +19,11 @@ interface SEOData {
   courseId?: string;
 }
 
-const getSEOData = (pathname: string): SEOData => {
+const getSEOData = (pathname: string, courses: SiteCourse[]): SEOData => {
   const pathSegments = pathname.split("/").filter(Boolean);
 
   // Valores por defecto
-  let seoData: SEOData = {
+  const seoData: SEOData = {
     title: SITE_NAME,
     description: DEFAULT_DESCRIPTION,
     keywords:
@@ -46,10 +48,10 @@ const getSEOData = (pathname: string): SEOData => {
     } else {
       // Curso específico
       const courseId = pathSegments[1];
-      const course = COURSES.find((c) => c.id === courseId);
+      const course = courses.find((c) => c.id === courseId);
       if (course) {
         seoData.title = `${course.title} - ${SITE_NAME}`;
-        seoData.description = course.term || `Curso de ${course.title} en ${SITE_NAME}. ${course.openRegistration || ""}`;
+        seoData.description = course.term || `Curso de ${course.title} en ${SITE_NAME}.`;
         seoData.keywords = `${course.title}, curso ${course.title}, enfermería, salud, Uruguay, Pando`;
         seoData.courseId = courseId;
       }
@@ -74,7 +76,7 @@ const getSEOData = (pathname: string): SEOData => {
   } else {
     // Otras páginas: usar breadcrumbParts si existe
     const lastSegment = pathSegments[pathSegments.length - 1];
-    const breadcrumb = breadcrumbParts[lastSegment];
+    const breadcrumb = staticBreadcrumbs[lastSegment];
     if (breadcrumb) {
       seoData.title = `${breadcrumb.title} - ${SITE_NAME}`;
     }
@@ -124,8 +126,8 @@ const getOrganizationSchema = () => ({
 });
 
 // Schema.org: Course (información del curso específico)
-const getCourseSchema = (courseId: string) => {
-  const course = COURSES.find((c) => c.id === courseId);
+const getCourseSchema = (courseId: string, courses: SiteCourse[]) => {
+  const course = courses.find((c) => c.id === courseId);
   if (!course) return null;
 
   return {
@@ -151,7 +153,13 @@ const getCourseSchema = (courseId: string) => {
 };
 
 // Schema.org: BreadcrumbList (navegación)
-const getBreadcrumbSchema = (pathname: string) => {
+const getBreadcrumbSchema = (pathname: string, courses: SiteCourse[]) => {
+  const breadcrumbParts = {
+    ...staticBreadcrumbs,
+    ...Object.fromEntries(courses.map((course) => [
+      course.id, { url: course.path, title: course.title },
+    ])),
+  };
   const pathSegments = pathname.split("/").filter(Boolean);
   const items = [
     {
@@ -207,9 +215,10 @@ const updateJsonLd = (id: string, data: object | null) => {
 
 const SEOHead: React.FC = () => {
   const location = useLocation();
+  const { courses } = useCourses();
 
   useEffect(() => {
-    const seoData = getSEOData(location.pathname);
+    const seoData = getSEOData(location.pathname, courses);
 
     // Actualizar título
     document.title = seoData.title;
@@ -241,15 +250,15 @@ const SEOHead: React.FC = () => {
 
     // Actualizar Schema.org JSON-LD
     updateJsonLd("schema-organization", getOrganizationSchema());
-    updateJsonLd("schema-breadcrumb", getBreadcrumbSchema(location.pathname));
+    updateJsonLd("schema-breadcrumb", getBreadcrumbSchema(location.pathname, courses));
     
     // Schema de curso (solo en páginas de curso específico)
     if (seoData.courseId) {
-      updateJsonLd("schema-course", getCourseSchema(seoData.courseId));
+      updateJsonLd("schema-course", getCourseSchema(seoData.courseId, courses));
     } else {
       updateJsonLd("schema-course", null);
     }
-  }, [location.pathname]);
+  }, [location.pathname, courses]);
 
   return null;
 };

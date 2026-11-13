@@ -132,6 +132,77 @@ const Bedelias: React.FC = () => {
           />,
         ),
     },
+    {
+      title: "Registro y habilitación de título",
+      text: (
+        <div className="title-registration-instructions">
+          <p>
+            Incorporá tus datos a la base oficial de profesionales y técnicos
+            de la salud del MSP, permitiendo que empleadores y usuarios
+            verifiquen que estás habilitado. El trámite es{" "}
+            <strong>100 % en línea y gratuito</strong>.
+          </p>
+          <p><strong>Qué necesitás:</strong></p>
+          <ul>
+            <li>
+              <strong>Identidad digital:</strong> Usuario{" "}
+              <a href="https://mi.iduruguay.gub.uy/" target="_blank" rel="noopener noreferrer">
+                gub.uy
+              </a>{" "}
+              con nivel de seguridad intermedio (verificado), Cédula digital,
+              Identidad Digital Abitab o{" "}
+              <a href="https://www.tuid.uy/user/auth" target="_blank" rel="noopener noreferrer">
+                TuID Antel
+              </a>.
+            </li>
+            <li>
+              <strong>Título escaneado:</strong> Imagen clara del{" "}
+              <strong>frente y dorso</strong> de tu título emitido por la
+              Escuela Arte y Ciencia.
+              <ul>
+                <li><em>Formato:</em> PDF, JPG, JPEG, PNG o GIF (máximo 15 MB por archivo).</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Datos personales:</strong> Domicilio completo, celular y
+              correo electrónico activo.
+            </li>
+          </ul>
+          <p><strong>Pasos a seguir:</strong></p>
+          <ol>
+            <li>
+              <strong>Ingresar:</strong> Entrá al{" "}
+              <a
+                href="https://www.gub.uy/tramites/solicitud-registro-habilitacion-titulos-certificados-profesionales-salud"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                enlace del trámite
+              </a>{" "}
+              en gub.uy y hacé clic en <strong>&quot;Iniciar Trámite en Línea&quot;</strong>.
+            </li>
+            <li>
+              <strong>Autenticarte:</strong> Iniciá sesión con tu usuario
+              gub.uy verificado o identidad digital.
+            </li>
+            <li>
+              <strong>Completar formulario:</strong> Llená tus datos personales
+              y de contacto.
+            </li>
+            <li>
+              <strong>Adjuntar archivos:</strong> Subí las imágenes del frente y
+              el reverso de tu título.
+            </li>
+            <li>
+              <strong>Enviar y esperar confirmación:</strong> Confirmá el
+              envío. Cuando el MSP apruebe la solicitud, recibirás por correo
+              electrónico la <strong>constancia electrónica de habilitación</strong>{" "}
+              (que podés descargar todas las veces que necesites).
+            </li>
+          </ol>
+        </div>
+      ),
+    },
   ];
   return (
     <div className="page-content">
@@ -182,9 +253,11 @@ const Bedelias: React.FC = () => {
                 </span>
                 <div className="toggle-container" style={{ display: "none" }}>
                   {content.text}
-                  <button className="button color" onClick={content.onAction}>
-                    {content.action}
-                  </button>
+                  {content.action && (
+                    <button className="button color" onClick={content.onAction}>
+                      {content.action}
+                    </button>
+                  )}
                 </div>
               </div>
             );

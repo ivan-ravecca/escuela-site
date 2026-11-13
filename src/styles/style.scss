@@ -3788,6 +3788,25 @@ input[type="submit"]:hover {
 	padding: 0 20px 17px 20px;
 }
 
+.title-registration-instructions {
+	p {
+		margin-bottom: 12px;
+	}
+
+	ul, ol {
+		margin-left: 20px;
+		margin-bottom: 12px;
+	}
+
+	ul {
+		list-style: disc outside;
+	}
+
+	ol {
+		list-style: decimal outside;
+	}
+}
+
 
 
 /* Notice
